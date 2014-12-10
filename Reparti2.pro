@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     CustomWidget/PayersSelection.cpp \
     CustomWidget/SpaceLineEdit.cpp \
     CustomWidget/PredictionLineEdit.cpp \
-    Ticket.cpp
+    Economy/Ticket.cpp \
+    Economy/Product.cpp \
+    Economy/TicketContainer.cpp
 
 HEADERS  += Mainwindow.h \
     User.hpp \
@@ -43,7 +45,9 @@ HEADERS  += Mainwindow.h \
     CustomWidget/PayersSelection.hpp \
     CustomWidget/SpaceLineEdit.hpp \
     CustomWidget/PredictionLineEdit.hpp \
-    Ticket.hpp
+    Economy/Ticket.hpp \
+    Economy/Product.hpp \
+    Economy/TicketContainer.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
