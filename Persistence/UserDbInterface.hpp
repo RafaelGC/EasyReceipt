@@ -1,0 +1,31 @@
+#ifndef USERDBINTERFACE_HPP
+#define USERDBINTERFACE_HPP
+
+#include <QString>
+#include <QStringList>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QVariant>
+
+#include <QDebug>
+#include <QSqlError>
+
+class UserDbInterface
+{
+private:
+    QSqlDatabase db;
+public:
+    enum {OK, TABLE_NO_CREATED, GENERAL_ERROR};
+    explicit UserDbInterface();
+    ~UserDbInterface();
+    bool connect();
+    void close();
+
+    QStringList queryUsers(int *ok=nullptr);
+    bool saveUser(const QString &userName);
+    bool deleteUser(const QString &userName);
+
+};
+
+#endif // USERDBINTERFACE_HPP
