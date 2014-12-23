@@ -18,11 +18,11 @@ void Ticket::addProduct(Product product){
 
 }
 
-float Ticket::getCostOf(std::string name){
+float Ticket::getPurchasePriceOf(QString name){
     float total = 0;
     for (auto it=products.begin(); it!=products.end(); it++){
         if (it->buyedBy(name)){
-            total+=it->getPrice();
+            total+=it->getPayout();
         }
     }
     return total;

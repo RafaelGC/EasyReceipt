@@ -16,6 +16,7 @@ INPUT(
 ./debug/PredictionLineEdit.o
 ./debug/Ticket.o
 ./debug/Product.o
+./debug/TicketContainer.o
 ./debug/qrc_resources.o
 ./debug/moc_Mainwindow.o
 ./debug/moc_UsersManagerDialog.o

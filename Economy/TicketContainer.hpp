@@ -9,9 +9,16 @@
 class TicketContainer
 {
 private:
-    std::vector<Ticket>tickets;
+    std::vector<Ticket*>tickets;
+    //Dirección del ticket con el que se está trabajando actualmente.
+    //Debería estar también contenido en el vector.
+    Ticket *currentTicket;
 public:
     TicketContainer();
+    ~TicketContainer();
+
+    Ticket *addTicket();
+    Ticket *getCurrentTicket();
 };
 
 #endif // TICKETCONTAINER_HPP

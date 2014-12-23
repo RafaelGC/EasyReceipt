@@ -16,6 +16,7 @@ INPUT(
 ./release/PredictionLineEdit.o
 ./release/Ticket.o
 ./release/Product.o
+./release/TicketContainer.o
 ./release/qrc_resources.o
 ./release/moc_Mainwindow.o
 ./release/moc_UsersManagerDialog.o

@@ -4,20 +4,23 @@
 #include <vector>
 #include <string>
 
+#include <QString>
+
 class Product
 {
 private:
-    std::vector<std::string>buyers;
+    std::vector<QString>buyers;
     float price;
 public:
     Product();
-    Product(float price, std::vector<std::string>buyers);
+    Product(float price, std::vector<QString>buyers);
     Product(float price);
 
-    bool buyedBy(std::string name);
+    bool buyedBy(QString name);
     float getPrice();
-    void addBuyer(std::string name);
-    void removeBuyer(std::string name);
+    void addBuyer(QString name);
+    void removeBuyer(QString name);
+    float getPayout();
 };
 
 #endif // PRODUCT_HPP

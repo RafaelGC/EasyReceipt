@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ticketContainer.addTicket();
 
     usersManagerDialog = new UsersManagerDialog(&userContainer,&userDb,this);
     loadUsersFromDatabase();
@@ -116,14 +117,14 @@ void MainWindow::processInput(){
         return;
     }
 
-    //Por razones estéticas, si el string de los usuarios termina en ;
+    //Por razones estéticas, si el string de los usuarios termina en ,
     //se eliminará.
     if (users.endsWith(",")){
         users = users.mid(0,users.length()-1);
     }
 
     //Se realizan los cálculos.
-    compute(users,moneyInput);
+    compute2(users,moneyInput);
 
 }
 
@@ -133,6 +134,9 @@ void MainWindow::compute(QString users, float moneyInput, bool addToHistory){
      * es el precio a repartir entre dichos usuarios. Por último, el resultado
      * sólo se mostrará en la interfaz gráfica si addToHistory es true.
      * */
+
+    Product product(moneyInput);
+
     //Se procede a partir el string de entrada.
     QStringList tokens = users.split(",");
     //Es necesaria una variable que contenga el número de usuarios para poder
@@ -141,12 +145,14 @@ void MainWindow::compute(QString users, float moneyInput, bool addToHistory){
     for (QString userName : tokens){
         if (!userName.isEmpty()){
             //Se contabiliza sólo si el string no está vacío.
+            //product.addBuyer(userName.toStdString());
             usersAmount++;
         }
     }
 
+
     //Se calcula cuanto debe pagar cada uno.
-    float payOut = moneyInput/usersAmount;
+    //float payOut = moneyInput/usersAmount;
 
     //Se vuelve a recorrer a todos los usuarios.
     for (QString userName : tokens){
@@ -166,7 +172,7 @@ void MainWindow::compute(QString users, float moneyInput, bool addToHistory){
             currUser = userContainer.addUser(userName);
         }
         //Incrementamos lo que debe pagar este usuario.
-        currUser->increaseDebt(payOut);
+        currUser->increaseDebt(product.getPayout());
 
         /*Si un usuario no debe nada y es un usuario volátil (que
         * no está guardado en la base de datos) se le eliminará.
@@ -193,6 +199,26 @@ void MainWindow::compute(QString users, float moneyInput, bool addToHistory){
         //Se devuelve al foco a la primera entrada,
         //por comodidad para el que escribe.
         costInput->setFocus();
+    }
+}
+
+void MainWindow::compute2(QString users, float cost, bool addToHistory)
+{
+    Product product(cost);
+    QStringList tokens = users.split(",");
+    for (QString userName : tokens){
+        if (!userName.isEmpty()){
+            product.addBuyer(userName);
+        }
+    }
+    ticketContainer.getCurrentTicket()->addProduct(product);
+
+    /*qDebug() << "Rafa paga: " << ticketContainer.getCurrentTicket()->getPurchasePriceOf("Rafa");
+    qDebug() << "Reparto producto" << product.getPayout();*/
+
+    for (unsigned int i = 0; i<userContainer.size(); i++){
+        qDebug() <<userContainer.userAt(i)->getName() <<
+                   ticketContainer.getCurrentTicket()->getPurchasePriceOf(userContainer.userAt(i)->getName());
     }
 }
 

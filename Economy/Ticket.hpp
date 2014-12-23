@@ -15,7 +15,7 @@ public:
 
     float getTotalCost();
     void addProduct(Product product);
-    float getCostOf(std::string name);
+    float getPurchasePriceOf(QString buyer);
 
 };
 

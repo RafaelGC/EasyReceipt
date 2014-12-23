@@ -25,10 +25,13 @@
 #include "UserContainer.hpp"
 #include "CustomWidget/PredictionLineEdit.hpp"
 #include "CustomWidget/SpaceLineEdit.hpp"
-#include "CustomWidget/HistoryWidget.h"
+#include "CustomWidget/HistoryWidget.hpp"
 #include "Persistence/HtmlExporter.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "CustomWidget/PayersSelection.hpp"
+#include "Economy/Product.hpp"
+#include "Economy/Ticket.hpp"
+#include "Economy/TicketContainer.hpp"
 
 #include "delete.hpp"
 
@@ -60,6 +63,8 @@ private:
     QPushButton *okButton, *nextButton;
     std::vector<QLabel*>usersList;
 
+    TicketContainer ticketContainer;
+
     void setupInterface();
     void makeConnections();
     void loadUsersFromDatabase();
@@ -67,6 +72,7 @@ private:
 private slots:
     void processInput();
     void compute(QString users,float cost, bool addToHistory=true);
+    void compute2(QString users, float cost, bool addToHistory=true);
     void deleteSelectedInput();
     void addInputToHistory(QString users, float money);
     void copyHistorialSelectionToInput();
