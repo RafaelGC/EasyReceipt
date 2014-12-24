@@ -16,11 +16,12 @@ public:
     Product(float price, std::vector<QString>buyers);
     Product(float price);
 
-    bool buyedBy(QString name);
-    float getPrice();
+    bool buyedBy(QString name) const;
+    float getPrice() const;
     void addBuyer(QString name);
     void removeBuyer(QString name);
-    float getPayout();
+    float getPayout() const;
+    QString getStringBuyers() const;
 };
 
 #endif // PRODUCT_HPP

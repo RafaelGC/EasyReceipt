@@ -7,23 +7,20 @@
 #include <QDebug>
 #include <QPushButton>
 
-#include "Persistence/HistoryElement.hpp"
+#include "Economy/Product.hpp"
+
 
 class HistoryWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QLabel *names;
-    QLabel *cost;
+    QLabel *names, *cost;
     QHBoxLayout *layout;
+    Product*product;//Puntero al producto que representa.
 public:
-    explicit HistoryWidget(const QString &names, const QString &cost, QWidget *parent = 0);
-    explicit HistoryWidget(const HistoryElement&element, QWidget *parent=0);
+    explicit HistoryWidget(Product *product, QWidget *parent = 0);
     ~HistoryWidget();
-
-    QString getNames();
-    QString getCost();
-    HistoryElement getHistoryElement();
+    Product *getProduct();
 
 signals:
 

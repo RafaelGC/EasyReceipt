@@ -71,10 +71,9 @@ private:
 
 private slots:
     void processInput();
-    void compute(QString users,float cost, bool addToHistory=true);
-    void compute2(QString users, float cost, bool addToHistory=true);
+    void compute(QString users,float cost);
     void deleteSelectedInput();
-    void addInputToHistory(QString users, float money);
+    void addInputToHistory(Product*product);
     void copyHistorialSelectionToInput();
     /*Actualiza lo que debe pagar cada usuario cada vez que se introduce
      *el coste de un nuevo producto.*/

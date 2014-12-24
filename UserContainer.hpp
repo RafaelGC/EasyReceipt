@@ -22,7 +22,6 @@ public:
     void deleteUser(int index);
     unsigned int size() const;
     void cleanUpVolatileUsersIfPossible();
-    float getTotalDebt();
 };
 
 #endif // USERCONTAINER_HPP

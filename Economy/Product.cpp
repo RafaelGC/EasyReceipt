@@ -12,7 +12,7 @@ Product::Product(float price){
     this->price = price;
 }
 
-bool Product::buyedBy(QString name){
+bool Product::buyedBy(QString name) const{
     for (auto it=buyers.begin();it!=buyers.end();it++){
         if (name==*it){
             return true;
@@ -21,7 +21,7 @@ bool Product::buyedBy(QString name){
     return false;
 }
 
-float Product::getPrice(){
+float Product::getPrice() const{
     return price;
 }
 
@@ -38,9 +38,19 @@ void Product::removeBuyer(QString name){
     }
 }
 
-float Product::getPayout()
-{
+float Product::getPayout() const{
     return price/buyers.size();
+}
+
+QString Product::getStringBuyers() const{
+    QString result;
+    for (unsigned int i = 0; i<buyers.size(); i++){
+        result.append(buyers.at(i));
+        if (i!=buyers.size()-1){
+            result.append(",");
+        }
+    }
+    return result;
 }
 
 

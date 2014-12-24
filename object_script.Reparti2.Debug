@@ -8,7 +8,6 @@ INPUT(
 ./debug/PayerObserver.o
 ./debug/HtmlExporter.o
 ./debug/UserDbInterface.o
-./debug/HistoryElement.o
 ./debug/PayerWidget.o
 ./debug/HistoryWidget.o
 ./debug/PayersSelection.o
@@ -17,8 +16,8 @@ INPUT(
 ./debug/Ticket.o
 ./debug/Product.o
 ./debug/TicketContainer.o
+./debug/HistoryElement2.o
 ./debug/qrc_resources.o
-./debug/moc_Mainwindow.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_delete.o
 ./debug/moc_PayerObserver.o
@@ -27,4 +26,5 @@ INPUT(
 ./debug/moc_PayersSelection.o
 ./debug/moc_SpaceLineEdit.o
 ./debug/moc_PredictionLineEdit.o
+./debug/moc_Mainwindow.o
 );

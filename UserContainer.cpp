@@ -64,7 +64,7 @@ void UserContainer::cleanUpVolatileUsersIfPossible()
     //de un vector cuando estás iterando a través de ellos
     //o podría crashear el programa.
     for (unsigned int i=0; i<users.size();){
-        if (users[i].isRemovable() && users[i].getDebt()==0){
+        if (users[i].isRemovable()){
             users.erase(users.begin()+i);
         }
         else{
@@ -75,14 +75,6 @@ void UserContainer::cleanUpVolatileUsersIfPossible()
     }
 }
 
-float UserContainer::getTotalDebt()
-{
-    float ttl = 0;
-    for (unsigned int i=0; i<users.size(); i++){
-        ttl+=users[i].getDebt();
-    }
-    return ttl;
-}
 
 void UserContainer::deleteUser(int index){
     if (index>=0)

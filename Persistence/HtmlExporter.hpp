@@ -3,27 +3,26 @@
 
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
+#include <QString>
 
-#include "User.hpp"
-#include "UserContainer.hpp"
-#include "HistoryElement.hpp"
+#include <vector>
 
 class HtmlExporter
 {
 private:
     QFile file;
     QTextStream stream;
-    std::vector<HistoryElement> historyElements;
-
+    std::vector<std::pair<float,QString>>priceBuyers;
+    std::vector<std::pair<float,QString>>individualBuyer;
 public:
     enum {OK,ERROR};
     HtmlExporter();
 
-    void addHistoryElement(const HistoryElement element);
+    void addProduct(float price, QString buyers);
+    void addBuyerInfo(float price, QString name);
     void cleanHistoryElements();
 
-    int save(const QString&name, const QString&fullPath,UserContainer&userContainer, const QString& totalMoney);
+    int save(const QString&name, const QString&fullPath, float totalMoney);
 };
 
 #endif // HTMLEXPORTER_HPP

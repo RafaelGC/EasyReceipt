@@ -1,4 +1,4 @@
-#include "HistoryElement.hpp"
+#include "HistoryElement2.hpp"
 
 HistoryElement::HistoryElement()
 {
@@ -14,6 +14,7 @@ HistoryElement::HistoryElement(const QString &names, const QString &cost)
 
 QString HistoryElement::getNames() const
 {
+
     return this->names;
 }
 

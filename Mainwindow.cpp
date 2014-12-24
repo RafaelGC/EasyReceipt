@@ -1,4 +1,4 @@
-#include "Mainwindow.h"
+#include "Mainwindow.hpp"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -124,108 +124,38 @@ void MainWindow::processInput(){
     }
 
     //Se realizan los cálculos.
-    compute2(users,moneyInput);
+    compute(users,moneyInput);
 
 }
 
-void MainWindow::compute(QString users, float moneyInput, bool addToHistory){
-    /*Este método recibe como parámetros un string con nombre de usuarios
-     * separados por comas (se da por hecho que está bien escrito), moneyInput
-     * es el precio a repartir entre dichos usuarios. Por último, el resultado
-     * sólo se mostrará en la interfaz gráfica si addToHistory es true.
-     * */
-
-    Product product(moneyInput);
-
-    //Se procede a partir el string de entrada.
-    QStringList tokens = users.split(",");
-    //Es necesaria una variable que contenga el número de usuarios para poder
-    //calcular cuanto debe pagar cada uno.
-    int usersAmount = 0;
-    for (QString userName : tokens){
-        if (!userName.isEmpty()){
-            //Se contabiliza sólo si el string no está vacío.
-            //product.addBuyer(userName.toStdString());
-            usersAmount++;
-        }
-    }
-
-
-    //Se calcula cuanto debe pagar cada uno.
-    //float payOut = moneyInput/usersAmount;
-
-    //Se vuelve a recorrer a todos los usuarios.
-    for (QString userName : tokens){
-        //De nuevo, si es un usuario vacío se ignora.
-        if (userName.isEmpty()) continue;
-
-        //Se trata de ver si el usuario ya existe.
-        int userPos = this->userContainer.userExists(userName);
-        User *currUser = nullptr;
-        if (userPos>=0){
-            //Si el usuario existe guardamos un puntero a él.
-            currUser = this->userContainer.userAt(userPos);
-        }
-        else{
-            //Si el usuario no existe, lo añadimos y obtenemos
-            //un puntero a él.
-            currUser = userContainer.addUser(userName);
-        }
-        //Incrementamos lo que debe pagar este usuario.
-        currUser->increaseDebt(product.getPayout());
-
-        /*Si un usuario no debe nada y es un usuario volátil (que
-        * no está guardado en la base de datos) se le eliminará.
-        * Esto es de vital circunstancia por razones de comodidad.
-        * Si, por error, un usuario se llama Pedro e introduzco erróneamente
-        * Pedroj y elimino el registro querré eliminar también a dicho
-        * usuario. Por eso hago esto. */
-        if (currUser->getDebt()==0){
-            if (currUser->isRemovable()){
-                userContainer.deleteUser(currUser->getName());
-            }
-        }
-    }
-
-    //Actualizamos la interfaz.
-    updateUsersPayout();
-
-    if (addToHistory){
-        //Se añade el elemento a la lista.
-        addInputToHistory(users,moneyInput);
-        //Limpiamos las entrada.
-        usersInput->clear();
-        costInput->clear();
-        //Se devuelve al foco a la primera entrada,
-        //por comodidad para el que escribe.
-        costInput->setFocus();
-    }
-}
-
-void MainWindow::compute2(QString users, float cost, bool addToHistory)
+void MainWindow::compute(QString users, float cost)
 {
     Product product(cost);
     QStringList tokens = users.split(",");
     for (QString userName : tokens){
         if (!userName.isEmpty()){
+            if (userContainer.userExists(userName)==-1){
+                //Se crea un usuario volátil.
+                userContainer.addUser(userName);
+            }
+
             product.addBuyer(userName);
         }
     }
-    ticketContainer.getCurrentTicket()->addProduct(product);
+    Product *productPointer = ticketContainer.getCurrentTicket()->addProduct(product);
+    addInputToHistory(productPointer);
 
-    /*qDebug() << "Rafa paga: " << ticketContainer.getCurrentTicket()->getPurchasePriceOf("Rafa");
-    qDebug() << "Reparto producto" << product.getPayout();*/
+    updateUsersPayout();
 
-    for (unsigned int i = 0; i<userContainer.size(); i++){
-        qDebug() <<userContainer.userAt(i)->getName() <<
-                   ticketContainer.getCurrentTicket()->getPurchasePriceOf(userContainer.userAt(i)->getName());
-    }
+    costInput->clear();
+    costInput->setFocus();
+    usersInput->clear();
 }
 
 
-void MainWindow::addInputToHistory(QString users, float money){
+void MainWindow::addInputToHistory(Product*product){
     QListWidgetItem *item = new QListWidgetItem(ui->historialList);
-    HistoryWidget *itemWidget = new HistoryWidget(users,QString("%1").arg(money));
+    HistoryWidget *itemWidget = new HistoryWidget(product);
     item->setSizeHint(itemWidget->sizeHint()); //Imprescindible.
 
     ui->historialList->addItem(item);
@@ -240,10 +170,8 @@ void MainWindow::deleteSelectedInput(){
     if (ui->historialList->selectedItems().count()==1){
         //Se obtiene el elemento seleccionado.
         HistoryWidget* hi = (HistoryWidget*)ui->historialList->itemWidget(ui->historialList->selectedItems().first());//Upcast
-        //Se descuenta el dinero a los usuarios implicados. NOTA: El coste está negativo porque se quiere dar marcha atrás.
-        compute(hi->getNames(),-hi->getCost().toFloat(),false);
-
-        //Por último, se elimina de la lista.
+        ticketContainer.getCurrentTicket()->removeProduct(hi->getProduct());
+        updateUsersPayout();
         delete ui->historialList->takeItem(ui->historialList->currentRow());
     }
 }
@@ -251,13 +179,24 @@ void MainWindow::deleteSelectedInput(){
 void MainWindow::copyHistorialSelectionToInput(){
     if (ui->historialList->selectedItems().count()==1){
         HistoryWidget* hi = (HistoryWidget*)ui->historialList->itemWidget(ui->historialList->selectedItems().first());//Upcast
-        costInput->setText(hi->getCost());
-        usersInput->setText(hi->getNames());
+        costInput->setText(QString::number(hi->getProduct()->getPrice()));
+        usersInput->setText(hi->getProduct()->getStringBuyers());
         usersInput->setFocus();
     }
 }
 
 void MainWindow::updateUsersPayout(){
+    //La llamada a este método es un buen momento para eliminar
+    //a los usuarios volátiles que no deban nada.
+    for (unsigned int i = 0; i<userContainer.size(); i++){
+        //Si lo que debe es cero y es volátil, pues se borra.
+        User* usr = userContainer.userAt(i);
+        if (usr->isRemovable() && ticketContainer.getCurrentTicket()->getPurchasePriceOf(usr->getName())==0){
+            userContainer.deleteUser(usr->getName());
+            i--; //Así solo se incrementa cuando se ha eliminado un objeto. Si no crashea.
+        }
+    }
+
     //Lo más sencillo para actualizar lo que debe pagar cada usuario
     //es eliminar todos los labels que contienen lo que debían y sustituirlos
     //por unos nuevos.
@@ -271,35 +210,41 @@ void MainWindow::updateUsersPayout(){
     //que hay un cierto número de usuarios.
     usersList.resize(0);
 
-    //Esta variable contendrá el total (la suma de lo que debe pagar cada usuario).
-    float totalCost = 0;
-    //Ahora se estudia cada uno de los usuarios, lo que deben pagar.
-    for (unsigned int j=0; j<userContainer.size(); j++){
-        User* currUser = userContainer.userAt(j);
-        //Sólo nos preocuparemos por él si debe algo, si no, no lo mostraremos.
-        if (currUser->getDebt()>0){
-            //Se actualiza el coste total.
-            totalCost+=currUser->getDebt();
-            QString txt = QString("%1: %2€").arg(currUser->getName()).arg(round(currUser->getDebt()*100)/100);
-            QLabel *lb = new QLabel(txt);
-            //Lo añadimos al vector para que se pueda eliminar en el futuro.
-            usersList.push_back(lb);
-            //Y lo hacemos visible.
-            ui->userListLayout->addWidget(lb);
+    /*El procedimiento ahora es iterar sobre todos los usuarios y buscar lo que
+     * cada uno de ellos debe pagar de la factura actual.
+     * */
+    for (unsigned int i = 0; i<userContainer.size(); i++){
+        /*Obtenermos el nombre del usuario.*/
+        QString currName = userContainer.userAt(i)->getName();
+        //Buscamos lo que el usuario debe de la factura actual.
+        float money = ticketContainer.getCurrentTicket()->getPurchasePriceOf(currName);
+        //Si no debe nada, money será 0, en ese caso no lo mostraremos.
+        if (money>0){
+            /*Pero si es meyor que 0 implica que ha comprado algo por lo que
+             *habrá que añadir un label para que el usuario lo vea.
+             * */
+            QString txt = QString("%1: %2€").arg(currName).arg(money);
+            QLabel *label = new QLabel(txt);
+            //El objetivo de usersList es almacenar punteros a todos estos
+            //labels para que puedan ser eliminados posteriormente.
+            usersList.push_back(label);
+
+            ui->userListLayout->addWidget(label);
         }
     }
-    //¡Se actualiza el coste total!
-    ui->totalLabel->setText(QString::number(totalCost).append("€"));
+    //Se actualiza el coste total de la factura.
+    ui->totalLabel->setText(QString("%1€").arg(ticketContainer.getCurrentTicket()->getTotalCost()));
+
 }
 
 void MainWindow::cleanAll(){
+    //Se limpia el ticket, eso quiere decir que todos los productos
+    //que hay vinculados a él serán eliminados.
+    ticketContainer.getCurrentTicket()->clear();
+
     //Debe eliminarse en orden inverso (desde el final hasta el principio)
     for (int i=ui->historialList->count(); i>0; i--){
         delete ui->historialList->takeItem(i-1);
-    }
-    //Se pone a 0 lo que debe cada usuario.
-    for (unsigned int i=0; i<userContainer.size(); i++){
-        userContainer.userAt(i)->setDebt(0);
     }
     userContainer.cleanUpVolatileUsersIfPossible();
 
@@ -331,6 +276,7 @@ void MainWindow::previousPanel()
 }
 
 void MainWindow::saveFile(){
+    //Este método guarda en formato HTML el ticket actual.
 
     HtmlExporter exporter;
 
@@ -342,12 +288,17 @@ void MainWindow::saveFile(){
     QString name = QFileInfo(path).baseName();
 
     if (ui->historialList->count()>0){
-        for (int i = 0; i<ui->historialList->count(); i++){
-            HistoryWidget* hi = (HistoryWidget*)ui->historialList->itemWidget(ui->historialList->item(i));
-            exporter.addHistoryElement(HistoryElement(hi->getNames(),hi->getCost()));
+        for (unsigned int i=0; i<ticketContainer.getCurrentTicket()->countProducts(); i++){
+            const Product *pr = ticketContainer.getCurrentTicket()->productAt(i);
+            exporter.addProduct(pr->getPrice(),pr->getStringBuyers());
         }
 
-        if (exporter.save(name,path,userContainer,ui->totalLabel->text())==HtmlExporter::OK){
+        for (unsigned int i=0; i<userContainer.size(); i++){
+            QString name = userContainer.userAt(i)->getName();
+            exporter.addBuyerInfo(ticketContainer.getCurrentTicket()->getPurchasePriceOf(name),name);
+        }
+
+        if (exporter.save(name,path,ticketContainer.getCurrentTicket()->getTotalCost())==HtmlExporter::OK){
             QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
         }
         else{

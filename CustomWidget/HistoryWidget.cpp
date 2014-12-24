@@ -1,10 +1,12 @@
-#include "HistoryWidget.h"
+#include "HistoryWidget.hpp"
 
-HistoryWidget::HistoryWidget(const QString &names, const QString &cost, QWidget *parent) :
-    QWidget(parent)
-{
-    this->names = new QLabel(names,this);
-    this->cost = new QLabel(cost,this);
+HistoryWidget::HistoryWidget(Product *product, QWidget *parent) :
+    QWidget(parent){
+
+    this->product = product;
+
+    this->names = new QLabel(product->getStringBuyers(),this);
+    this->cost = new QLabel(QString("%1").arg(product->getPrice()),this);
 
     layout = new QHBoxLayout(this);
     layout->addWidget(this->cost,1);
@@ -13,30 +15,12 @@ HistoryWidget::HistoryWidget(const QString &names, const QString &cost, QWidget 
     this->setLayout(layout);
 
 
-
 }
 
-HistoryWidget::HistoryWidget(const HistoryElement &element, QWidget *parent):
-    HistoryWidget(element.getNames(),element.getCost(),parent)
-{
-
+HistoryWidget::~HistoryWidget(){
 }
 
-HistoryWidget::~HistoryWidget()
+Product *HistoryWidget::getProduct()
 {
-}
-
-QString HistoryWidget::getNames()
-{
-    return this->names->text();
-}
-
-QString HistoryWidget::getCost()
-{
-    return this->cost->text();
-}
-
-HistoryElement HistoryWidget::getHistoryElement()
-{
-    return HistoryElement(this->getNames(),this->getCost());
+    return product;
 }
