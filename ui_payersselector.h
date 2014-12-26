@@ -32,7 +32,7 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QPushButton *backBtn;
     QSpacerItem *horizontalSpacer_2;
-    QPushButton *pushButton_2;
+    QPushButton *calcBtn;
 
     void setupUi(QWidget *PlayersSelectorForm)
     {
@@ -62,10 +62,10 @@ public:
 
         horizontalLayout_8->addItem(horizontalSpacer_2);
 
-        pushButton_2 = new QPushButton(PlayersSelectorForm);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        calcBtn = new QPushButton(PlayersSelectorForm);
+        calcBtn->setObjectName(QStringLiteral("calcBtn"));
 
-        horizontalLayout_8->addWidget(pushButton_2);
+        horizontalLayout_8->addWidget(calcBtn);
 
 
         verticalLayout->addLayout(horizontalLayout_8);
@@ -79,10 +79,10 @@ public:
     void retranslateUi(QWidget *PlayersSelectorForm)
     {
         PlayersSelectorForm->setWindowTitle(QApplication::translate("PlayersSelectorForm", "Form", 0));
-        payersGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "\302\277Quien paga?", 0));
+        payersGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "\302\277Qui\303\251n paga?", 0));
         payoutGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "Reparto", 0));
         backBtn->setText(QApplication::translate("PlayersSelectorForm", "Atr\303\241s", 0));
-        pushButton_2->setText(QApplication::translate("PlayersSelectorForm", "PushButton", 0));
+        calcBtn->setText(QApplication::translate("PlayersSelectorForm", "Calcular", 0));
     } // retranslateUi
 
 };

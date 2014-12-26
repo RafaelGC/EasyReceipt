@@ -212,7 +212,7 @@
    </widget>
    <widget class="QMenu" name="menuSobre">
     <property name="title">
-     <string>Sobre</string>
+     <string>Ayuda</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>

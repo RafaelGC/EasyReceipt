@@ -17,7 +17,7 @@
    <item>
     <widget class="QGroupBox" name="payersGroupBox">
      <property name="title">
-      <string>¿Quien paga?</string>
+      <string>¿Quién paga?</string>
      </property>
     </widget>
    </item>
@@ -51,9 +51,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="calcBtn">
        <property name="text">
-        <string>PushButton</string>
+        <string>Calcular</string>
        </property>
       </widget>
      </item>

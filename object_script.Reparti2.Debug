@@ -4,7 +4,6 @@ INPUT(
 ./debug/User.o
 ./debug/UsersManagerDialog.o
 ./debug/UserContainer.o
-./debug/delete.o
 ./debug/PayerObserver.o
 ./debug/HtmlExporter.o
 ./debug/UserDbInterface.o
@@ -16,10 +15,8 @@ INPUT(
 ./debug/Ticket.o
 ./debug/Product.o
 ./debug/TicketContainer.o
-./debug/HistoryElement2.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
-./debug/moc_delete.o
 ./debug/moc_PayerObserver.o
 ./debug/moc_PayerWidget.o
 ./debug/moc_HistoryWidget.o

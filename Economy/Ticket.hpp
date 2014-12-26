@@ -15,11 +15,11 @@ public:
     Ticket();
     ~Ticket();
 
-    float getTotalCost() const;
+    float getTotalCost(bool rounded=false) const;
     Product* addProduct(float price, std::vector<QString>buyers);
     Product* addProduct(Product product);
     void removeProduct(Product* product);
-    float getPurchasePriceOf(QString buyer) const;
+    float getPurchasePriceOf(QString buyer, bool rounded=false) const;
     void clear();
     const Product* productAt(int index) const;
     unsigned int countProducts() const;

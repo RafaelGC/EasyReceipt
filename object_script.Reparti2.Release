@@ -4,7 +4,6 @@ INPUT(
 ./release/User.o
 ./release/UsersManagerDialog.o
 ./release/UserContainer.o
-./release/delete.o
 ./release/PayerObserver.o
 ./release/HtmlExporter.o
 ./release/UserDbInterface.o
@@ -16,10 +15,8 @@ INPUT(
 ./release/Ticket.o
 ./release/Product.o
 ./release/TicketContainer.o
-./release/HistoryElement2.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
-./release/moc_delete.o
 ./release/moc_PayerObserver.o
 ./release/moc_PayerWidget.o
 ./release/moc_HistoryWidget.o

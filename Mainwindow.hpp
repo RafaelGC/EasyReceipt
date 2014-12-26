@@ -33,7 +33,6 @@
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
 
-#include "delete.hpp"
 
 namespace Ui {
 class MainWindow;

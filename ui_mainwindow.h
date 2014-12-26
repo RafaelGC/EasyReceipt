@@ -261,7 +261,7 @@ public:
         clearButton->setText(QApplication::translate("MainWindow", "Limpiar todo", 0));
         next->setText(QApplication::translate("MainWindow", "Siguiente", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
-        menuSobre->setTitle(QApplication::translate("MainWindow", "Sobre", 0));
+        menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));
     } // retranslateUi
 

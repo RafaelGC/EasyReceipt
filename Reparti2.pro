@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     User.cpp \
     UsersManagerDialog.cpp \
     UserContainer.cpp \
-    delete.cpp \
     PayerObserver.cpp \
     Persistence/HtmlExporter.cpp \
     Persistence/UserDbInterface.cpp \
@@ -28,14 +27,12 @@ SOURCES += main.cpp\
     CustomWidget/PredictionLineEdit.cpp \
     Economy/Ticket.cpp \
     Economy/Product.cpp \
-    Economy/TicketContainer.cpp \
-    Persistence/HistoryElement2.cpp
+    Economy/TicketContainer.cpp
 
 HEADERS  += \
     User.hpp \
     UsersManagerDialog.hpp \
     UserContainer.hpp \
-    delete.hpp \
     PayerObserver.hpp \
     Persistence/HtmlExporter.hpp \
     Persistence/UserDbInterface.hpp \

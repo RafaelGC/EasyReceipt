@@ -9,20 +9,19 @@ class PayerObserver : public QObject
 {
     Q_OBJECT
 private:
-    QCheckBox *checkBox;
     QLineEdit *lineEdit;
+    QString payerName;
 public:
     PayerObserver(QObject*parent=0);
-    PayerObserver(QCheckBox*cb,QLineEdit*le);
+    PayerObserver(QString payerName, QLineEdit*le);
 
     QString getName();
     float getAmount();
-    bool isPayer();
 private slots:
     void inform();
 
 signals:
-    void payerChanged(QString payerName, bool pays, float amount);
+    void payerChanged(QString payerName, float amount);
 };
 
 #endif // PAYEROBSERVER_HPP

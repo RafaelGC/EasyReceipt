@@ -48,7 +48,7 @@ void MainWindow::setupInterface()
 
     ui->stackedWidget->setCurrentIndex(0);
 
-    payersSelection = new PayersSelection(&userContainer,ui->stackedWidget);
+    payersSelection = new PayersSelection(&userContainer,&ticketContainer,ui->stackedWidget);
     ui->stackedWidget->addWidget(payersSelection);
 }
 
@@ -137,6 +137,7 @@ void MainWindow::compute(QString users, float cost)
             if (userContainer.userExists(userName)==-1){
                 //Se crea un usuario volátil.
                 userContainer.addUser(userName);
+                payersSelection->updatePayers();
             }
 
             product.addBuyer(userName);
@@ -217,7 +218,7 @@ void MainWindow::updateUsersPayout(){
         /*Obtenermos el nombre del usuario.*/
         QString currName = userContainer.userAt(i)->getName();
         //Buscamos lo que el usuario debe de la factura actual.
-        float money = ticketContainer.getCurrentTicket()->getPurchasePriceOf(currName);
+        float money = ticketContainer.getCurrentTicket()->getPurchasePriceOf(currName,true);
         //Si no debe nada, money será 0, en ese caso no lo mostraremos.
         if (money>0){
             /*Pero si es meyor que 0 implica que ha comprado algo por lo que
@@ -233,7 +234,7 @@ void MainWindow::updateUsersPayout(){
         }
     }
     //Se actualiza el coste total de la factura.
-    ui->totalLabel->setText(QString("%1€").arg(ticketContainer.getCurrentTicket()->getTotalCost()));
+    ui->totalLabel->setText(QString("%1€").arg(ticketContainer.getCurrentTicket()->getTotalCost(true)));
 
 }
 
@@ -295,10 +296,10 @@ void MainWindow::saveFile(){
 
         for (unsigned int i=0; i<userContainer.size(); i++){
             QString name = userContainer.userAt(i)->getName();
-            exporter.addBuyerInfo(ticketContainer.getCurrentTicket()->getPurchasePriceOf(name),name);
+            exporter.addBuyerInfo(ticketContainer.getCurrentTicket()->getPurchasePriceOf(name,true),name);
         }
 
-        if (exporter.save(name,path,ticketContainer.getCurrentTicket()->getTotalCost())==HtmlExporter::OK){
+        if (exporter.save(name,path,ticketContainer.getCurrentTicket()->getTotalCost(true))==HtmlExporter::OK){
             QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
         }
         else{

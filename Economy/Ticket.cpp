@@ -9,11 +9,16 @@ Ticket::~Ticket()
     clear();
 }
 
-float Ticket::getTotalCost() const{
+float Ticket::getTotalCost(bool rounded) const{
     float total = 0;
     for (auto it=products.begin(); it!=products.end(); it++){
         total+=(*it)->getPrice();
     }
+
+    if (rounded){
+        total = round(total*100)/100;
+    }
+
     return total;
 }
 
@@ -43,13 +48,18 @@ void Ticket::removeProduct(Product *product){
     }
 }
 
-float Ticket::getPurchasePriceOf(QString name) const{
+float Ticket::getPurchasePriceOf(QString name, bool rounded) const{
     float total = 0;
     for (auto it=products.begin(); it!=products.end(); it++){
         if ((*it)->buyedBy(name)){
             total+=(*it)->getPayout();
         }
     }
+
+    if (rounded){
+        total = round(total*100)/100;
+    }
+
     return total;
 }
 
