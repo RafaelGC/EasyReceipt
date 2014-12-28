@@ -15,6 +15,7 @@ INPUT(
 ./debug/Ticket.o
 ./debug/Product.o
 ./debug/TicketContainer.o
+./debug/Debt.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

@@ -15,6 +15,7 @@ INPUT(
 ./release/Ticket.o
 ./release/Product.o
 ./release/TicketContainer.o
+./release/Debt.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o

@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_PayersSelection_t {
     QByteArrayData data[9];
-    char stringdata[92];
+    char stringdata[96];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,11 @@ QT_MOC_LITERAL(4, 41, 12),
 QT_MOC_LITERAL(5, 54, 9),
 QT_MOC_LITERAL(6, 64, 6),
 QT_MOC_LITERAL(7, 71, 12),
-QT_MOC_LITERAL(8, 84, 7)
+QT_MOC_LITERAL(8, 84, 11)
     },
     "PayersSelection\0nextPanel\0\0previousPanel\0"
     "payerChanged\0payerName\0amount\0"
-    "updatePayers\0compute"
+    "updatePayers\0clearPayout"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,7 +88,7 @@ void PayersSelection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 1: _t->previousPanel(); break;
         case 2: _t->payerChanged((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
         case 3: _t->updatePayers(); break;
-        case 4: _t->compute(); break;
+        case 4: _t->clearPayout(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

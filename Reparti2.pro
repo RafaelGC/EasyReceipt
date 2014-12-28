@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     CustomWidget/PredictionLineEdit.cpp \
     Economy/Ticket.cpp \
     Economy/Product.cpp \
-    Economy/TicketContainer.cpp
+    Economy/TicketContainer.cpp \
+    Economy/Debt.cpp
 
 HEADERS  += \
     User.hpp \
@@ -44,7 +45,8 @@ HEADERS  += \
     Economy/Ticket.hpp \
     Economy/Product.hpp \
     Economy/TicketContainer.hpp \
-    Mainwindow.hpp
+    Mainwindow.hpp \
+    Economy/Debt.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

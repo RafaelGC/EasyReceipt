@@ -14,7 +14,6 @@ PayersSelection::PayersSelection(UserContainer *userContainer, TicketContainer *
     ui->payoutGroupBox->setLayout(payoutLayout);
 
     QObject::connect(ui->backBtn,SIGNAL(clicked()),this,SIGNAL(previousPanel()));
-    QObject::connect(ui->calcBtn,SIGNAL(clicked()),this,SLOT(compute()));
 
 }
 
@@ -24,11 +23,27 @@ PayersSelection::~PayersSelection()
     delete ui;
 }
 
-void PayersSelection::payerChanged(QString payerName, float amount)
+void PayersSelection::payerChanged(QString name, float amount)
 {
-    //Cada vez que se realiza un cambio se debe reajustar el reparto.
-    /*for (unsigned int i = 0; i<payerObservers.size(); i++){
-    }*/
+    clearPayout();
+
+    ticketContainer->getCurrentTicket()->addPayer(name,amount);
+    int message = -1;
+    std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
+    if (message==Ticket::MONEY_DOES_NOT_MATCH){
+        payoutLayout->addWidget(new QLabel("<b>El dinero pagado no coincide con el coste de la compra.</b>"));
+    }
+    else if (message==Ticket::SUCCESS && debts.size()==0){
+        payoutLayout->addWidget(new QLabel("<b>Reparto adecuado.</b>"));
+    }
+    else{
+        for (unsigned int i=0; i<debts.size(); i++){
+            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2%3 a %4").arg(debts[i].getDebtor())
+                                               .arg(debts[i].getAmount(true)).arg("€").arg(debts[i].getCreditor())));
+        }
+    }
+
+    //compute(false);
 }
 
 void PayersSelection::updatePayers(){
@@ -72,7 +87,16 @@ void PayersSelection::updatePayers(){
     payersLayout->setColumnStretch(1,1);
 }
 
-void PayersSelection::compute(){
+void PayersSelection::clearPayerObservers()
+{
+    for (unsigned int i=0; i<payerObservers.size(); i++){
+        delete payerObservers[i];
+    }
+    payerObservers.clear();
+}
+
+void PayersSelection::clearPayout()
+{
     QLayoutItem *child;
     while ((child = payoutLayout->takeAt(0)) != nullptr) {
         if (child->widget()){
@@ -81,87 +105,9 @@ void PayersSelection::compute(){
         }
         delete child;
     }
-
-    std::vector<std::pair<QString,float>>positiveUser;
-    std::vector<std::pair<QString,float>>negativeUser;
-
-    float total = 0;
-    for (unsigned int i=0; i<payerObservers.size(); i++){
-        //Guardamos lo que ha gastado.
-        float userSpent = ticketContainer->getCurrentTicket()->getPurchasePriceOf(payerObservers[i]->getName());
-        //Guardamos lo que ha pagado.
-        float userPay = payerObservers[i]->getAmount();
-
-        total+=userPay;
-
-        //Calculamos la diferencia.
-        float neto = userSpent-userPay;
-        if (neto>0){
-            //Si es positivo significa que el usuario ha pagado de menos.
-            positiveUser.push_back(std::make_pair(payerObservers[i]->getName(),neto));
-        }
-        else if (neto<0){
-            //Si es negativo significa que ha pagado de más.
-            negativeUser.push_back(std::make_pair(payerObservers[i]->getName(),-neto));
-        }
-        //(Si fuera 0 significa que el usuario ha pagado lo justo y está en paz con todos.)
-
-        //qDebug() << (ticketContainer->getCurrentTicket()->getPurchasePriceOf(payerObservers[i]->getName())-payerObservers[i]->getAmount());
-    }
-
-    if (total!=ticketContainer->getCurrentTicket()->getTotalCost()){
-        QMessageBox::warning(this,tr("Aviso"),tr("El total pagado no coincide con el de la lista."));
-        return;
-    }
-
-    for (unsigned int i=0; i<negativeUser.size(); i++){
-        //Paso 1: buscamos un usuario con un saldo negativo.
-
-        float nUser = negativeUser[i].second;
-        QString nUserName = negativeUser[i].first;
-
-        //Paso 2: buscamos un usuario con saldo positivo que le de el dinero.
-        for (unsigned int j=0; j<positiveUser.size(); j++){
-            //Nos preguntamos, ¿este usuario puede pagar completamente al otro?
-            float pUser = positiveUser[j].second;
-
-            //Si el usuario ya no tiene ningún beneficio, significa que ya ha pagado
-            //todo lo que podía. Se pasa al siguiente.
-            if (pUser==0){
-                continue;
-            }
-
-            QString pUserName = positiveUser[j].first;
-
-            float incr = std::min(pUser,nUser);
-
-            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2%3 a %4").arg(pUserName)
-                                               .arg(round(incr*100)/100).arg("€").arg(nUserName)));
-
-            //qDebug() << pUserName << " tiene un beneficio de " << pUser << " así que pagará "
-                     //<< incr << " a " << nUserName << " para equilibrar.";
-
-            nUser-=incr;
-            pUser-=incr;
-
-            positiveUser[j].second = pUser;
-            negativeUser[i].second = nUser;
-
-            if (nUser==0){
-                //Si la deuda del usuario negativo ya ha sido pagada, pasamos al
-                //siguiente usuario negativo.
-                break;
-            }
-
-        }
-    }
-
 }
 
-void PayersSelection::clearPayerObservers()
+void PayersSelection::showEvent(QShowEvent *)
 {
-    for (unsigned int i=0; i<payerObservers.size(); i++){
-        delete payerObservers[i];
-    }
-    payerObservers.clear();
+    ui->totalPrice->setText(QString::number(ticketContainer->getCurrentTicket()->getTotalCost()));
 }

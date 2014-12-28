@@ -15,6 +15,22 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Gasto total</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="totalPrice">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="payersGroupBox">
      <property name="title">
       <string>¿Quién paga?</string>
@@ -51,9 +67,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="calcBtn">
+      <widget class="QPushButton" name="fileBtn">
        <property name="text">
-        <string>Calcular</string>
+        <string>Archivar</string>
        </property>
       </widget>
      </item>

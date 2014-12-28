@@ -53,4 +53,13 @@ QString Product::getStringBuyers() const{
     return result;
 }
 
+QStringList Product::getBuyers() const
+{
+    QStringList list;
+    for (unsigned int i=0; i<buyers.size(); i++){
+        list.append(buyers.at(i));
+    }
+    return list;
+}
+
 

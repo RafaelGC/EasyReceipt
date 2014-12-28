@@ -60,6 +60,7 @@ public:
     QLabel *totalLabel;
     QPushButton *clearButton;
     QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer;
     QPushButton *next;
     QMenuBar *menubar;
     QMenu *menuArchivo;
@@ -194,6 +195,10 @@ public:
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer);
+
         next = new QPushButton(page);
         next->setObjectName(QStringLiteral("next"));
         QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Fixed);

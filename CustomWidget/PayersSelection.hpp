@@ -15,6 +15,7 @@
 
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
+#include "Economy/Debt.hpp"
 #include "PayerObserver.hpp"
 #include "UserContainer.hpp"
 #include "ui_payersselector.h"
@@ -32,6 +33,8 @@ private:
     std::vector<PayerObserver*> payerObservers;
 
     void clearPayerObservers();
+
+    void showEvent(QShowEvent *);
 public:
     explicit PayersSelection(UserContainer *userContainer,TicketContainer*ticketContainer,QWidget *parent = 0);
     ~PayersSelection();
@@ -39,7 +42,8 @@ private slots:
     void payerChanged(QString payerName, float amount);
 public slots:
     void updatePayers();
-    void compute();
+    void clearPayout();
+
 signals:
     void nextPanel();
     void previousPanel();

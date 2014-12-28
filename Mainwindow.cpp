@@ -251,6 +251,11 @@ void MainWindow::cleanAll(){
 
     //Y se actualiza la interfaz gráfica para reflejar esto.
     this->updateUsersPayout();
+
+    //Al limpiar todo, los usuarios volátiles desaparecen, es
+    //recomendable hacer una limpieza en payersSelection.
+    payersSelection->updatePayers();
+    payersSelection->clearPayout();
 }
 
 void MainWindow::openAboutDialog()

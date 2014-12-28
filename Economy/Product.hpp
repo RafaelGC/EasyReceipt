@@ -2,10 +2,9 @@
 #define PRODUCT_HPP
 
 #include <vector>
-#include <string>
 
 #include <QString>
-
+#include <QStringList>
 class Product
 {
 private:
@@ -22,6 +21,7 @@ public:
     void removeBuyer(QString name);
     float getPayout() const;
     QString getStringBuyers() const;
+    QStringList getBuyers() const;
 };
 
 #endif // PRODUCT_HPP
