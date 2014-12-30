@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     Economy/Ticket.cpp \
     Economy/Product.cpp \
     Economy/TicketContainer.cpp \
-    Economy/Debt.cpp
+    Economy/Debt.cpp \
+    CustomWidget/CreateTicketWidget.cpp \
+    CustomWidget/ManageTicketWidget.cpp
 
 HEADERS  += \
     User.hpp \
@@ -46,11 +48,15 @@ HEADERS  += \
     Economy/Product.hpp \
     Economy/TicketContainer.hpp \
     Mainwindow.hpp \
-    Economy/Debt.hpp
+    Economy/Debt.hpp \
+    CustomWidget/CreateTicketWidget.hpp \
+    CustomWidget/ManageTicketWidget.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
-    payersselector.ui
+    payersselector.ui \
+    ticketpanel.ui \
+    products.ui
 
 CONFIG += c++11
 

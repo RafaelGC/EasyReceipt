@@ -29,6 +29,7 @@
 #include "Persistence/HtmlExporter.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "CustomWidget/PayersSelection.hpp"
+#include "CustomWidget/CreateTicketWidget.hpp"
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
@@ -56,6 +57,7 @@ private:
     UserContainer userContainer;
 
     PayersSelection *payersSelection;
+    CreateTicketWidget *createTicket;
 
     SpaceLineEdit *costInput;
     PredictionLineEdit *usersInput;
@@ -88,6 +90,8 @@ private slots:
     //Para la navegación entre paneles.
     void nextPanel();
     void previousPanel();
+
+    void fileTicket();
 
 };
 

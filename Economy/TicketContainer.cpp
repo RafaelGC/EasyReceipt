@@ -13,14 +13,16 @@ TicketContainer::~TicketContainer()
     tickets.clear();
 }
 
-Ticket *TicketContainer::addTicket()
+Ticket *TicketContainer::addTicket(bool setCurrent)
 {
+    qDebug() << "Ticket added";
+    qDebug() << "Tickets: " << tickets.size();
     Ticket *ticket = new Ticket();
     tickets.push_back(ticket);
 
     //Si no hay ningún ticket establecido, aprovechamos para
     //establecerlo.
-    if (!currentTicket){
+    if (!currentTicket || setCurrent){
         currentTicket=ticket;
     }
 

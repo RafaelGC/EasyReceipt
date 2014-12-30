@@ -14,6 +14,7 @@ PayersSelection::PayersSelection(UserContainer *userContainer, TicketContainer *
     ui->payoutGroupBox->setLayout(payoutLayout);
 
     QObject::connect(ui->backBtn,SIGNAL(clicked()),this,SIGNAL(previousPanel()));
+    QObject::connect(ui->fileBtn,SIGNAL(clicked()),this,SLOT(fileTicket()));
 
 }
 
@@ -46,6 +47,11 @@ void PayersSelection::payerChanged(QString name, float amount)
     //compute(false);
 }
 
+void PayersSelection::fileTicket()
+{
+    emit ticketHasBeenFiled();
+}
+
 void PayersSelection::updatePayers(){
     /*Primero se eliminan toda la lista de usuarios para
      * que pueda ser generada de nuevo. */
@@ -53,6 +59,7 @@ void PayersSelection::updatePayers(){
     while ((child = payersLayout->takeAt(0)) != 0) {
         if (child->widget()){
             child->widget()->setParent(nullptr);
+            delete child->widget();
         }
         delete child;
     }

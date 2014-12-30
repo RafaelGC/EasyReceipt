@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     makeConnections();
 
-
     this->setWindowIcon(QIcon(":/icons/icon.png"));
     this->setWindowIconText("ZCalc");
 
@@ -46,10 +45,13 @@ void MainWindow::setupInterface()
     okButton = new QPushButton("OK");
     ui->topInputLayout->addWidget(okButton);
 
-    ui->stackedWidget->setCurrentIndex(0);
-
     payersSelection = new PayersSelection(&userContainer,&ticketContainer,ui->stackedWidget);
     ui->stackedWidget->addWidget(payersSelection);
+
+    createTicket = new CreateTicketWidget(ui->stackedWidget);
+    ui->stackedWidget->addWidget(createTicket);
+
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::makeConnections()
@@ -68,6 +70,7 @@ void MainWindow::makeConnections()
     QObject::connect(payersSelection,SIGNAL(previousPanel()),this,SLOT(previousPanel()));
 
     QObject::connect(usersManagerDialog,SIGNAL(closedAndUsersChaned()),payersSelection,SLOT(updatePayers()));
+    QObject::connect(payersSelection,SIGNAL(ticketHasBeenFiled()),this,SLOT(fileTicket()));
 }
 
 void MainWindow::loadUsersFromDatabase()
@@ -266,11 +269,11 @@ void MainWindow::openAboutDialog()
 void MainWindow::nextPanel()
 {
     int nPanel = ui->stackedWidget->currentIndex()+1;
-    /*switch (nPanel){
-        case 1:
-        payersSelection->set
-        break;
-    }*/
+
+    if (ticketContainer.getCurrentTicket()->getTotalCost()==0){
+        QMessageBox::warning(this,tr("Aviso"),tr("Añade algón producto a la lista antes de continuar."));
+        return;
+    }
 
     ui->stackedWidget->setCurrentIndex(nPanel);
 }
@@ -279,6 +282,14 @@ void MainWindow::previousPanel()
 {
     int ci = ui->stackedWidget->currentIndex()-1;
     ui->stackedWidget->setCurrentIndex(ci);
+}
+
+void MainWindow::fileTicket()
+{
+    qDebug() << "F";
+    ticketContainer.addTicket(true);
+
+    cleanAll();
 }
 
 void MainWindow::saveFile(){

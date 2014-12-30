@@ -16,6 +16,7 @@ INPUT(
 ./debug/Product.o
 ./debug/TicketContainer.o
 ./debug/Debt.o
+./debug/CreateTicketWidget.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o
@@ -25,4 +26,5 @@ INPUT(
 ./debug/moc_SpaceLineEdit.o
 ./debug/moc_PredictionLineEdit.o
 ./debug/moc_Mainwindow.o
+./debug/moc_CreateTicketWidget.o
 );

@@ -40,6 +40,7 @@ public:
     ~PayersSelection();
 private slots:
     void payerChanged(QString payerName, float amount);
+    void fileTicket();
 public slots:
     void updatePayers();
     void clearPayout();
@@ -47,6 +48,7 @@ public slots:
 signals:
     void nextPanel();
     void previousPanel();
+    void ticketHasBeenFiled();
 
 };
 

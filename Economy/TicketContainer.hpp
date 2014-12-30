@@ -17,7 +17,7 @@ public:
     TicketContainer();
     ~TicketContainer();
 
-    Ticket *addTicket();
+    Ticket *addTicket(bool setCurrent=false);
     Ticket *getCurrentTicket();
 };
 

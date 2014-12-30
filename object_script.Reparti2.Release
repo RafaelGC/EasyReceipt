@@ -16,6 +16,7 @@ INPUT(
 ./release/Product.o
 ./release/TicketContainer.o
 ./release/Debt.o
+./release/CreateTicketWidget.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o
@@ -25,4 +26,5 @@ INPUT(
 ./release/moc_SpaceLineEdit.o
 ./release/moc_PredictionLineEdit.o
 ./release/moc_Mainwindow.o
+./release/moc_CreateTicketWidget.o
 );
