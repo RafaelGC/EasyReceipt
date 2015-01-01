@@ -23,13 +23,18 @@
 
 #include "UsersManagerDialog.hpp"
 #include "UserContainer.hpp"
+
 #include "CustomWidget/PredictionLineEdit.hpp"
 #include "CustomWidget/SpaceLineEdit.hpp"
 #include "CustomWidget/HistoryWidget.hpp"
-#include "Persistence/HtmlExporter.hpp"
-#include "Persistence/UserDbInterface.hpp"
 #include "CustomWidget/PayersSelection.hpp"
 #include "CustomWidget/CreateTicketWidget.hpp"
+#include "CustomWidget/ManageTicketWidget.hpp"
+#include "CustomWidget/TotalPayout.hpp"
+
+#include "Persistence/HtmlExporter.hpp"
+#include "Persistence/UserDbInterface.hpp"
+
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
@@ -51,47 +56,31 @@ private:
     Ui::MainWindow *ui;
     UsersManagerDialog *usersManagerDialog;
     QSqlDatabase db;
-
     UserDbInterface userDb;
 
+    TicketContainer ticketContainer;
     UserContainer userContainer;
 
+    ManageTicketWidget *manageTicket;
     PayersSelection *payersSelection;
     CreateTicketWidget *createTicket;
+    TotalPayout *totalPayout;
 
-    SpaceLineEdit *costInput;
-    PredictionLineEdit *usersInput;
-    QPushButton *okButton, *nextButton;
-    std::vector<QLabel*>usersList;
-
-    TicketContainer ticketContainer;
-
-    void setupInterface();
-    void makeConnections();
     void loadUsersFromDatabase();
+    void makeConnections();
+    void setupInterface();
 
 private slots:
-    void processInput();
-    void compute(QString users,float cost);
-    void deleteSelectedInput();
-    void addInputToHistory(Product*product);
-    void copyHistorialSelectionToInput();
-    /*Actualiza lo que debe pagar cada usuario cada vez que se introduce
-     *el coste de un nuevo producto.*/
-    void updateUsersPayout();
+
     void saveFile();
-
-    /*El método cleanAll() elimina las deudas de todos los usuarios
-     * en la sesión actual.*/
-    void cleanAll();
-
     void openAboutDialog();
-
-    //Para la navegación entre paneles.
-    void nextPanel();
-    void previousPanel();
-
     void fileTicket();
+
+    //Navegación
+    void goToCreateTicket();
+    void goToManageTicket();
+    void goToPayersSelection();
+    void goToTotalPayout();
 
 };
 

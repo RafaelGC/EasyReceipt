@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     Economy/TicketContainer.cpp \
     Economy/Debt.cpp \
     CustomWidget/CreateTicketWidget.cpp \
-    CustomWidget/ManageTicketWidget.cpp
+    CustomWidget/ManageTicketWidget.cpp \
+    CustomWidget/TotalPayout.cpp
 
 HEADERS  += \
     User.hpp \
@@ -50,13 +51,15 @@ HEADERS  += \
     Mainwindow.hpp \
     Economy/Debt.hpp \
     CustomWidget/CreateTicketWidget.hpp \
-    CustomWidget/ManageTicketWidget.hpp
+    CustomWidget/ManageTicketWidget.hpp \
+    CustomWidget/TotalPayout.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
     payersselector.ui \
     ticketpanel.ui \
-    products.ui
+    products.ui \
+    finalpayout.ui
 
 CONFIG += c++11
 

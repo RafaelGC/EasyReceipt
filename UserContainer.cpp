@@ -64,7 +64,7 @@ void UserContainer::cleanUpVolatileUsersIfPossible()
     //de un vector cuando estás iterando a través de ellos
     //o podría crashear el programa.
     for (unsigned int i=0; i<users.size();){
-        if (users[i].isRemovable()){
+        if (users[i].isVolatile()){
             users.erase(users.begin()+i);
         }
         else{

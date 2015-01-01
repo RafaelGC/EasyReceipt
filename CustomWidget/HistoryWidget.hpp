@@ -16,11 +16,11 @@ class HistoryWidget : public QWidget
 private:
     QLabel *names, *cost;
     QHBoxLayout *layout;
-    Product*product;//Puntero al producto que representa.
+    const Product*product;//Puntero al producto que representa.
 public:
-    explicit HistoryWidget(Product *product, QWidget *parent = 0);
+    explicit HistoryWidget(const Product *product, QWidget *parent = 0);
     ~HistoryWidget();
-    Product *getProduct();
+    const Product *getProduct();
 
 signals:
 

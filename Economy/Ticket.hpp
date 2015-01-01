@@ -13,17 +13,20 @@ class Ticket
 private:
     std::vector<Product*>products;
     std::vector<std::pair<QString,float>>payers;
+    QString ticketName;
 public:
     enum{MONEY_DOES_NOT_MATCH,SUCCESS};
-    Ticket();
+    Ticket(QString tiketName);
     ~Ticket();
+
+    QString getName();
 
     float getTotalCost(bool rounded=false) const;
 
     Product* addProduct(float price, std::vector<QString>buyers);
     Product* addProduct(Product product);
 
-    void removeProduct(Product* product);
+    void removeProduct(const Product* product);
     float getPurchasePriceOf(QString buyer, bool rounded=false) const;
 
     void clear();
@@ -33,6 +36,8 @@ public:
 
     void addPayer(QString name, float amount);
     std::vector<Debt> computePayout(int *message);
+    std::vector<std::pair<QString,float>> getPayers();
+    float getAmountPayedBy(QString name);
 
     QStringList getBuyers();
 

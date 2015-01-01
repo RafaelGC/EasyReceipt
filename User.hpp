@@ -7,7 +7,7 @@ class User
 {
 private:
     QString name;
-    bool removable;
+    bool _volatile;
 public:
     User();
     User(const QString &name, bool removable=true);
@@ -16,8 +16,8 @@ public:
 
     const QString& getName() const;
 
-    void setRemovable(bool removable);
-    bool isRemovable() const;
+    void setVolatile(bool removable);
+    bool isVolatile() const;
 };
 
 #endif // USER_HPP

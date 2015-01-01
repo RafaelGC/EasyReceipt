@@ -27,17 +27,22 @@ void Debt::setAmount(float amount)
     this->amount = amount;
 }
 
-QString Debt::getDebtor()
+bool Debt::operator==(const Debt &debt) const
+{
+    return (this->creditor==debt.getCreditor() && this->debtor==debt.getDebtor());
+}
+
+QString Debt::getDebtor() const
 {
     return debtor;
 }
 
-QString Debt::getCreditor()
+QString Debt::getCreditor() const
 {
     return creditor;
 }
 
-float Debt::getAmount(bool rounded)
+float Debt::getAmount(bool rounded) const
 {
     if (rounded){
         return round(amount*100)/100;

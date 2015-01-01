@@ -23,6 +23,11 @@ float PayerObserver::getAmount()
     return lineEdit->text().toFloat();
 }
 
+void PayerObserver::setAmount(float amount)
+{
+    lineEdit->setText(QString::number(amount));
+}
+
 
 void PayerObserver::inform()
 {

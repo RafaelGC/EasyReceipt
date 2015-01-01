@@ -1,12 +1,18 @@
 #include "Ticket.hpp"
 
-Ticket::Ticket()
+Ticket::Ticket(QString ticketName)
 {
+    this->ticketName = ticketName;
 }
 
 Ticket::~Ticket()
 {
     clear();
+}
+
+QString Ticket::getName()
+{
+    return this->ticketName;
 }
 
 float Ticket::getTotalCost(bool rounded) const{
@@ -38,7 +44,7 @@ Product* Ticket::addProduct(Product product){
 
 }
 
-void Ticket::removeProduct(Product *product){
+void Ticket::removeProduct(const Product *product){
     for (auto it = products.begin(); it!=products.end(); it++){
         if ((*it)==product){
             delete (*it);
@@ -199,6 +205,21 @@ std::vector<Debt> Ticket::computePayout(int *message)
     *message = SUCCESS;
     return result;
 
+}
+
+std::vector<std::pair<QString,float>> Ticket::getPayers()
+{
+    return this->payers;
+}
+
+float Ticket::getAmountPayedBy(QString name)
+{
+    for (unsigned int i=0; i<payers.size(); i++){
+        if (payers[i].first==name){
+            return payers[i].second;
+        }
+    }
+    return 0;
 }
 
 QStringList Ticket::getBuyers()

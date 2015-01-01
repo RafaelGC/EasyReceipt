@@ -44,10 +44,11 @@ private slots:
 public slots:
     void updatePayers();
     void clearPayout();
+    void fillUIFromTicket();
+    void updateUsersPayout();
 
 signals:
-    void nextPanel();
-    void previousPanel();
+    void goToManageTicket();
     void ticketHasBeenFiled();
 
 };

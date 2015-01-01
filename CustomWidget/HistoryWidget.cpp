@@ -1,6 +1,6 @@
 #include "HistoryWidget.hpp"
 
-HistoryWidget::HistoryWidget(Product *product, QWidget *parent) :
+HistoryWidget::HistoryWidget(const Product *product, QWidget *parent) :
     QWidget(parent){
 
     this->product = product;
@@ -20,7 +20,7 @@ HistoryWidget::HistoryWidget(Product *product, QWidget *parent) :
 HistoryWidget::~HistoryWidget(){
 }
 
-Product *HistoryWidget::getProduct()
+const Product *HistoryWidget::getProduct()
 {
     return product;
 }

@@ -17,6 +17,7 @@ public:
 
     QString getName();
     float getAmount();
+    void setAmount(float amount);
 private slots:
     void inform();
 

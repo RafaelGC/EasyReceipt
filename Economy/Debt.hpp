@@ -16,9 +16,11 @@ public:
     void setCreditor(QString name);
     void setAmount(float amount);
 
-    QString getDebtor();
-    QString getCreditor();
-    float getAmount(bool rounded=false);
+    QString getDebtor() const;
+    QString getCreditor() const;
+    float getAmount(bool rounded=false) const;
+
+    bool operator==(const Debt &debt) const;
 };
 
 #endif // DEBT_HPP

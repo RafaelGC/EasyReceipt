@@ -13,7 +13,7 @@ PayersSelection::PayersSelection(UserContainer *userContainer, TicketContainer *
     payoutLayout = new QVBoxLayout(ui->payoutGroupBox);
     ui->payoutGroupBox->setLayout(payoutLayout);
 
-    QObject::connect(ui->backBtn,SIGNAL(clicked()),this,SIGNAL(previousPanel()));
+    QObject::connect(ui->backBtn,SIGNAL(clicked()),this,SIGNAL(goToManageTicket()));
     QObject::connect(ui->fileBtn,SIGNAL(clicked()),this,SLOT(fileTicket()));
 
 }
@@ -29,22 +29,9 @@ void PayersSelection::payerChanged(QString name, float amount)
     clearPayout();
 
     ticketContainer->getCurrentTicket()->addPayer(name,amount);
-    int message = -1;
-    std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
-    if (message==Ticket::MONEY_DOES_NOT_MATCH){
-        payoutLayout->addWidget(new QLabel("<b>El dinero pagado no coincide con el coste de la compra.</b>"));
-    }
-    else if (message==Ticket::SUCCESS && debts.size()==0){
-        payoutLayout->addWidget(new QLabel("<b>Reparto adecuado.</b>"));
-    }
-    else{
-        for (unsigned int i=0; i<debts.size(); i++){
-            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2%3 a %4").arg(debts[i].getDebtor())
-                                               .arg(debts[i].getAmount(true)).arg("€").arg(debts[i].getCreditor())));
-        }
-    }
 
-    //compute(false);
+    updateUsersPayout();
+
 }
 
 void PayersSelection::fileTicket()
@@ -54,7 +41,7 @@ void PayersSelection::fileTicket()
 
 void PayersSelection::updatePayers(){
     /*Primero se eliminan toda la lista de usuarios para
-     * que pueda ser generada de nuevo. */
+     * que pueda ser gerada de nuevo. */
     QLayoutItem *child;
     while ((child = payersLayout->takeAt(0)) != 0) {
         if (child->widget()){
@@ -111,6 +98,40 @@ void PayersSelection::clearPayout()
             delete child->widget();
         }
         delete child;
+    }
+}
+
+void PayersSelection::fillUIFromTicket()
+{
+    Ticket *ticket = ticketContainer->getCurrentTicket();
+    //std::vector<std::pair<QString>>
+    updateUsersPayout();
+    updatePayers();
+
+    for (unsigned int i=0; i<payerObservers.size(); i++){
+        float amount = ticket->getAmountPayedBy(payerObservers[i]->getName());
+        if (amount>0){
+            payerObservers[i]->setAmount(amount);
+        }
+    }
+
+}
+
+void PayersSelection::updateUsersPayout()
+{
+    int message = -1;
+    std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
+    if (message==Ticket::MONEY_DOES_NOT_MATCH){
+        payoutLayout->addWidget(new QLabel("<b>El dinero pagado no coincide con el coste de la compra.</b>"));
+    }
+    else if (message==Ticket::SUCCESS && debts.size()==0){
+        payoutLayout->addWidget(new QLabel("<b>Reparto adecuado.</b>"));
+    }
+    else{
+        for (unsigned int i=0; i<debts.size(); i++){
+            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2%3 a %4").arg(debts[i].getDebtor())
+                                               .arg(debts[i].getAmount(true)).arg("€").arg(debts[i].getCreditor())));
+        }
     }
 }
 

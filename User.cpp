@@ -5,9 +5,9 @@ User::User()
     this->name = "";
 }
 
-User::User(const QString &name, bool removable){
+User::User(const QString &name, bool _volatile){
     this->name = name;
-    this->removable = removable;
+    this->_volatile = _volatile;
 }
 
 /*****************************
@@ -18,9 +18,9 @@ void User::setName(QString name){
 }
 
 
-void User::setRemovable(bool removable)
+void User::setVolatile(bool _volatile)
 {
-    this->removable = removable;
+    this->_volatile = _volatile;
 }
 
 /*****************************
@@ -30,7 +30,7 @@ const QString& User::getName() const{
     return name;
 }
 
-bool User::isRemovable() const
+bool User::isVolatile() const
 {
-    return removable;
+    return _volatile;
 }

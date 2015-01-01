@@ -17,8 +17,14 @@ public:
     TicketContainer();
     ~TicketContainer();
 
-    Ticket *addTicket(bool setCurrent=false);
+    Ticket *addTicket(QString ticketName, bool setCurrent=false);
     Ticket *getCurrentTicket();
+    Ticket *getByName(QString ticketName);
+    void setCurrentTicket(Ticket *ticket);
+    Ticket *ticketAt(int index);
+    unsigned int ticketsAmount();
+
+    float getTotalSpentBy(QString name);
 };
 
 #endif // TICKETCONTAINER_HPP
