@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[9];
-    char stringdata[118];
+    QByteArrayData data[10];
+    char stringdata[134];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,17 +30,18 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 8),
-QT_MOC_LITERAL(2, 20, 0),
-QT_MOC_LITERAL(3, 21, 15),
-QT_MOC_LITERAL(4, 37, 10),
-QT_MOC_LITERAL(5, 48, 16),
-QT_MOC_LITERAL(6, 65, 16),
-QT_MOC_LITERAL(7, 82, 19),
-QT_MOC_LITERAL(8, 102, 15)
+QT_MOC_LITERAL(1, 11, 10),
+QT_MOC_LITERAL(2, 22, 0),
+QT_MOC_LITERAL(3, 23, 13),
+QT_MOC_LITERAL(4, 37, 15),
+QT_MOC_LITERAL(5, 53, 10),
+QT_MOC_LITERAL(6, 64, 16),
+QT_MOC_LITERAL(7, 81, 16),
+QT_MOC_LITERAL(8, 98, 19),
+QT_MOC_LITERAL(9, 118, 15)
     },
-    "MainWindow\0saveFile\0\0openAboutDialog\0"
-    "fileTicket\0goToCreateTicket\0"
+    "MainWindow\0exportHtml\0\0exportAllHtml\0"
+    "openAboutDialog\0fileTicket\0goToCreateTicket\0"
     "goToManageTicket\0goToPayersSelection\0"
     "goToTotalPayout"
 };
@@ -52,7 +53,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,15 +61,17 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x08 /* Private */,
-       3,    0,   50,    2, 0x08 /* Private */,
-       4,    0,   51,    2, 0x08 /* Private */,
-       5,    0,   52,    2, 0x08 /* Private */,
-       6,    0,   53,    2, 0x08 /* Private */,
-       7,    0,   54,    2, 0x08 /* Private */,
-       8,    0,   55,    2, 0x08 /* Private */,
+       1,    0,   54,    2, 0x08 /* Private */,
+       3,    0,   55,    2, 0x08 /* Private */,
+       4,    0,   56,    2, 0x08 /* Private */,
+       5,    0,   57,    2, 0x08 /* Private */,
+       6,    0,   58,    2, 0x08 /* Private */,
+       7,    0,   59,    2, 0x08 /* Private */,
+       8,    0,   60,    2, 0x08 /* Private */,
+       9,    0,   61,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -85,13 +88,14 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->saveFile(); break;
-        case 1: _t->openAboutDialog(); break;
-        case 2: _t->fileTicket(); break;
-        case 3: _t->goToCreateTicket(); break;
-        case 4: _t->goToManageTicket(); break;
-        case 5: _t->goToPayersSelection(); break;
-        case 6: _t->goToTotalPayout(); break;
+        case 0: _t->exportHtml(); break;
+        case 1: _t->exportAllHtml(); break;
+        case 2: _t->openAboutDialog(); break;
+        case 3: _t->fileTicket(); break;
+        case 4: _t->goToCreateTicket(); break;
+        case 5: _t->goToManageTicket(); break;
+        case 6: _t->goToPayersSelection(); break;
+        case 7: _t->goToTotalPayout(); break;
         default: ;
         }
     }
@@ -123,13 +127,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

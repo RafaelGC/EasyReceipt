@@ -33,6 +33,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QListWidget *ticketList;
     QPushButton *seeTicketBtn;
+    QPushButton *deleteTicketBtn;
     QPushButton *totalPayoutBtn;
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
@@ -44,6 +45,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *addTicketBtn;
     QSpacerItem *verticalSpacer;
+    QLabel *label_2;
     QHBoxLayout *horizontalLayout_3;
 
     void setupUi(QWidget *Form)
@@ -64,6 +66,11 @@ public:
         seeTicketBtn->setObjectName(QStringLiteral("seeTicketBtn"));
 
         verticalLayout_3->addWidget(seeTicketBtn);
+
+        deleteTicketBtn = new QPushButton(Form);
+        deleteTicketBtn->setObjectName(QStringLiteral("deleteTicketBtn"));
+
+        verticalLayout_3->addWidget(deleteTicketBtn);
 
         totalPayoutBtn = new QPushButton(Form);
         totalPayoutBtn->setObjectName(QStringLiteral("totalPayoutBtn"));
@@ -125,6 +132,14 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        label_2 = new QLabel(Form);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_2->setOpenExternalLinks(true);
+        label_2->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
+
+        verticalLayout->addWidget(label_2);
+
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
 
@@ -136,6 +151,11 @@ public:
 
         horizontalLayout->setStretch(0, 1);
         horizontalLayout->setStretch(1, 2);
+        QWidget::setTabOrder(ticketName, addTicketBtn);
+        QWidget::setTabOrder(addTicketBtn, seeTicketBtn);
+        QWidget::setTabOrder(seeTicketBtn, deleteTicketBtn);
+        QWidget::setTabOrder(deleteTicketBtn, totalPayoutBtn);
+        QWidget::setTabOrder(totalPayoutBtn, ticketList);
 
         retranslateUi(Form);
 
@@ -146,10 +166,12 @@ public:
     {
         Form->setWindowTitle(QApplication::translate("Form", "Form", 0));
         seeTicketBtn->setText(QApplication::translate("Form", "Ver ticket seleccionado", 0));
+        deleteTicketBtn->setText(QApplication::translate("Form", "Eliminar ticket seleccionado", 0));
         totalPayoutBtn->setText(QApplication::translate("Form", "Desembolso total", 0));
         groupBox->setTitle(QApplication::translate("Form", "Nuevo ticket", 0));
         label->setText(QApplication::translate("Form", "Nombre", 0));
         addTicketBtn->setText(QApplication::translate("Form", "A\303\261adir", 0));
+        label_2->setText(QApplication::translate("Form", "<a href=\"www.google.es\">www.zeltastudio.com</a>", 0));
     } // retranslateUi
 
 };

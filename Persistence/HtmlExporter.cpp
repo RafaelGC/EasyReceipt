@@ -33,10 +33,12 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
 
     output << "<html><head><meta charset=\"UTF-8\"><title>";
     output << name;
-    output << "</title></head>";
+    output << "</title>";
+    output << "<STYLE type=\"text/css\">body{font-family:\"Arial\",sans-serif}.head{background-color:#CCA78E;border-bottom:solid 3px #a52a2a}h2{padding:0;margin-bottom:5px;margin-top:15px}table{border:none;border-spacing:0}td{border:none}tr:nth-child(odd){background-color:#DBC9C9}tr:nth-child(even){background-color:#DDD}</STYLE>";
+    output << "</head>";
     output << "<body>";
     output << "<table border=\"2\">";
-    output << "<tr><td colspan=\"2\"><h2>LISTA DE GASTOS<h2></td></tr>";
+    output << "<tr><td class=\"head\" colspan=\"2\"><h2>LISTA DE GASTOS<h2></td></tr>";
     for (unsigned int i = 0; i<priceBuyers.size(); i++){
         auto item = priceBuyers[i];
         output << "<tr><td colspan=\"1\">";
@@ -47,7 +49,7 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
         output << "</td></tr>";
     }
 
-    output << "<tr><td colspan=\"2\">";
+    output << "<tr><td class=\"head\" colspan=\"2\">";
     output << "<h2>GASTO INDIVIDUAL</h2>";
     output << "</td></tr>";
     for (unsigned int i = 0; i<individualBuyer.size(); i++){
@@ -56,7 +58,7 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
         output << current.second << "</td><td>" << current.first << "&euro;</td>";
         output << "</tr>";
     }
-    output << "<tr><td colspan=\"2\">" << "<h2>TOTAL</h2>" << "</td></tr>";
+    output << "<tr><td class=\"head\" colspan=\"2\">" << "<h2>TOTAL</h2>" << "</td></tr>";
     output << "<tr><td colspan=\"2\">" << totalMoney << "&euro;</td></tr>";
 
     output << "</table>";

@@ -32,6 +32,8 @@ private:
     void setupInterface();
     void makeConnections();
 
+    void showEvent(QShowEvent *);
+
 public:
     explicit ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, QWidget *parent=0);
     ~ManageTicketWidget();

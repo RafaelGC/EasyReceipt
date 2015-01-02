@@ -53,6 +53,7 @@
      <string>Archivo</string>
     </property>
     <addaction name="actionExportHtml"/>
+    <addaction name="actionExportAllHtml"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -96,6 +97,11 @@
   <action name="actionEliminar_perfil">
    <property name="text">
     <string>Eliminar perfil</string>
+   </property>
+  </action>
+  <action name="actionExportAllHtml">
+   <property name="text">
+    <string>Exportar todo a HTML</string>
    </property>
   </action>
  </widget>

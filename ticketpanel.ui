@@ -27,6 +27,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="deleteTicketBtn">
+       <property name="text">
+        <string>Eliminar ticket seleccionado</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="totalPayoutBtn">
        <property name="text">
         <string>Desembolso total</string>
@@ -36,7 +43,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0">
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="sizePolicy">
@@ -110,12 +117,36 @@
       </spacer>
      </item>
      <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>&lt;a href=&quot;www.google.es&quot;&gt;www.zeltastudio.com&lt;/a&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3"/>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>ticketName</tabstop>
+  <tabstop>addTicketBtn</tabstop>
+  <tabstop>seeTicketBtn</tabstop>
+  <tabstop>deleteTicketBtn</tabstop>
+  <tabstop>totalPayoutBtn</tabstop>
+  <tabstop>ticketList</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

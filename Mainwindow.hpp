@@ -17,7 +17,8 @@
 #include <QFileInfo>
 #include <QCheckBox>
 #include <QGridLayout>
-#include <QPointer>
+#include <QInputDialog>
+
 
 #include <fstream>
 
@@ -69,10 +70,12 @@ private:
     void loadUsersFromDatabase();
     void makeConnections();
     void setupInterface();
+    int saveHtmlFile(QString name, QString path, const Ticket *ticket);
 
 private slots:
 
-    void saveFile();
+    void exportHtml();
+    void exportAllHtml();
     void openAboutDialog();
     void fileTicket();
 

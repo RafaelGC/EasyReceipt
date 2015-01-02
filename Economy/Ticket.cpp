@@ -97,7 +97,7 @@ void Ticket::addPayer(QString name, float amount){
     payers.push_back(std::make_pair(name,amount));
 }
 
-std::vector<Debt> Ticket::computePayout(int *message)
+std::vector<Debt> Ticket::computePayout(int *message) const
 {
     //CATEGORIZACIÓN DE LOS USUARIOS
 
@@ -207,12 +207,12 @@ std::vector<Debt> Ticket::computePayout(int *message)
 
 }
 
-std::vector<std::pair<QString,float>> Ticket::getPayers()
+std::vector<std::pair<QString,float>> Ticket::getPayers() const
 {
     return this->payers;
 }
 
-float Ticket::getAmountPayedBy(QString name)
+float Ticket::getAmountPayedBy(QString name) const
 {
     for (unsigned int i=0; i<payers.size(); i++){
         if (payers[i].first==name){
@@ -222,7 +222,7 @@ float Ticket::getAmountPayedBy(QString name)
     return 0;
 }
 
-QStringList Ticket::getBuyers()
+QStringList Ticket::getBuyers() const
 {
     QStringList list;
 

@@ -33,8 +33,23 @@ Ticket *TicketContainer::addTicket(QString ticketName, bool setCurrent)
     return ticket;
 }
 
-Ticket *TicketContainer::getCurrentTicket()
-{
+void TicketContainer::deleteTicket(QString ticketName){
+    for (unsigned int i=0; i<tickets.size(); i++){
+        if (tickets[i]->getName()==ticketName){
+            if (currentTicket==tickets[i]){
+                currentTicket = nullptr;
+            }
+            delete tickets[i];
+            tickets.erase(tickets.begin()+i);
+        }
+    }
+}
+
+void TicketContainer::deleteTicket(Ticket *ticket){
+    deleteTicket(ticket->getName());
+}
+
+Ticket *TicketContainer::getCurrentTicket(){
     return currentTicket;
 }
 

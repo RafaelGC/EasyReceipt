@@ -18,6 +18,8 @@ public:
     ~TicketContainer();
 
     Ticket *addTicket(QString ticketName, bool setCurrent=false);
+    void deleteTicket(QString ticketName);
+    void deleteTicket(Ticket *ticket);
     Ticket *getCurrentTicket();
     Ticket *getByName(QString ticketName);
     void setCurrentTicket(Ticket *ticket);

@@ -24,9 +24,10 @@ signals:
     void goToTotalPayout();
     void ticketCreated();
     void seeTicketRequest();
-public slots:
+private slots:
     void createTicket();
     void seeSelectedTicket();
+    void deleteSelectedTicket();
 };
 
 #endif // CREATETICKETWIDGET_HPP

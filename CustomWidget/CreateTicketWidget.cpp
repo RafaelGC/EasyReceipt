@@ -9,7 +9,9 @@ CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, QWidget 
     ui->ticketName->setText(QDate::currentDate().toString("yyyy-MM-dd"));
 
     QObject::connect(ui->addTicketBtn,SIGNAL(clicked()),this,SLOT(createTicket()));
+    QObject::connect(ui->ticketName,SIGNAL(returnPressed()),this,SLOT(createTicket()));
     QObject::connect(ui->seeTicketBtn,SIGNAL(clicked()),this,SLOT(seeSelectedTicket()));
+    QObject::connect(ui->deleteTicketBtn,SIGNAL(clicked()),this,SLOT(deleteSelectedTicket()));
     QObject::connect(ui->totalPayoutBtn,SIGNAL(clicked()),this,SIGNAL(goToTotalPayout()));
 
     QObject::connect(ui->ticketList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(seeSelectedTicket()));
@@ -46,4 +48,13 @@ void CreateTicketWidget::seeSelectedTicket(){
         emit this->goToManageTicket();
     }
 
+}
+
+void CreateTicketWidget::deleteSelectedTicket(){
+    if (ui->ticketList->selectedItems().count()==1){
+        if (QMessageBox::question(this,tr("¿Seguro?"),tr("¿Quieres eliminar el ticket?"))==QMessageBox::Yes){
+            ticketContainer->deleteTicket(ui->ticketList->currentItem()->text());
+            delete ui->ticketList->takeItem(ui->ticketList->currentRow());
+        }
+    }
 }

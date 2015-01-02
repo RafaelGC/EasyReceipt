@@ -48,6 +48,10 @@ void ManageTicketWidget::makeConnections()
 
 }
 
+void ManageTicketWidget::showEvent(QShowEvent *){
+    costInput->setFocus();
+}
+
 void ManageTicketWidget::processInput(){
     //Nos aseguramos de que la entrada del coste no esté vacía.
     if (costInput->text().isEmpty()){

@@ -32,6 +32,22 @@ bool Debt::operator==(const Debt &debt) const
     return (this->creditor==debt.getCreditor() && this->debtor==debt.getDebtor());
 }
 
+bool Debt::isSwapped(const Debt &debt) const
+{
+    return (this->debtor==debt.getCreditor() && this->creditor==debt.debtor);
+}
+
+void Debt::swapIfNeeded()
+{
+    if (amount<0){
+        QString tmp = this->creditor;
+        creditor = debtor;
+        debtor = tmp;
+        amount*=-1;
+    }
+
+}
+
 QString Debt::getDebtor() const
 {
     return debtor;

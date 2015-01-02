@@ -28,7 +28,8 @@ MainWindow::~MainWindow()
 void MainWindow::makeConnections()
 {
     QObject::connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(openAboutDialog()));
-    QObject::connect(ui->actionExportHtml,SIGNAL(triggered()),this,SLOT(saveFile()));
+    QObject::connect(ui->actionExportHtml,SIGNAL(triggered()),this,SLOT(exportHtml()));
+    QObject::connect(ui->actionExportAllHtml,SIGNAL(triggered()),this,SLOT(exportAllHtml()));
     QObject::connect(ui->actionUsersManager,SIGNAL(triggered()),usersManagerDialog,SLOT(open()));
 
     QObject::connect(payersSelection,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
@@ -51,6 +52,7 @@ void MainWindow::makeConnections()
 
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),manageTicket,SLOT(fillUIFromTicket()));
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),payersSelection,SLOT(fillUIFromTicket()));
+
 }
 
 void MainWindow::setupInterface()
@@ -96,40 +98,84 @@ void MainWindow::goToTotalPayout(){
     ui->stackedWidget->setCurrentIndex(4);
 }
 
-void MainWindow::saveFile(){
+int MainWindow::saveHtmlFile(QString name, QString path, const Ticket *ticket)
+{
+    HtmlExporter exporter;
+    for (unsigned int i=0; i<ticket->countProducts(); i++){
+        const Product *pr = ticket->productAt(i);
+        exporter.addProduct(round(pr->getPrice()*100)/100,pr->getStringBuyers());
+    }
+
+    QStringList buyers = ticket->getBuyers();
+    for (QString buyer : buyers){
+        exporter.addBuyerInfo(ticket->getPurchasePriceOf(buyer,true),buyer);
+    }
+
+    return exporter.save(name,path,ticket->getTotalCost(true));
+
+}
+
+
+void MainWindow::exportHtml(){
+    if (ticketContainer.ticketsAmount()<=0){
+        QMessageBox::warning(this,tr("Aviso"),tr("No hay ningún ticket en la lista."));
+        return;
+    }
+
+    Ticket * ticket = ticketContainer.getCurrentTicket();
+
+    if (ui->stackedWidget->currentIndex()==1){
+        //Si no estamos trabajando en ningún ticket preguntaremos cuál se quiere modificar.
+        QStringList nameList;
+        for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
+            nameList<< ticketContainer.ticketAt(i)->getName();
+        }
+        QString ticketName = QInputDialog::getItem(this,tr("¿Qué ticket quieres guardar?"),tr("Selecciona el ticket que quieres guardar:"),nameList);
+        ticket = ticketContainer.getByName(ticketName);
+    }
+
+    if (!ticket){
+        return;
+    }
+
     //Este método guarda en formato HTML el ticket actual.
 
-    /*HtmlExporter exporter;
-
-    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),QDir::currentPath(),tr("HTML (*.html *.htm)"));
+    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),QDir::currentPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
     if (path.isNull()){ //El usuario ha cancelado la acción.
         return;
     }
 
     QString name = QFileInfo(path).baseName();
-
-    if (ui->historialList->count()>0){
-        for (unsigned int i=0; i<ticketContainer.getCurrentTicket()->countProducts(); i++){
-            const Product *pr = ticketContainer.getCurrentTicket()->productAt(i);
-            exporter.addProduct(pr->getPrice(),pr->getStringBuyers());
-        }
-
-        for (unsigned int i=0; i<userContainer.size(); i++){
-            QString name = userContainer.userAt(i)->getName();
-            exporter.addBuyerInfo(ticketContainer.getCurrentTicket()->getPurchasePriceOf(name,true),name);
-        }
-
-        if (exporter.save(name,path,ticketContainer.getCurrentTicket()->getTotalCost(true))==HtmlExporter::OK){
-            QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
-        }
-        else{
-            QMessageBox::warning(this,tr("Error"),tr("No se pudo guardar el archivo."));
-        }
+    if (saveHtmlFile(name,path,ticket)==HtmlExporter::OK){
+        QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
     }
     else{
-        QMessageBox::warning(this,tr("Aviso"),tr("No hay nada que guardar."));
-    }*/
+        QMessageBox::critical(this,tr("Error"),tr("El archivo no se pudo guardar."));
+    }
 
+}
+
+void MainWindow::exportAllHtml(){
+    if (QMessageBox::question(this,tr("¿Seguro?"),tr("Todos los archivos con el mismo nombre serán reescritos. ¿Quieres continuar?"))==QMessageBox::Yes){
+        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"));
+        if (path.isEmpty() || path.isNull()){
+            return;
+        }
+        bool success = true;
+        for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
+            Ticket *ticket = ticketContainer.ticketAt(i);
+            QString pathcpy = path;
+            QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".html");
+            if (saveHtmlFile(ticket->getName(),finalFile,ticket)==HtmlExporter::ERROR){
+                QMessageBox::critical(this,tr("Error"),QString("No se pudo guardar el archivo %1.").arg(ticket->getName()));
+                success = false;
+            }
+        }
+        if (success){
+            QMessageBox::information(this,tr("Éxito"),tr("Los archivos se guardaron con éxito."));
+        }
+
+    }
 }
 
 void MainWindow::loadUsersFromDatabase()

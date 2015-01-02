@@ -32,6 +32,7 @@ public:
     QAction *actionAbout;
     QAction *actionUsersManager;
     QAction *actionEliminar_perfil;
+    QAction *actionExportAllHtml;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
@@ -62,6 +63,8 @@ public:
         actionUsersManager->setObjectName(QStringLiteral("actionUsersManager"));
         actionEliminar_perfil = new QAction(MainWindow);
         actionEliminar_perfil->setObjectName(QStringLiteral("actionEliminar_perfil"));
+        actionExportAllHtml = new QAction(MainWindow);
+        actionExportAllHtml->setObjectName(QStringLiteral("actionExportAllHtml"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -95,6 +98,7 @@ public:
         menubar->addAction(menuPerfiles->menuAction());
         menubar->addAction(menuSobre->menuAction());
         menuArchivo->addAction(actionExportHtml);
+        menuArchivo->addAction(actionExportAllHtml);
         menuArchivo->addSeparator();
         menuArchivo->addAction(actionExit);
         menuSobre->addAction(actionAbout);
@@ -117,6 +121,7 @@ public:
         actionAbout->setText(QApplication::translate("MainWindow", "Sobre...", 0));
         actionUsersManager->setText(QApplication::translate("MainWindow", "Gestionar perfiles", 0));
         actionEliminar_perfil->setText(QApplication::translate("MainWindow", "Eliminar perfil", 0));
+        actionExportAllHtml->setText(QApplication::translate("MainWindow", "Exportar todo a HTML", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
         menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));

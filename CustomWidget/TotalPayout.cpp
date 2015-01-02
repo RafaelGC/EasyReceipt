@@ -30,6 +30,13 @@ void TotalPayout::showEvent(QShowEvent *){
                     if (d[j]==debtList[k]){
                         debtList[k].setAmount(debtList[k].getAmount()+d[k].getAmount());
                         found = true;
+                    }
+                    else if (d[j].isSwapped(debtList[k])){
+                        debtList[k].setAmount(debtList[k].getAmount()-d[k].getAmount());
+                        found = true;
+                    }
+                    if (found){
+                        debtList[k].swapIfNeeded();
                         break;
                     }
                 }
@@ -43,9 +50,15 @@ void TotalPayout::showEvent(QShowEvent *){
     ui->totalPayoutText->clear();
 
     for (unsigned int i=0; i<debtList.size(); i++){
-        ui->totalPayoutText->appendPlainText(QString("%1 debe pagar %2%3 a %4").arg(debtList[i].getDebtor())
+        if (debtList[i].getAmount()!=0){
+            ui->totalPayoutText->appendPlainText(QString("%1 debe pagar %2%3 a %4").arg(debtList[i].getDebtor())
                                              .arg(debtList[i].getAmount(true)).arg("€").arg(debtList[i].getCreditor())
                                              );
+        }
+    }
+
+    if (ui->totalPayoutText->toPlainText().isEmpty()){
+        ui->totalPayoutText->setPlainText("Nada pendiente.");
     }
 
 

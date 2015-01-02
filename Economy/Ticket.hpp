@@ -35,11 +35,11 @@ public:
     unsigned int countProducts() const;
 
     void addPayer(QString name, float amount);
-    std::vector<Debt> computePayout(int *message);
-    std::vector<std::pair<QString,float>> getPayers();
-    float getAmountPayedBy(QString name);
+    std::vector<Debt> computePayout(int *message) const;
+    std::vector<std::pair<QString,float>> getPayers() const;
+    float getAmountPayedBy(QString name) const;
 
-    QStringList getBuyers();
+    QStringList getBuyers() const;
 
 };
 

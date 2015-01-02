@@ -21,6 +21,8 @@ public:
     float getAmount(bool rounded=false) const;
 
     bool operator==(const Debt &debt) const;
+    bool isSwapped(const Debt &debt) const;
+    void swapIfNeeded();
 };
 
 #endif // DEBT_HPP
