@@ -3,10 +3,19 @@
 CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, QWidget *parent) :
     QWidget(parent),ui(new Ui::Form){
     ui->setupUi(this);
+    ui->ticketList->installEventFilter(this);
 
     this->ticketContainer = ticketContainer;
 
     ui->ticketName->setText(QDate::currentDate().toString("yyyy-MM-dd"));
+
+    ticketContextMenu = new QMenu(ui->ticketList);
+    QAction *seeTicketAction = new QAction(QIcon(":/icons/pencil.png"),tr("Ver ticket"),ticketContextMenu);
+    QAction *deleteTicketAction = new QAction(QIcon(":/icons/trash.png"),tr("Eliminar ticket"),ticketContextMenu);
+    ticketContextMenu->addAction(seeTicketAction);
+    ticketContextMenu->addAction(deleteTicketAction);
+    QObject::connect(seeTicketAction,SIGNAL(triggered()),this,SLOT(seeSelectedTicket()));
+    QObject::connect(deleteTicketAction,SIGNAL(triggered()),this,SLOT(deleteSelectedTicket()));
 
     QObject::connect(ui->addTicketBtn,SIGNAL(clicked()),this,SLOT(createTicket()));
     QObject::connect(ui->ticketName,SIGNAL(returnPressed()),this,SLOT(createTicket()));
@@ -30,11 +39,28 @@ void CreateTicketWidget::createTicket()
         QMessageBox::warning(this,tr("Aviso"),tr("Ya existe un ticket con ese nombre."));
     }
     else{
-        ui->ticketList->addItem(ui->ticketName->text());
+        QListWidgetItem *item = new QListWidgetItem(QIcon(":/icons/ticket.png"),ui->ticketName->text());
+        ui->ticketList->addItem(item);
+        ui->ticketList->setIconSize(QSize(30,32));
+
         emit this->ticketCreated();
         emit this->goToManageTicket();
     }
 }
+
+bool CreateTicketWidget::eventFilter(QObject *object, QEvent *event)
+{
+    if (event->type()==QEvent::ContextMenu){
+        QContextMenuEvent *contextEvent = static_cast<QContextMenuEvent*>(event);
+        QListWidgetItem *item = ui->ticketList->itemAt(contextEvent->pos());
+        if (item){
+            ticketContextMenu->exec(ui->ticketList->mapToGlobal(contextEvent->pos()));
+        }
+    }
+
+    return QObject::eventFilter(object,event);
+}
+
 
 void CreateTicketWidget::seeSelectedTicket(){
     if (ui->ticketList->selectedItems().count()==1){

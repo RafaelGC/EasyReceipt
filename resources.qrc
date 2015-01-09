@@ -9,5 +9,8 @@
         <file>trash.png</file>
         <file>pencil.png</file>
         <file>tick.png</file>
+        <file>go-next.png</file>
+        <file>go-back.png</file>
+        <file>ticket.png</file>
     </qresource>
 </RCC>

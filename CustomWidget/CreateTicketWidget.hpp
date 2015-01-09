@@ -5,6 +5,8 @@
 #include <QDate>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QContextMenuEvent>
+#include <QMenu>
 
 #include "ui_ticketpanel.h"
 #include "Economy/TicketContainer.hpp"
@@ -15,6 +17,9 @@ class CreateTicketWidget : public QWidget
 private:
     Ui::Form *ui;
     TicketContainer* ticketContainer;
+    QMenu *ticketContextMenu;
+
+    bool eventFilter(QObject *object, QEvent *event);
 public:
     explicit CreateTicketWidget(TicketContainer *ticketContainer, QWidget *parent = 0);
     ~CreateTicketWidget();

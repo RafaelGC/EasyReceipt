@@ -4,6 +4,8 @@ ManageTicketWidget::ManageTicketWidget(UserContainer *userContainer, TicketConta
     QWidget(parent),ui(new Ui::TicketManagerForm)
 {
     ui->setupUi(this);
+    ui->historialList->installEventFilter(this);
+
     this->config = config;
 
     this->ticketContainer = ticketContainer;
@@ -40,6 +42,12 @@ void ManageTicketWidget::setupInterface()
     okButton = new QPushButton(QIcon(":/icons/add.png"),"");
     okButton->setIconSize(QSize(20,20));
     ui->topInputLayout->addWidget(okButton);
+
+    productContextMenu = new QMenu(ui->historialList);
+    QAction *deleteProductAction = new QAction(QIcon(":/icons/trash.png"),tr("Eliminar producto"),productContextMenu);
+    productContextMenu->addAction(deleteProductAction);
+    QObject::connect(deleteProductAction,SIGNAL(triggered()),this,SLOT(deleteSelectedInput()));
+
 }
 
 void ManageTicketWidget::makeConnections()
@@ -59,6 +67,28 @@ void ManageTicketWidget::makeConnections()
 
 void ManageTicketWidget::showEvent(QShowEvent *){
     costInput->setFocus();
+}
+
+bool ManageTicketWidget::eventFilter(QObject *object, QEvent *event)
+{
+    if (event->type()==QEvent::ContextMenu){
+        QContextMenuEvent *contextEvent = static_cast<QContextMenuEvent*>(event);
+        QListWidgetItem *item = ui->historialList->itemAt(contextEvent->pos());
+        if (item){
+            productContextMenu->exec(ui->historialList->mapToGlobal(contextEvent->pos()));
+        }
+    }
+    else if (event->type()==QEvent::KeyPress){
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key()==Qt::Key_Delete){
+            if (ui->historialList->selectedItems().count()==1){
+                this->deleteSelectedInput();
+            }
+        }
+    }
+
+    return QObject::eventFilter(object,event);
+
 }
 
 void ManageTicketWidget::processInput(){

@@ -172,6 +172,10 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         cancelBtn = new QPushButton(TicketManagerForm);
         cancelBtn->setObjectName(QStringLiteral("cancelBtn"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icons/go-back.png"), QSize(), QIcon::Normal, QIcon::Off);
+        cancelBtn->setIcon(icon1);
+        cancelBtn->setIconSize(QSize(25, 25));
 
         horizontalLayout_3->addWidget(cancelBtn);
 
@@ -186,6 +190,10 @@ public:
         sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(next->sizePolicy().hasHeightForWidth());
         next->setSizePolicy(sizePolicy4);
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icons/go-next.png"), QSize(), QIcon::Normal, QIcon::Off);
+        next->setIcon(icon2);
+        next->setIconSize(QSize(25, 25));
 
         horizontalLayout_3->addWidget(next);
 
@@ -209,8 +217,8 @@ public:
         label->setText(QApplication::translate("TicketManagerForm", "Total:", 0));
         totalLabel->setText(QApplication::translate("TicketManagerForm", "0", 0));
         clearButton->setText(QApplication::translate("TicketManagerForm", "Limpiar todo", 0));
-        cancelBtn->setText(QApplication::translate("TicketManagerForm", "Cancelar", 0));
-        next->setText(QApplication::translate("TicketManagerForm", "Siguiente", 0));
+        cancelBtn->setText(QString());
+        next->setText(QString());
     } // retranslateUi
 
 };

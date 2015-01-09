@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
+#include <QMenu>
+#include <QKeyEvent>
 
 #include "ui_products.h"
 
@@ -32,10 +34,13 @@ private:
     QPushButton *okButton, *nextButton;
     std::vector<QLabel*>usersList;
 
+    QMenu *productContextMenu;
+
     void setupInterface();
     void makeConnections();
 
     void showEvent(QShowEvent *);
+    bool eventFilter(QObject *object, QEvent *event);
 
 public:
     explicit ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, Config *config, QWidget *parent=0);
