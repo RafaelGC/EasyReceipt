@@ -13,6 +13,8 @@
 #include "CustomWidget/HistoryWidget.hpp"
 
 #include "UserContainer.hpp"
+#include "Config.hpp"
+
 #include "Economy/TicketContainer.hpp"
 
 class ManageTicketWidget : public QWidget
@@ -23,6 +25,7 @@ private:
 
     UserContainer *userContainer;
     TicketContainer *ticketContainer;
+    Config *config;
 
     SpaceLineEdit *costInput;
     PredictionLineEdit *usersInput;
@@ -35,7 +38,7 @@ private:
     void showEvent(QShowEvent *);
 
 public:
-    explicit ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, QWidget *parent=0);
+    explicit ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, Config *config, QWidget *parent=0);
     ~ManageTicketWidget();
 
 private slots:

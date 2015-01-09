@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Reparto - BETA</string>
+   <string>Reparto</string>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -54,6 +54,7 @@
     </property>
     <addaction name="actionExportHtml"/>
     <addaction name="actionExportAllHtml"/>
+    <addaction name="actionConfig"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -80,6 +81,10 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/red-cross.png</normaloff>:/icons/red-cross.png</iconset>
+   </property>
    <property name="text">
     <string>Salir</string>
    </property>
@@ -90,6 +95,10 @@
    </property>
   </action>
   <action name="actionUsersManager">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/avatar.png</normaloff>:/icons/avatar.png</iconset>
+   </property>
    <property name="text">
     <string>Gestionar perfiles</string>
    </property>
@@ -104,8 +113,15 @@
     <string>Exportar todo a HTML</string>
    </property>
   </action>
+  <action name="actionConfig">
+   <property name="text">
+    <string>Configuración</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionExit</sender>

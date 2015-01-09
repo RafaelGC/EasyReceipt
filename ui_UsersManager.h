@@ -39,7 +39,7 @@ public:
     {
         if (UsersManager->objectName().isEmpty())
             UsersManager->setObjectName(QStringLiteral("UsersManager"));
-        UsersManager->resize(400, 300);
+        UsersManager->resize(288, 224);
         verticalLayout = new QVBoxLayout(UsersManager);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout_2 = new QHBoxLayout();
@@ -61,12 +61,18 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(addBtn->sizePolicy().hasHeightForWidth());
         addBtn->setSizePolicy(sizePolicy);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icons/add.png"), QSize(), QIcon::Normal, QIcon::Off);
+        addBtn->setIcon(icon);
         addBtn->setAutoDefault(false);
 
         horizontalLayout_2->addWidget(addBtn);
 
         deleteBtn = new QPushButton(UsersManager);
         deleteBtn->setObjectName(QStringLiteral("deleteBtn"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icons/remove.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteBtn->setIcon(icon1);
         deleteBtn->setAutoDefault(false);
 
         horizontalLayout_2->addWidget(deleteBtn);
@@ -89,8 +95,8 @@ public:
     {
         UsersManager->setWindowTitle(QApplication::translate("UsersManager", "Gestor de perfiles", 0));
         label->setText(QApplication::translate("UsersManager", "Nombre", 0));
-        addBtn->setText(QApplication::translate("UsersManager", "+", 0));
-        deleteBtn->setText(QApplication::translate("UsersManager", "-", 0));
+        addBtn->setText(QString());
+        deleteBtn->setText(QString());
     } // retranslateUi
 
 };

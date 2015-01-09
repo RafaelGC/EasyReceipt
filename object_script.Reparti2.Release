@@ -19,6 +19,10 @@ INPUT(
 ./release/CreateTicketWidget.o
 ./release/ManageTicketWidget.o
 ./release/TotalPayout.o
+./release/ConfigWidget.o
+./release/ConfigDbInterface.o
+./release/Config.o
+./release/AboutDialog.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o
@@ -31,4 +35,6 @@ INPUT(
 ./release/moc_CreateTicketWidget.o
 ./release/moc_ManageTicketWidget.o
 ./release/moc_TotalPayout.o
+./release/moc_ConfigWidget.o
+./release/moc_AboutDialog.o
 );

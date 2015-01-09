@@ -6,7 +6,7 @@ HistoryWidget::HistoryWidget(const Product *product, QWidget *parent) :
     this->product = product;
 
     this->names = new QLabel(product->getStringBuyers(),this);
-    this->cost = new QLabel(QString("%1").arg(product->getPrice()),this);
+    this->cost = new QLabel(QLocale::system().toString(product->getPrice()),this);
 
     layout = new QHBoxLayout(this);
     layout->addWidget(this->cost,1);

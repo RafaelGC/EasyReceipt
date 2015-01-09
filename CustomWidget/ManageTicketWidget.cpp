@@ -1,9 +1,10 @@
 #include "ManageTicketWidget.hpp"
 
-ManageTicketWidget::ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, QWidget *parent) :
+ManageTicketWidget::ManageTicketWidget(UserContainer *userContainer, TicketContainer *ticketContainer, Config *config, QWidget *parent) :
     QWidget(parent),ui(new Ui::TicketManagerForm)
 {
     ui->setupUi(this);
+    this->config = config;
 
     this->ticketContainer = ticketContainer;
     this->userContainer = userContainer;
@@ -20,16 +21,24 @@ ManageTicketWidget::~ManageTicketWidget()
 void ManageTicketWidget::setupInterface()
 {
     costInput = new SpaceLineEdit();
-    costInput->setPlaceholderText("€");
+    costInput->setPlaceholderText(config->getMonetarySymbol());
     costInput->setAlignment(Qt::AlignRight);
-
+    costInput->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     QDoubleValidator *validator = new QDoubleValidator(-10000,10000,4,costInput);
     costInput->setValidator(validator);
+    QFont font;
+    font.setPixelSize(18);
+    costInput->setFont(font);
     ui->topInputLayout->addWidget(costInput,1);
+
     usersInput = new PredictionLineEdit(userContainer);
     usersInput->setPlaceholderText("Nombre1,Nombre2,Nombre3");
+    usersInput->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+    usersInput->setFont(font);
     ui->topInputLayout->addWidget(usersInput,3);
-    okButton = new QPushButton("OK");
+
+    okButton = new QPushButton(QIcon(":/icons/add.png"),"");
+    okButton->setIconSize(QSize(20,20));
     ui->topInputLayout->addWidget(okButton);
 }
 
@@ -62,7 +71,7 @@ void ManageTicketWidget::processInput(){
     //Y también de que dicho valor sea un número. En principio
     //siempre debería serlo porque Qt lo restringe.
     bool conversionOk;
-    float moneyInput = costInput->text().toFloat(&conversionOk);
+    float moneyInput = QLocale::system().toFloat(costInput->text(),&conversionOk);
     if (!conversionOk){
         QMessageBox::warning(this,"Error","Formato numérico inválido.");
         return;
@@ -139,7 +148,7 @@ void ManageTicketWidget::deleteSelectedInput(){
 void ManageTicketWidget::copyHistorialSelectionToInput(){
     if (ui->historialList->selectedItems().count()==1){
         HistoryWidget* hi = (HistoryWidget*)ui->historialList->itemWidget(ui->historialList->selectedItems().first());//Upcast
-        costInput->setText(QString::number(hi->getProduct()->getPrice()));
+        costInput->setText(QLocale::system().toString(hi->getProduct()->getPrice()));
         usersInput->setText(hi->getProduct()->getStringBuyers());
         usersInput->setFocus();
     }
@@ -188,7 +197,7 @@ void ManageTicketWidget::updateUsersPayout(){
             /*Pero si es meyor que 0 implica que ha comprado algo por lo que
              *habrá que añadir un label para que el usuario lo vea.
              * */
-            QString txt = QString("%1: %2€").arg(currName).arg(money);
+            QString txt = QString("%1: %2").arg(currName).arg(config->constructMoney(money));
             QLabel *label = new QLabel(txt);
             //El objetivo de usersList es almacenar punteros a todos estos
             //labels para que puedan ser eliminados posteriormente.
@@ -198,7 +207,7 @@ void ManageTicketWidget::updateUsersPayout(){
         }
     }
     //Se actualiza el coste total de la factura.
-    ui->totalLabel->setText(QString("%1€").arg(ticketContainer->getCurrentTicket()->getTotalCost(true)));
+    ui->totalLabel->setText(QString("%1").arg(config->constructMoney(ticketContainer->getCurrentTicket()->getTotalCost(true))));
 
 }
 

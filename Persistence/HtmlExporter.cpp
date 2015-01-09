@@ -1,7 +1,8 @@
 #include "HtmlExporter.hpp"
 
-HtmlExporter::HtmlExporter()
+HtmlExporter::HtmlExporter(Config *config)
 {
+    this->config = config;
 }
 
 void HtmlExporter::addProduct(float price, QString buyers)
@@ -29,7 +30,10 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
         return ERROR;
     }
 
-    QTextStream output(&file);
+    QTextStream output(&file);/*
+    output.setAutoDetectUnicode(true);
+    output.setLocale(QLocale::system());*/
+    output.setCodec("UTF-8");
 
     output << "<html><head><meta charset=\"UTF-8\"><title>";
     output << name;
@@ -42,7 +46,8 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
     for (unsigned int i = 0; i<priceBuyers.size(); i++){
         auto item = priceBuyers[i];
         output << "<tr><td colspan=\"1\">";
-        output << item.first << "&euro;";
+        output << config->constructMoney(item.first);
+        //output << QLocale::system().toString(item.first) << "&euro;";
         output << "</td>";
         output << "<td colspan=\"1\">";
         output << item.second;
@@ -55,11 +60,11 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
     for (unsigned int i = 0; i<individualBuyer.size(); i++){
         auto current = individualBuyer[i];
         output << "<tr><td>";
-        output << current.second << "</td><td>" << current.first << "&euro;</td>";
+        output << current.second << "</td><td>" <<  config->constructMoney(current.first) << "</td>";
         output << "</tr>";
     }
     output << "<tr><td class=\"head\" colspan=\"2\">" << "<h2>TOTAL</h2>" << "</td></tr>";
-    output << "<tr><td colspan=\"2\">" << totalMoney << "&euro;</td></tr>";
+    output << "<tr><td colspan=\"2\">" <<  config->constructMoney(totalMoney) << "</td></tr>";
 
     output << "</table>";
     output << "</html>";

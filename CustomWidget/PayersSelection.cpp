@@ -1,9 +1,10 @@
 #include "PayersSelection.hpp"
 
-PayersSelection::PayersSelection(UserContainer *userContainer, TicketContainer *ticketContainer, QWidget *parent) :
+PayersSelection::PayersSelection(UserContainer *userContainer, TicketContainer *ticketContainer, Config *config, QWidget *parent) :
     QWidget(parent),ui(new Ui::PlayersSelectorForm)
 {
     ui->setupUi(this);
+    this->config = config;
     this->ticketContainer = ticketContainer;
     this->userContainer = userContainer;
 
@@ -57,7 +58,7 @@ void PayersSelection::updatePayers(){
     for (; i<userContainer->size(); i++){
         /*Se crean dos instancias de los elementos widgets necesarios.*/
         //QCheckBox *ck = new QCheckBox(userContainer->userAt(i)->getName());
-        QLineEdit *td = new QLineEdit();
+        SpaceLineEdit *td = new SpaceLineEdit();
         /*Se añade un validador para que sólo se puedan introducir números.*/
         td->setValidator(new QDoubleValidator(0,100000,3,td));
         td->setPlaceholderText(tr("Cantidad que pagó"));
@@ -104,7 +105,6 @@ void PayersSelection::clearPayout()
 void PayersSelection::fillUIFromTicket()
 {
     Ticket *ticket = ticketContainer->getCurrentTicket();
-    //std::vector<std::pair<QString>>
     updateUsersPayout();
     updatePayers();
 
@@ -129,13 +129,13 @@ void PayersSelection::updateUsersPayout()
     }
     else{
         for (unsigned int i=0; i<debts.size(); i++){
-            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2%3 a %4").arg(debts[i].getDebtor())
-                                               .arg(debts[i].getAmount(true)).arg("€").arg(debts[i].getCreditor())));
+            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2 a %3").arg(debts[i].getDebtor())
+                                               .arg(config->constructMoney(debts[i].getAmount(true))).arg(debts[i].getCreditor())));
         }
     }
 }
 
 void PayersSelection::showEvent(QShowEvent *)
 {
-    ui->totalPrice->setText(QString::number(ticketContainer->getCurrentTicket()->getTotalCost()));
+    ui->totalPrice->setText(config->constructMoney(ticketContainer->getCurrentTicket()->getTotalCost()));
 }

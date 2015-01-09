@@ -1,5 +1,13 @@
 <RCC>
     <qresource prefix="/icons">
         <file>icon.png</file>
+        <file>avatar.png</file>
+        <file>red-cross.png</file>
+        <file>add.png</file>
+        <file>remove.png</file>
+        <file>money.png</file>
+        <file>trash.png</file>
+        <file>pencil.png</file>
+        <file>tick.png</file>
     </qresource>
 </RCC>

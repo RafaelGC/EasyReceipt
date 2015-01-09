@@ -86,17 +86,32 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         deleteSelection = new QPushButton(historialGroupBox);
         deleteSelection->setObjectName(QStringLiteral("deleteSelection"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(deleteSelection->sizePolicy().hasHeightForWidth());
+        deleteSelection->setSizePolicy(sizePolicy1);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icons/trash.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteSelection->setIcon(icon);
+        deleteSelection->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(deleteSelection);
 
         upSelection = new QPushButton(historialGroupBox);
         upSelection->setObjectName(QStringLiteral("upSelection"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(upSelection->sizePolicy().hasHeightForWidth());
+        upSelection->setSizePolicy(sizePolicy2);
 
         horizontalLayout->addWidget(upSelection);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
 
+        verticalLayout_2->setStretch(0, 1);
 
         infoLayout->addWidget(historialGroupBox);
 
@@ -120,11 +135,11 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label = new QLabel(repartoGroupBox);
         label->setObjectName(QStringLiteral("label"));
-        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy3);
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
@@ -166,17 +181,18 @@ public:
 
         next = new QPushButton(TicketManagerForm);
         next->setObjectName(QStringLiteral("next"));
-        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(1);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(next->sizePolicy().hasHeightForWidth());
-        next->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy4(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(1);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(next->sizePolicy().hasHeightForWidth());
+        next->setSizePolicy(sizePolicy4);
 
         horizontalLayout_3->addWidget(next);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
 
+        verticalLayout->setStretch(1, 1);
 
         retranslateUi(TicketManagerForm);
 
@@ -187,8 +203,8 @@ public:
     {
         TicketManagerForm->setWindowTitle(QApplication::translate("TicketManagerForm", "Form", 0));
         historialGroupBox->setTitle(QApplication::translate("TicketManagerForm", "Historial", 0));
-        deleteSelection->setText(QApplication::translate("TicketManagerForm", "Eliminar selecci\303\263n", 0));
-        upSelection->setText(QApplication::translate("TicketManagerForm", "Subir selecci\303\263n", 0));
+        deleteSelection->setText(QString());
+        upSelection->setText(QApplication::translate("TicketManagerForm", "Copiar selecci\303\263n", 0));
         repartoGroupBox->setTitle(QApplication::translate("TicketManagerForm", "Reparto", 0));
         label->setText(QApplication::translate("TicketManagerForm", "Total:", 0));
         totalLabel->setText(QApplication::translate("TicketManagerForm", "0", 0));

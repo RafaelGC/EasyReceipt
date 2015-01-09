@@ -7,7 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QLocale::setDefault(QLocale::system());
+
     usersManagerDialog = new UsersManagerDialog(&userContainer,&userDb,this);
+    configDialog = new ConfigWidget(&config, this);
+    aboutDialog = new AboutDialog(this);
 
     loadUsersFromDatabase();
     setupInterface();
@@ -15,22 +19,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     this->setWindowIcon(QIcon(":/icons/icon.png"));
-    this->setWindowIconText("ZCalc");
+    this->setWindowIconText("Reparto");
 
 }
 
 MainWindow::~MainWindow()
 {
-    db.close();
     delete ui;
 }
 
 void MainWindow::makeConnections()
 {
-    QObject::connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(openAboutDialog()));
+    QObject::connect(ui->actionAbout,SIGNAL(triggered()),aboutDialog,SLOT(open()));
     QObject::connect(ui->actionExportHtml,SIGNAL(triggered()),this,SLOT(exportHtml()));
     QObject::connect(ui->actionExportAllHtml,SIGNAL(triggered()),this,SLOT(exportAllHtml()));
     QObject::connect(ui->actionUsersManager,SIGNAL(triggered()),usersManagerDialog,SLOT(open()));
+    QObject::connect(ui->actionConfig,SIGNAL(triggered()),configDialog,SLOT(open()));
 
     QObject::connect(payersSelection,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
     QObject::connect(createTicket,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
@@ -52,7 +56,6 @@ void MainWindow::makeConnections()
 
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),manageTicket,SLOT(fillUIFromTicket()));
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),payersSelection,SLOT(fillUIFromTicket()));
-
 }
 
 void MainWindow::setupInterface()
@@ -62,20 +65,16 @@ void MainWindow::setupInterface()
     createTicket = new CreateTicketWidget(&ticketContainer, ui->stackedWidget);
     ui->stackedWidget->addWidget(createTicket);
 
-    manageTicket = new ManageTicketWidget(&userContainer, &ticketContainer, ui->stackedWidget);
+    manageTicket = new ManageTicketWidget(&userContainer, &ticketContainer, &config, ui->stackedWidget);
     ui->stackedWidget->addWidget(manageTicket);
 
-    payersSelection = new PayersSelection(&userContainer,&ticketContainer,ui->stackedWidget);
+    payersSelection = new PayersSelection(&userContainer,&ticketContainer, &config,ui->stackedWidget);
     ui->stackedWidget->addWidget(payersSelection);
 
-    totalPayout = new TotalPayout(&ticketContainer,ui->stackedWidget);
+    totalPayout = new TotalPayout(&ticketContainer,&config,ui->stackedWidget);
     ui->stackedWidget->addWidget(totalPayout);
 
     ui->stackedWidget->setCurrentIndex(1);
-}
-
-void MainWindow::openAboutDialog(){
-    QMessageBox::about(this,tr("Sobre"),"Desarrollado por: Rafael González");
 }
 
 void MainWindow::fileTicket(){
@@ -100,7 +99,7 @@ void MainWindow::goToTotalPayout(){
 
 int MainWindow::saveHtmlFile(QString name, QString path, const Ticket *ticket)
 {
-    HtmlExporter exporter;
+    HtmlExporter exporter(&config);
     for (unsigned int i=0; i<ticket->countProducts(); i++){
         const Product *pr = ticket->productAt(i);
         exporter.addProduct(round(pr->getPrice()*100)/100,pr->getStringBuyers());

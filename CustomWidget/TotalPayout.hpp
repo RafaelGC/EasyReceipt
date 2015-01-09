@@ -9,16 +9,19 @@
 #include "Economy/Ticket.hpp"
 #include "Economy/Debt.hpp"
 
+#include "Config.hpp"
+
 class TotalPayout : public QWidget
 {
     Q_OBJECT
 private:
     Ui::FinalPayout *ui;
     TicketContainer *ticketContainer;
+    Config *config;
 
     void showEvent(QShowEvent *);
 public:
-    explicit TotalPayout(TicketContainer*ticketContainer, QWidget *parent = 0);
+    explicit TotalPayout(TicketContainer*ticketContainer, Config *config, QWidget *parent = 0);
     ~TotalPayout();
 signals:
     void goBack();

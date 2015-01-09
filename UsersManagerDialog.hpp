@@ -16,7 +16,6 @@ private:
     Ui::UsersManager *ui;
     UserContainer *userContainer;
     UserDbInterface *userDb;
-    QSqlDatabase db;
 
     bool updated;
 public:

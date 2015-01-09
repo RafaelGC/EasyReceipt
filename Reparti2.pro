@@ -31,7 +31,11 @@ SOURCES += main.cpp\
     Economy/Debt.cpp \
     CustomWidget/CreateTicketWidget.cpp \
     CustomWidget/ManageTicketWidget.cpp \
-    CustomWidget/TotalPayout.cpp
+    CustomWidget/TotalPayout.cpp \
+    CustomWidget/ConfigWidget.cpp \
+    Persistence/ConfigDbInterface.cpp \
+    Config.cpp \
+    AboutDialog.cpp
 
 HEADERS  += \
     User.hpp \
@@ -52,14 +56,20 @@ HEADERS  += \
     Economy/Debt.hpp \
     CustomWidget/CreateTicketWidget.hpp \
     CustomWidget/ManageTicketWidget.hpp \
-    CustomWidget/TotalPayout.hpp
+    CustomWidget/TotalPayout.hpp \
+    CustomWidget/ConfigWidget.hpp \
+    Persistence/ConfigDbInterface.hpp \
+    Config.hpp \
+    AboutDialog.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
     payersselector.ui \
     ticketpanel.ui \
     products.ui \
-    finalpayout.ui
+    finalpayout.ui \
+    config.ui \
+    aboutform.ui
 
 CONFIG += c++11
 
@@ -67,6 +77,6 @@ RC_FILE = resource.rc
 
 RESOURCES += \
     resources.qrc
-
+TRANSLATIONS += prueba.ls
 OTHER_FILES += \
     resource.rc

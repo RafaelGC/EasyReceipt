@@ -4,6 +4,8 @@
 #include <QLineEdit>
 #include <QKeyEvent>
 
+#include <QDebug>
+
 class SpaceLineEdit : public QLineEdit
 {
     Q_OBJECT

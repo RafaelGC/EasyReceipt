@@ -24,6 +24,8 @@
 
 #include "UsersManagerDialog.hpp"
 #include "UserContainer.hpp"
+#include "Config.hpp"
+#include "AboutDialog.hpp"
 
 #include "CustomWidget/PredictionLineEdit.hpp"
 #include "CustomWidget/SpaceLineEdit.hpp"
@@ -32,9 +34,11 @@
 #include "CustomWidget/CreateTicketWidget.hpp"
 #include "CustomWidget/ManageTicketWidget.hpp"
 #include "CustomWidget/TotalPayout.hpp"
+#include "CustomWidget/ConfigWidget.hpp"
 
 #include "Persistence/HtmlExporter.hpp"
 #include "Persistence/UserDbInterface.hpp"
+#include "Persistence/ConfigDbInterface.hpp"
 
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
@@ -56,8 +60,9 @@ public:
 private:
     Ui::MainWindow *ui;
     UsersManagerDialog *usersManagerDialog;
-    QSqlDatabase db;
+    ConfigWidget *configDialog;
     UserDbInterface userDb;
+    Config config;
 
     TicketContainer ticketContainer;
     UserContainer userContainer;
@@ -66,6 +71,7 @@ private:
     PayersSelection *payersSelection;
     CreateTicketWidget *createTicket;
     TotalPayout *totalPayout;
+    AboutDialog *aboutDialog;
 
     void loadUsersFromDatabase();
     void makeConnections();
@@ -76,7 +82,6 @@ private slots:
 
     void exportHtml();
     void exportAllHtml();
-    void openAboutDialog();
     void fileTicket();
 
     //Navegación

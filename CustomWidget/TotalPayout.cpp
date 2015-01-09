@@ -1,8 +1,9 @@
 #include "TotalPayout.hpp"
 
-TotalPayout::TotalPayout(TicketContainer*ticketContainer, QWidget *parent) :
+TotalPayout::TotalPayout(TicketContainer*ticketContainer, Config *config, QWidget *parent) :
     QWidget(parent), ui(new Ui::FinalPayout){
     ui->setupUi(this);
+    this->config = config;
 
     this->ticketContainer = ticketContainer;
 
@@ -51,14 +52,14 @@ void TotalPayout::showEvent(QShowEvent *){
 
     for (unsigned int i=0; i<debtList.size(); i++){
         if (debtList[i].getAmount()!=0){
-            ui->totalPayoutText->appendPlainText(QString("%1 debe pagar %2%3 a %4").arg(debtList[i].getDebtor())
-                                             .arg(debtList[i].getAmount(true)).arg("€").arg(debtList[i].getCreditor())
+            ui->totalPayoutText->appendPlainText(QString("%1 debe pagar %2 a %3").arg(debtList[i].getDebtor())
+                                             .arg(config->constructMoney(debtList[i].getAmount(true))).arg(debtList[i].getCreditor())
                                              );
         }
     }
 
     if (ui->totalPayoutText->toPlainText().isEmpty()){
-        ui->totalPayoutText->setPlainText("Nada pendiente.");
+        ui->totalPayoutText->setPlainText(tr("Nada pendiente."));
     }
 
 

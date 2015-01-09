@@ -5,7 +5,7 @@ PayerObserver::PayerObserver(QObject*parent):QObject(parent)
     lineEdit = nullptr;
 }
 
-PayerObserver::PayerObserver(QString payerName, QLineEdit *le):QObject(0)
+PayerObserver::PayerObserver(QString payerName, SpaceLineEdit *le):QObject(0)
 {
     this->payerName = payerName;
     this->lineEdit = le;
@@ -20,17 +20,17 @@ QString PayerObserver::getName()
 
 float PayerObserver::getAmount()
 {
-    return lineEdit->text().toFloat();
+    return QLocale::system().toFloat(lineEdit->text());
 }
 
 void PayerObserver::setAmount(float amount)
 {
-    lineEdit->setText(QString::number(amount));
+    lineEdit->setText(QLocale::system().toString(amount));
 }
 
 
 void PayerObserver::inform()
 {
-    float amnt = lineEdit->text().toFloat();
+    float amnt = getAmount();
     emit payerChanged(payerName,amnt);
 }

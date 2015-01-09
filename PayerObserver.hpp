@@ -3,17 +3,19 @@
 
 #include <QObject>
 #include <QCheckBox>
-#include <QLineEdit>
+#include <QLocale>
+
+#include "CustomWidget/SpaceLineEdit.hpp"
 
 class PayerObserver : public QObject
 {
     Q_OBJECT
 private:
-    QLineEdit *lineEdit;
+    SpaceLineEdit *lineEdit;
     QString payerName;
 public:
     PayerObserver(QObject*parent=0);
-    PayerObserver(QString payerName, QLineEdit*le);
+    PayerObserver(QString payerName, SpaceLineEdit*le);
 
     QString getName();
     float getAmount();

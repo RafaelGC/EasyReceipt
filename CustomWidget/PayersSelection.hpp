@@ -18,6 +18,8 @@
 #include "Economy/Debt.hpp"
 #include "PayerObserver.hpp"
 #include "UserContainer.hpp"
+#include "Config.hpp"
+#include "CustomWidget/SpaceLineEdit.hpp"
 #include "ui_payersselector.h"
 
 class PayersSelection : public QWidget
@@ -29,14 +31,14 @@ private:
     UserContainer*userContainer;
     QGridLayout *payersLayout;
     QVBoxLayout *payoutLayout;
-
+    Config *config;
     std::vector<PayerObserver*> payerObservers;
 
     void clearPayerObservers();
 
     void showEvent(QShowEvent *);
 public:
-    explicit PayersSelection(UserContainer *userContainer,TicketContainer*ticketContainer,QWidget *parent = 0);
+    explicit PayersSelection(UserContainer *userContainer,TicketContainer*ticketContainer, Config*config,QWidget *parent = 0);
     ~PayersSelection();
 private slots:
     void payerChanged(QString payerName, float amount);

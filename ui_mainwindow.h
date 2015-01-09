@@ -33,6 +33,7 @@ public:
     QAction *actionUsersManager;
     QAction *actionEliminar_perfil;
     QAction *actionExportAllHtml;
+    QAction *actionConfig;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
@@ -57,14 +58,22 @@ public:
         actionExportHtml->setObjectName(QStringLiteral("actionExportHtml"));
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QStringLiteral("actionExit"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icons/red-cross.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionExit->setIcon(icon);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         actionUsersManager = new QAction(MainWindow);
         actionUsersManager->setObjectName(QStringLiteral("actionUsersManager"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icons/avatar.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionUsersManager->setIcon(icon1);
         actionEliminar_perfil = new QAction(MainWindow);
         actionEliminar_perfil->setObjectName(QStringLiteral("actionEliminar_perfil"));
         actionExportAllHtml = new QAction(MainWindow);
         actionExportAllHtml->setObjectName(QStringLiteral("actionExportAllHtml"));
+        actionConfig = new QAction(MainWindow);
+        actionConfig->setObjectName(QStringLiteral("actionConfig"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -99,6 +108,7 @@ public:
         menubar->addAction(menuSobre->menuAction());
         menuArchivo->addAction(actionExportHtml);
         menuArchivo->addAction(actionExportAllHtml);
+        menuArchivo->addAction(actionConfig);
         menuArchivo->addSeparator();
         menuArchivo->addAction(actionExit);
         menuSobre->addAction(actionAbout);
@@ -115,13 +125,14 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Reparto - BETA", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Reparto", 0));
         actionExportHtml->setText(QApplication::translate("MainWindow", "Exportar a HTML", 0));
         actionExit->setText(QApplication::translate("MainWindow", "Salir", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "Sobre...", 0));
         actionUsersManager->setText(QApplication::translate("MainWindow", "Gestionar perfiles", 0));
         actionEliminar_perfil->setText(QApplication::translate("MainWindow", "Eliminar perfil", 0));
         actionExportAllHtml->setText(QApplication::translate("MainWindow", "Exportar todo a HTML", 0));
+        actionConfig->setText(QApplication::translate("MainWindow", "Configuraci\303\263n", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
         menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));

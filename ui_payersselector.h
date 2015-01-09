@@ -59,6 +59,8 @@ public:
 
         payersGroupBox = new QGroupBox(PlayersSelectorForm);
         payersGroupBox->setObjectName(QStringLiteral("payersGroupBox"));
+        payersGroupBox->setFlat(false);
+        payersGroupBox->setCheckable(false);
 
         verticalLayout->addWidget(payersGroupBox);
 
@@ -80,6 +82,10 @@ public:
 
         fileBtn = new QPushButton(PlayersSelectorForm);
         fileBtn->setObjectName(QStringLiteral("fileBtn"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icons/tick.png"), QSize(), QIcon::Normal, QIcon::Off);
+        fileBtn->setIcon(icon);
+        fileBtn->setIconSize(QSize(32, 32));
 
         horizontalLayout_8->addWidget(fileBtn);
 
@@ -97,10 +103,13 @@ public:
         PlayersSelectorForm->setWindowTitle(QApplication::translate("PlayersSelectorForm", "Form", 0));
         groupBox->setTitle(QApplication::translate("PlayersSelectorForm", "Gasto total", 0));
         totalPrice->setText(QApplication::translate("PlayersSelectorForm", "0", 0));
+#ifndef QT_NO_TOOLTIP
+        payersGroupBox->setToolTip(QApplication::translate("PlayersSelectorForm", "<html><head/><body><p>\302\277Qui\303\251n ha pagado la compra? Escribe cu\303\241nto ha pagado cada usuario (lo puedes dejar en blanco si no ha pagado nada). Esto puede resultar \303\272til si hay m\303\241s de un ticket pendiente o si, por cualquier motivo, la compra la pagaron varios.</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
         payersGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "\302\277Qui\303\251n paga?", 0));
         payoutGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "Reparto", 0));
         backBtn->setText(QApplication::translate("PlayersSelectorForm", "Atr\303\241s", 0));
-        fileBtn->setText(QApplication::translate("PlayersSelectorForm", "Archivar", 0));
+        fileBtn->setText(QString());
     } // retranslateUi
 
 };

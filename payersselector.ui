@@ -32,8 +32,17 @@
    </item>
    <item>
     <widget class="QGroupBox" name="payersGroupBox">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;¿Quién ha pagado la compra? Escribe cuánto ha pagado cada usuario (lo puedes dejar en blanco si no ha pagado nada). Esto puede resultar útil si hay más de un ticket pendiente o si, por cualquier motivo, la compra la pagaron varios.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="title">
       <string>¿Quién paga?</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
@@ -69,7 +78,17 @@
      <item>
       <widget class="QPushButton" name="fileBtn">
        <property name="text">
-        <string>Archivar</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/tick.png</normaloff>:/icons/tick.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -77,6 +96,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

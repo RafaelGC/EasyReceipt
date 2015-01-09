@@ -32,6 +32,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_3;
     QListWidget *ticketList;
+    QHBoxLayout *horizontalLayout_5;
     QPushButton *seeTicketBtn;
     QPushButton *deleteTicketBtn;
     QPushButton *totalPayoutBtn;
@@ -52,30 +53,63 @@ public:
     {
         if (Form->objectName().isEmpty())
             Form->setObjectName(QStringLiteral("Form"));
-        Form->resize(400, 300);
+        Form->resize(499, 300);
         horizontalLayout = new QHBoxLayout(Form);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         ticketList = new QListWidget(Form);
         ticketList->setObjectName(QStringLiteral("ticketList"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(ticketList->sizePolicy().hasHeightForWidth());
+        ticketList->setSizePolicy(sizePolicy);
 
         verticalLayout_3->addWidget(ticketList);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         seeTicketBtn = new QPushButton(Form);
         seeTicketBtn->setObjectName(QStringLiteral("seeTicketBtn"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(seeTicketBtn->sizePolicy().hasHeightForWidth());
+        seeTicketBtn->setSizePolicy(sizePolicy1);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/icons/pencil.png"), QSize(), QIcon::Normal, QIcon::Off);
+        seeTicketBtn->setIcon(icon);
+        seeTicketBtn->setIconSize(QSize(32, 32));
 
-        verticalLayout_3->addWidget(seeTicketBtn);
+        horizontalLayout_5->addWidget(seeTicketBtn);
 
         deleteTicketBtn = new QPushButton(Form);
         deleteTicketBtn->setObjectName(QStringLiteral("deleteTicketBtn"));
+        sizePolicy1.setHeightForWidth(deleteTicketBtn->sizePolicy().hasHeightForWidth());
+        deleteTicketBtn->setSizePolicy(sizePolicy1);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/icons/trash.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteTicketBtn->setIcon(icon1);
+        deleteTicketBtn->setIconSize(QSize(32, 32));
 
-        verticalLayout_3->addWidget(deleteTicketBtn);
+        horizontalLayout_5->addWidget(deleteTicketBtn);
 
         totalPayoutBtn = new QPushButton(Form);
         totalPayoutBtn->setObjectName(QStringLiteral("totalPayoutBtn"));
+        sizePolicy1.setHeightForWidth(totalPayoutBtn->sizePolicy().hasHeightForWidth());
+        totalPayoutBtn->setSizePolicy(sizePolicy1);
+        totalPayoutBtn->setMinimumSize(QSize(0, 0));
+        totalPayoutBtn->setSizeIncrement(QSize(0, 0));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icons/money.png"), QSize(), QIcon::Normal, QIcon::Off);
+        totalPayoutBtn->setIcon(icon2);
+        totalPayoutBtn->setIconSize(QSize(32, 32));
 
-        verticalLayout_3->addWidget(totalPayoutBtn);
+        horizontalLayout_5->addWidget(totalPayoutBtn);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_5);
 
 
         horizontalLayout->addLayout(verticalLayout_3);
@@ -84,22 +118,22 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         groupBox = new QGroupBox(Form);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
-        groupBox->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy2);
         verticalLayout_2 = new QVBoxLayout(groupBox);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label = new QLabel(groupBox);
         label->setObjectName(QStringLiteral("label"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Maximum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy3);
 
         horizontalLayout_2->addWidget(label);
 
@@ -149,13 +183,9 @@ public:
 
         horizontalLayout->addLayout(verticalLayout);
 
-        horizontalLayout->setStretch(0, 1);
-        horizontalLayout->setStretch(1, 2);
+        horizontalLayout->setStretch(1, 3);
         QWidget::setTabOrder(ticketName, addTicketBtn);
-        QWidget::setTabOrder(addTicketBtn, seeTicketBtn);
-        QWidget::setTabOrder(seeTicketBtn, deleteTicketBtn);
-        QWidget::setTabOrder(deleteTicketBtn, totalPayoutBtn);
-        QWidget::setTabOrder(totalPayoutBtn, ticketList);
+        QWidget::setTabOrder(addTicketBtn, ticketList);
 
         retranslateUi(Form);
 
@@ -165,13 +195,26 @@ public:
     void retranslateUi(QWidget *Form)
     {
         Form->setWindowTitle(QApplication::translate("Form", "Form", 0));
-        seeTicketBtn->setText(QApplication::translate("Form", "Ver ticket seleccionado", 0));
-        deleteTicketBtn->setText(QApplication::translate("Form", "Eliminar ticket seleccionado", 0));
-        totalPayoutBtn->setText(QApplication::translate("Form", "Desembolso total", 0));
+#ifndef QT_NO_TOOLTIP
+        seeTicketBtn->setToolTip(QApplication::translate("Form", "Editar el ticket seleccionado.", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_TOOLTIP
+        deleteTicketBtn->setToolTip(QApplication::translate("Form", "Eliminar el ticket seleccionado.", 0));
+#endif // QT_NO_TOOLTIP
+        deleteTicketBtn->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        totalPayoutBtn->setToolTip(QApplication::translate("Form", "Reparto final (teniendo en cuenta <b>todos</b> los tickets de la lista).", 0));
+#endif // QT_NO_TOOLTIP
         groupBox->setTitle(QApplication::translate("Form", "Nuevo ticket", 0));
         label->setText(QApplication::translate("Form", "Nombre", 0));
+#ifndef QT_NO_TOOLTIP
+        ticketName->setToolTip(QApplication::translate("Form", "<html><head/><body><p>Nombre identificativo del ticket. Es una buena idea que sea la fecha en la que se realiz\303\263 la compra.</p></body></html>", 0));
+#endif // QT_NO_TOOLTIP
         addTicketBtn->setText(QApplication::translate("Form", "A\303\261adir", 0));
-        label_2->setText(QApplication::translate("Form", "<a href=\"www.google.es\">www.zeltastudio.com</a>", 0));
+#ifndef QT_NO_TOOLTIP
+        label_2->setToolTip(QApplication::translate("Form", "Es s\303\263lo una broma.", 0));
+#endif // QT_NO_TOOLTIP
+        label_2->setText(QApplication::translate("Form", "<html><head/><body><p><a href=\"www.google.es\"><span style=\" text-decoration: underline; color:#0000ff;\">ALPHA-BETA PRERELEASE INDEV 1.6 UNICORNIO</span></a></p></body></html>", 0));
     } // retranslateUi
 
 };

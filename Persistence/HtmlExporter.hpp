@@ -7,6 +7,8 @@
 
 #include <vector>
 
+#include "Config.hpp"
+
 class HtmlExporter
 {
 private:
@@ -14,9 +16,10 @@ private:
     QTextStream stream;
     std::vector<std::pair<float,QString>>priceBuyers;
     std::vector<std::pair<float,QString>>individualBuyer;
+    Config* config;
 public:
     enum {OK,ERROR};
-    HtmlExporter();
+    HtmlExporter(Config *config);
 
     void addProduct(float price, QString buyers);
     void addBuyerInfo(float price, QString name);

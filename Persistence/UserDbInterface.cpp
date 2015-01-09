@@ -23,7 +23,7 @@ bool UserDbInterface::connect()
 
 void UserDbInterface::close()
 {
-
+    db.close();
 }
 
 QStringList UserDbInterface::queryUsers(int *ok)
