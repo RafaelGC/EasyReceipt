@@ -34,6 +34,9 @@ public:
     QAction *actionEliminar_perfil;
     QAction *actionExportAllHtml;
     QAction *actionConfig;
+    QAction *actionSave;
+    QAction *actionSaveAll;
+    QAction *actionLoadTicket;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
@@ -74,6 +77,16 @@ public:
         actionExportAllHtml->setObjectName(QStringLiteral("actionExportAllHtml"));
         actionConfig = new QAction(MainWindow);
         actionConfig->setObjectName(QStringLiteral("actionConfig"));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        QIcon icon2;
+        icon2.addFile(QStringLiteral(":/icons/floppy.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionSave->setIcon(icon2);
+        actionSaveAll = new QAction(MainWindow);
+        actionSaveAll->setObjectName(QStringLiteral("actionSaveAll"));
+        actionSaveAll->setIcon(icon2);
+        actionLoadTicket = new QAction(MainWindow);
+        actionLoadTicket->setObjectName(QStringLiteral("actionLoadTicket"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -106,6 +119,9 @@ public:
         menubar->addAction(menuArchivo->menuAction());
         menubar->addAction(menuPerfiles->menuAction());
         menubar->addAction(menuSobre->menuAction());
+        menuArchivo->addAction(actionSave);
+        menuArchivo->addAction(actionSaveAll);
+        menuArchivo->addAction(actionLoadTicket);
         menuArchivo->addAction(actionExportHtml);
         menuArchivo->addAction(actionExportAllHtml);
         menuArchivo->addAction(actionConfig);
@@ -133,6 +149,9 @@ public:
         actionEliminar_perfil->setText(QApplication::translate("MainWindow", "Eliminar perfil", 0));
         actionExportAllHtml->setText(QApplication::translate("MainWindow", "Exportar todo a HTML", 0));
         actionConfig->setText(QApplication::translate("MainWindow", "Configuraci\303\263n", 0));
+        actionSave->setText(QApplication::translate("MainWindow", "Guardar", 0));
+        actionSaveAll->setText(QApplication::translate("MainWindow", "Guardar todo", 0));
+        actionLoadTicket->setText(QApplication::translate("MainWindow", "Cargar ticket", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
         menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));

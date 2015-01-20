@@ -39,6 +39,7 @@
 #include "Persistence/HtmlExporter.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "Persistence/ConfigDbInterface.hpp"
+#include "Persistence/XmlManager.hpp"
 
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
@@ -83,6 +84,9 @@ private slots:
     void exportHtml();
     void exportAllHtml();
     void fileTicket();
+    void save(const QString&ticketName="");
+    void saveAll();
+    void loadFile();
 
     //Navegación
     void goToCreateTicket();

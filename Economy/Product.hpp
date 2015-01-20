@@ -14,6 +14,7 @@ public:
     Product();
     Product(float price, std::vector<QString>buyers);
     Product(float price);
+    Product(float price, const QString &buyers);
 
     bool buyedBy(QString name) const;
     float getPrice() const;

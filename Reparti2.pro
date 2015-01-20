@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     CustomWidget/ConfigWidget.cpp \
     Persistence/ConfigDbInterface.cpp \
     Config.cpp \
-    AboutDialog.cpp
+    AboutDialog.cpp \
+    Persistence/XmlManager.cpp
 
 HEADERS  += \
     User.hpp \
@@ -60,7 +61,8 @@ HEADERS  += \
     CustomWidget/ConfigWidget.hpp \
     Persistence/ConfigDbInterface.hpp \
     Config.hpp \
-    AboutDialog.hpp
+    AboutDialog.hpp \
+    Persistence/XmlManager.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

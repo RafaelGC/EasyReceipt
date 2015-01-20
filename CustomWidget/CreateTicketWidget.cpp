@@ -12,10 +12,14 @@ CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, QWidget 
     ticketContextMenu = new QMenu(ui->ticketList);
     QAction *seeTicketAction = new QAction(QIcon(":/icons/pencil.png"),tr("Ver ticket"),ticketContextMenu);
     QAction *deleteTicketAction = new QAction(QIcon(":/icons/trash.png"),tr("Eliminar ticket"),ticketContextMenu);
+    QAction *saveTicketAction = new QAction(QIcon(":/icons/floppy.png"),tr("Guardar ticket"),ticketContextMenu);
+
     ticketContextMenu->addAction(seeTicketAction);
     ticketContextMenu->addAction(deleteTicketAction);
+    ticketContextMenu->addAction(saveTicketAction);
     QObject::connect(seeTicketAction,SIGNAL(triggered()),this,SLOT(seeSelectedTicket()));
     QObject::connect(deleteTicketAction,SIGNAL(triggered()),this,SLOT(deleteSelectedTicket()));
+    QObject::connect(saveTicketAction,SIGNAL(triggered()),this,SLOT(saveSelectedTicket()));
 
     QObject::connect(ui->addTicketBtn,SIGNAL(clicked()),this,SLOT(createTicket()));
     QObject::connect(ui->ticketName,SIGNAL(returnPressed()),this,SLOT(createTicket()));
@@ -26,13 +30,22 @@ CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, QWidget 
     QObject::connect(ui->ticketList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(seeSelectedTicket()));
 }
 
-CreateTicketWidget::~CreateTicketWidget()
-{
+CreateTicketWidget::~CreateTicketWidget(){
     delete ui;
 }
 
-void CreateTicketWidget::createTicket()
-{
+void CreateTicketWidget::ticketLoaded(Ticket *ticket){
+    QListWidgetItem *item = new QListWidgetItem(QIcon(":/icons/ticket.png"),ticket->getName());
+    ui->ticketList->addItem(item);
+    ui->ticketList->setIconSize(QSize(30,32));
+}
+
+void CreateTicketWidget::createTicket(){
+    if (ui->ticketName->text().isEmpty()){
+        QMessageBox::warning(this,tr("Aviso"),tr("Debes darle un nombre al ticket."));
+        return;
+    }
+
     Ticket *createdTicket = ticketContainer->addTicket(ui->ticketName->text(),true);
 
     if (createdTicket==nullptr){
@@ -44,7 +57,7 @@ void CreateTicketWidget::createTicket()
         ui->ticketList->setIconSize(QSize(30,32));
 
         emit this->ticketCreated();
-        emit this->goToManageTicket();
+        //emit this->goToManageTicket(); Si se descomenta esto se mandará al usuario a la edición del ticket cuando lo cree.
     }
 }
 
@@ -55,6 +68,12 @@ bool CreateTicketWidget::eventFilter(QObject *object, QEvent *event)
         QListWidgetItem *item = ui->ticketList->itemAt(contextEvent->pos());
         if (item){
             ticketContextMenu->exec(ui->ticketList->mapToGlobal(contextEvent->pos()));
+        }
+    }
+    else if (event->type()==QEvent::KeyPress){
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key()==Qt::Key_Delete){
+            this->deleteSelectedTicket();
         }
     }
 
@@ -83,4 +102,8 @@ void CreateTicketWidget::deleteSelectedTicket(){
             delete ui->ticketList->takeItem(ui->ticketList->currentRow());
         }
     }
+}
+
+void CreateTicketWidget::saveSelectedTicket(){
+    emit this->saveSelectedTicketRequest(ui->ticketList->currentItem()->text());
 }

@@ -7,6 +7,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
 
     this->setWindowTitle(tr("Sobre..."));
     this->setFixedSize(374,263);
+
 }
 
 AboutDialog::~AboutDialog()

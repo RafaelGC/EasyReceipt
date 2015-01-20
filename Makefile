@@ -176,6 +176,7 @@ Makefile: Reparti2.pro C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++/qmake.con
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmaind.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Cored.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Xml.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Core.prl
@@ -297,6 +298,7 @@ Reparti2.pro:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmaind.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Cored.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl:
+C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Xml.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Core.prl:

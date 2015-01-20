@@ -12,6 +12,14 @@ Product::Product(float price){
     this->price = price;
 }
 
+Product::Product(float price, const QString &buyers){
+    this->price = price;
+    QStringList buyersTokenized = buyers.split(",");
+    for (QString current :  buyersTokenized){
+        this->buyers.push_back(current);
+    }
+}
+
 bool Product::buyedBy(QString name) const{
     for (auto it=buyers.begin();it!=buyers.end();it++){
         if (name==*it){

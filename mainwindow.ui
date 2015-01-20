@@ -52,6 +52,9 @@
     <property name="title">
      <string>Archivo</string>
     </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAll"/>
+    <addaction name="actionLoadTicket"/>
     <addaction name="actionExportHtml"/>
     <addaction name="actionExportAllHtml"/>
     <addaction name="actionConfig"/>
@@ -116,6 +119,29 @@
   <action name="actionConfig">
    <property name="text">
     <string>Configuración</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/floppy.png</normaloff>:/icons/floppy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+  </action>
+  <action name="actionSaveAll">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/floppy.png</normaloff>:/icons/floppy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guardar todo</string>
+   </property>
+  </action>
+  <action name="actionLoadTicket">
+   <property name="text">
+    <string>Cargar ticket</string>
    </property>
   </action>
  </widget>

@@ -23,6 +23,7 @@ INPUT(
 ./debug/ConfigDbInterface.o
 ./debug/Config.o
 ./debug/AboutDialog.o
+./debug/XmlManager.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

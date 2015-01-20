@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[9];
-    char stringdata[118];
+    QByteArrayData data[13];
+    char stringdata[151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,15 +34,19 @@ QT_MOC_LITERAL(1, 11, 10),
 QT_MOC_LITERAL(2, 22, 0),
 QT_MOC_LITERAL(3, 23, 13),
 QT_MOC_LITERAL(4, 37, 10),
-QT_MOC_LITERAL(5, 48, 16),
-QT_MOC_LITERAL(6, 65, 16),
-QT_MOC_LITERAL(7, 82, 19),
-QT_MOC_LITERAL(8, 102, 15)
+QT_MOC_LITERAL(5, 48, 4),
+QT_MOC_LITERAL(6, 53, 10),
+QT_MOC_LITERAL(7, 64, 7),
+QT_MOC_LITERAL(8, 72, 8),
+QT_MOC_LITERAL(9, 81, 16),
+QT_MOC_LITERAL(10, 98, 16),
+QT_MOC_LITERAL(11, 115, 19),
+QT_MOC_LITERAL(12, 135, 15)
     },
     "MainWindow\0exportHtml\0\0exportAllHtml\0"
-    "fileTicket\0goToCreateTicket\0"
-    "goToManageTicket\0goToPayersSelection\0"
-    "goToTotalPayout"
+    "fileTicket\0save\0ticketName\0saveAll\0"
+    "loadFile\0goToCreateTicket\0goToManageTicket\0"
+    "goToPayersSelection\0goToTotalPayout"
 };
 #undef QT_MOC_LITERAL
 
@@ -52,7 +56,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,15 +64,23 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x08 /* Private */,
-       3,    0,   50,    2, 0x08 /* Private */,
-       4,    0,   51,    2, 0x08 /* Private */,
-       5,    0,   52,    2, 0x08 /* Private */,
-       6,    0,   53,    2, 0x08 /* Private */,
-       7,    0,   54,    2, 0x08 /* Private */,
-       8,    0,   55,    2, 0x08 /* Private */,
+       1,    0,   69,    2, 0x08 /* Private */,
+       3,    0,   70,    2, 0x08 /* Private */,
+       4,    0,   71,    2, 0x08 /* Private */,
+       5,    1,   72,    2, 0x08 /* Private */,
+       5,    0,   75,    2, 0x28 /* Private | MethodCloned */,
+       7,    0,   76,    2, 0x08 /* Private */,
+       8,    0,   77,    2, 0x08 /* Private */,
+       9,    0,   78,    2, 0x08 /* Private */,
+      10,    0,   79,    2, 0x08 /* Private */,
+      11,    0,   80,    2, 0x08 /* Private */,
+      12,    0,   81,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -88,14 +100,17 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->exportHtml(); break;
         case 1: _t->exportAllHtml(); break;
         case 2: _t->fileTicket(); break;
-        case 3: _t->goToCreateTicket(); break;
-        case 4: _t->goToManageTicket(); break;
-        case 5: _t->goToPayersSelection(); break;
-        case 6: _t->goToTotalPayout(); break;
+        case 3: _t->save((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: _t->save(); break;
+        case 5: _t->saveAll(); break;
+        case 6: _t->loadFile(); break;
+        case 7: _t->goToCreateTicket(); break;
+        case 8: _t->goToManageTicket(); break;
+        case 9: _t->goToPayersSelection(); break;
+        case 10: _t->goToTotalPayout(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -123,13 +138,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 11;
     }
     return _id;
 }

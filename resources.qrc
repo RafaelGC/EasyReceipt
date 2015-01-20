@@ -12,5 +12,6 @@
         <file>go-next.png</file>
         <file>go-back.png</file>
         <file>ticket.png</file>
+        <file>floppy.png</file>
     </qresource>
 </RCC>

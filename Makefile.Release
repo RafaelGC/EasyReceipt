@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Release
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_SQL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_XML_LIB -DQT_SQL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -pipe -fno-keep-inline-dllexport -O2 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -fno-keep-inline-dllexport -O2 -std=c++0x -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I. -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore' -I'release' -I'.' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++'
+INCPATH       = -I. -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore' -I'release' -I'.' -I'C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++'
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -LC:/Qt/Qt5.3.2/5.3/mingw482_32/lib -lqtmain -LC:\mingw482\mingw32\lib -LC:\Utils\icu32_52_1_mingw482\lib -LC:\utils\postgresql\pgsql\lib -LC:\utils\mysql\mysql\lib -LC:\opensll\lib -LC:\Qt\Qt5.3.2\5.3\mingw482_32/lib -lQt5Widgets -lQt5Sql -lQt5Gui -lQt5Core release/resource_res.o 
+LIBS        =        -lglu32 -lopengl32 -lgdi32 -luser32 -lmingw32 -LC:/Qt/Qt5.3.2/5.3/mingw482_32/lib -lqtmain -LC:\mingw482\mingw32\lib -LC:\Utils\icu32_52_1_mingw482\lib -LC:\utils\postgresql\pgsql\lib -LC:\utils\mysql\mysql\lib -LC:\opensll\lib -LC:\Qt\Qt5.3.2\5.3\mingw482_32/lib -lQt5Widgets -lQt5Xml -lQt5Sql -lQt5Gui -lQt5Core release/resource_res.o 
 QMAKE         = C:/Qt/Qt5.3.2/5.3/mingw482_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
@@ -66,7 +66,8 @@ SOURCES       = main.cpp \
 		CustomWidget/ConfigWidget.cpp \
 		Persistence/ConfigDbInterface.cpp \
 		Config.cpp \
-		AboutDialog.cpp release/qrc_resources.cpp \
+		AboutDialog.cpp \
+		Persistence/XmlManager.cpp release/qrc_resources.cpp \
 		release/moc_UsersManagerDialog.cpp \
 		release/moc_PayerObserver.cpp \
 		release/moc_PayerWidget.cpp \
@@ -104,6 +105,7 @@ OBJECTS       = release/main.o \
 		release/ConfigDbInterface.o \
 		release/Config.o \
 		release/AboutDialog.o \
+		release/XmlManager.o \
 		release/qrc_resources.o \
 		release/moc_UsersManagerDialog.o \
 		release/moc_PayerObserver.o \
@@ -158,10 +160,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) Reparti2.zip $(SOURCES) $(DIST) Reparti2.pro C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/spec_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/qdevice.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/device_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/common/shell-unix.conf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/qconfig.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axbase.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axbase_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axcontainer.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axcontainer_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axserver.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axserver_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bluetooth.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bluetooth_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bootstrap_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_clucene_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_concurrent.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_concurrent_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_core.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_core_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_declarative.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_declarative_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designer.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designer_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designercomponents_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_enginio.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_enginio_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_network.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_network_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_nfc.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_nfc_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_opengl.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_opengl_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_openglextensions.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_openglextensions_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_platformsupport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_positioning.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_positioning_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_printsupport.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_printsupport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qml.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qml_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmldevtools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmltest.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmltest_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quick.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quick_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickparticles_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickwidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickwidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_script.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_script_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_scripttools.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_scripttools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sensors.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sensors_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_serialport.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_serialport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sql.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sql_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_svg.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_svg_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_testlib.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_testlib_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_uitools.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_uitools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkit.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkit_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkitwidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkitwidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_websockets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_websockets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_widgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_widgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_winextras.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_winextras_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xml.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xml_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xmlpatterns.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt_functions.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/qt_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++/qmake.conf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/spec_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exclusive_builds.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/default_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/default_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/resolve_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exclusive_builds_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/default_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/build_pass.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/c++11.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/rtti.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/precompile_header.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/warn_on.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/resources.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/moc.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/opengl.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/uic.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/windows.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/testcase_targets.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exceptions.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/yacc.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/lex.prf Reparti2.pro resources.qrc C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmain.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Core.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl prueba.ls prueba.ls NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) Reparti2.zip $(SOURCES) $(DIST) Reparti2.pro C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/spec_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/qdevice.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/device_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/common/shell-unix.conf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/qconfig.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axbase.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axbase_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axcontainer.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axcontainer_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axserver.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_axserver_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bluetooth.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bluetooth_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_bootstrap_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_clucene_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_concurrent.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_concurrent_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_core.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_core_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_declarative.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_declarative_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designer.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designer_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_designercomponents_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_enginio.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_enginio_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_network.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_network_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_nfc.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_nfc_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_opengl.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_opengl_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_openglextensions.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_openglextensions_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_platformsupport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_positioning.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_positioning_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_printsupport.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_printsupport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qml.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qml_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmldevtools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmltest.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qmltest_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quick.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quick_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickparticles_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickwidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_quickwidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_script.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_script_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_scripttools.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_scripttools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sensors.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sensors_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_serialport.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_serialport_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sql.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_sql_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_svg.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_svg_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_testlib.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_testlib_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_uitools.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_uitools_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkit.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkit_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkitwidgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_webkitwidgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_websockets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_websockets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_widgets.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_widgets_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_winextras.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_winextras_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xml.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xml_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xmlpatterns.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt_functions.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/qt_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++/qmake.conf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/spec_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exclusive_builds.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/default_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/default_pre.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/resolve_config.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exclusive_builds_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/default_post.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/build_pass.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/c++11.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/rtti.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/precompile_header.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/warn_on.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/qt.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/resources.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/moc.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/opengl.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/uic.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/win32/windows.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/testcase_targets.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/exceptions.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/yacc.prf C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/features/lex.prf Reparti2.pro resources.qrc C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmain.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Core.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Xml.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl prueba.ls prueba.ls NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release/main.o release/Mainwindow.o release/User.o release/UsersManagerDialog.o release/UserContainer.o release/PayerObserver.o release/HtmlExporter.o release/UserDbInterface.o release/PayerWidget.o release/HistoryWidget.o release/PayersSelection.o release/SpaceLineEdit.o release/PredictionLineEdit.o release/Ticket.o release/Product.o release/TicketContainer.o release/Debt.o release/CreateTicketWidget.o release/ManageTicketWidget.o release/TotalPayout.o release/ConfigWidget.o release/ConfigDbInterface.o release/Config.o release/AboutDialog.o release/qrc_resources.o release/moc_UsersManagerDialog.o release/moc_PayerObserver.o release/moc_PayerWidget.o release/moc_HistoryWidget.o release/moc_PayersSelection.o release/moc_SpaceLineEdit.o release/moc_PredictionLineEdit.o release/moc_Mainwindow.o release/moc_CreateTicketWidget.o release/moc_ManageTicketWidget.o release/moc_TotalPayout.o release/moc_ConfigWidget.o release/moc_AboutDialog.o
+	-$(DEL_FILE) release/main.o release/Mainwindow.o release/User.o release/UsersManagerDialog.o release/UserContainer.o release/PayerObserver.o release/HtmlExporter.o release/UserDbInterface.o release/PayerWidget.o release/HistoryWidget.o release/PayersSelection.o release/SpaceLineEdit.o release/PredictionLineEdit.o release/Ticket.o release/Product.o release/TicketContainer.o release/Debt.o release/CreateTicketWidget.o release/ManageTicketWidget.o release/TotalPayout.o release/ConfigWidget.o release/ConfigDbInterface.o release/Config.o release/AboutDialog.o release/XmlManager.o release/qrc_resources.o release/moc_UsersManagerDialog.o release/moc_PayerObserver.o release/moc_PayerWidget.o release/moc_HistoryWidget.o release/moc_PayersSelection.o release/moc_SpaceLineEdit.o release/moc_PredictionLineEdit.o release/moc_Mainwindow.o release/moc_CreateTicketWidget.o release/moc_ManageTicketWidget.o release/moc_TotalPayout.o release/moc_ConfigWidget.o release/moc_AboutDialog.o
 	-$(DEL_FILE) release/resource_res.o
 
 distclean: clean 
@@ -181,8 +183,15 @@ compiler_rcc_clean:
 	-$(DEL_FILE) release/qrc_resources.cpp
 release/qrc_resources.cpp: resources.qrc \
 		icon.png \
+		ticket.png \
+		money.png \
+		tick.png \
+		pencil.png \
 		red-cross.png \
 		add.png \
+		trash.png \
+		go-next.png \
+		go-back.png \
 		remove.png \
 		avatar.png
 	C:/Qt/Qt5.3.2/5.3/mingw482_32/bin/rcc.exe -name resources resources.qrc -o release/qrc_resources.cpp
@@ -363,7 +372,7 @@ release/moc_UsersManagerDialog.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql/QSqlError \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql/qsqlerror.h \
 		UsersManagerDialog.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore UsersManagerDialog.hpp -o release/moc_UsersManagerDialog.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore UsersManagerDialog.hpp -o release/moc_UsersManagerDialog.cpp
 
 release/moc_PayerObserver.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QObject \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qobject.h \
@@ -481,7 +490,7 @@ release/moc_PayerObserver.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QObj
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDebug \
 		PayerObserver.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore PayerObserver.hpp -o release/moc_PayerObserver.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore PayerObserver.hpp -o release/moc_PayerObserver.cpp
 
 release/moc_PayerWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qwidget.h \
@@ -584,7 +593,7 @@ release/moc_PayerWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWi
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtouchdevice.h \
 		CustomWidget/PayerWidget.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PayerWidget.hpp -o release/moc_PayerWidget.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PayerWidget.hpp -o release/moc_PayerWidget.cpp
 
 release/moc_HistoryWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qwidget.h \
@@ -703,7 +712,7 @@ release/moc_HistoryWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/Q
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QString \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QStringList \
 		CustomWidget/HistoryWidget.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/HistoryWidget.hpp -o release/moc_HistoryWidget.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/HistoryWidget.hpp -o release/moc_HistoryWidget.cpp
 
 release/moc_PayersSelection.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmessagebox.h \
@@ -882,7 +891,7 @@ release/moc_PayersSelection.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
 		CustomWidget/PayersSelection.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PayersSelection.hpp -o release/moc_PayersSelection.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PayersSelection.hpp -o release/moc_PayersSelection.cpp
 
 release/moc_SpaceLineEdit.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLineEdit \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlineedit.h \
@@ -993,7 +1002,7 @@ release/moc_SpaceLineEdit.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/Q
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDebug \
 		CustomWidget/SpaceLineEdit.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/SpaceLineEdit.hpp -o release/moc_SpaceLineEdit.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/SpaceLineEdit.hpp -o release/moc_SpaceLineEdit.cpp
 
 release/moc_PredictionLineEdit.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLineEdit \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlineedit.h \
@@ -1108,7 +1117,7 @@ release/moc_PredictionLineEdit.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVector \
 		User.hpp \
 		CustomWidget/PredictionLineEdit.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PredictionLineEdit.hpp -o release/moc_PredictionLineEdit.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/PredictionLineEdit.hpp -o release/moc_PredictionLineEdit.cpp
 
 release/moc_Mainwindow.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMainWindow \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmainwindow.h \
@@ -1302,11 +1311,14 @@ release/moc_Mainwindow.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMai
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql/qsqlerror.h \
 		Config.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale \
+		AboutDialog.hpp \
+		ui_aboutform.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		CustomWidget/PredictionLineEdit.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		CustomWidget/SpaceLineEdit.hpp \
 		CustomWidget/HistoryWidget.hpp \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		Economy/Product.hpp \
 		CustomWidget/PayersSelection.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLayoutItem \
@@ -1318,10 +1330,12 @@ release/moc_Mainwindow.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMai
 		ui_payersselector.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QGroupBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qgroupbox.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
 		CustomWidget/CreateTicketWidget.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDate \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QContextMenuEvent \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
 		ui_ticketpanel.h \
 		CustomWidget/ManageTicketWidget.hpp \
 		ui_products.h \
@@ -1346,8 +1360,14 @@ release/moc_Mainwindow.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMai
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qradiobutton.h \
 		Persistence/ConfigDbInterface.hpp \
 		Persistence/HtmlExporter.hpp \
+		Persistence/XmlManager.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomDocument \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qdom.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qtxmlglobal.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomElement \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomText \
 		Mainwindow.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore Mainwindow.hpp -o release/moc_Mainwindow.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore Mainwindow.hpp -o release/moc_Mainwindow.cpp
 
 release/moc_CreateTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qwidget.h \
@@ -1474,11 +1494,14 @@ release/moc_CreateTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QContextMenuEvent \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		ui_ticketpanel.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
@@ -1518,7 +1541,7 @@ release/moc_CreateTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QStringList \
 		Economy/Debt.hpp \
 		CustomWidget/CreateTicketWidget.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/CreateTicketWidget.hpp -o release/moc_CreateTicketWidget.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/CreateTicketWidget.hpp -o release/moc_CreateTicketWidget.cpp
 
 release/moc_ManageTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qwidget.h \
@@ -1630,11 +1653,14 @@ release/moc_ManageTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		ui_products.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
@@ -1680,7 +1706,6 @@ release/moc_ManageTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtextformat.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qpen.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDebug \
 		CustomWidget/PredictionLineEdit.hpp \
 		UserContainer.hpp \
@@ -1696,7 +1721,7 @@ release/moc_ManageTicketWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidg
 		Economy/Ticket.hpp \
 		Economy/Debt.hpp \
 		CustomWidget/ManageTicketWidget.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/ManageTicketWidget.hpp -o release/moc_ManageTicketWidget.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/ManageTicketWidget.hpp -o release/moc_ManageTicketWidget.cpp
 
 release/moc_TotalPayout.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qwidget.h \
@@ -1866,7 +1891,7 @@ release/moc_TotalPayout.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWi
 		Config.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale \
 		CustomWidget/TotalPayout.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/TotalPayout.hpp -o release/moc_TotalPayout.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/TotalPayout.hpp -o release/moc_TotalPayout.cpp
 
 release/moc_ConfigWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
@@ -2036,7 +2061,7 @@ release/moc_ConfigWidget.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QD
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QString \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale \
 		CustomWidget/ConfigWidget.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/ConfigWidget.hpp -o release/moc_ConfigWidget.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore CustomWidget/ConfigWidget.hpp -o release/moc_ConfigWidget.cpp
 
 release/moc_AboutDialog.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
@@ -2139,8 +2164,54 @@ release/moc_AboutDialog.cpp: C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QDi
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtouchdevice.h \
+		ui_aboutform.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QHeaderView \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qvalidator.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qslider.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qstyle.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QVBoxLayout \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		AboutDialog.hpp
-	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore AboutDialog.hpp -o release/moc_AboutDialog.cpp
+	'C:\Qt\Qt5.3.2\5.3\mingw482_32\bin\moc.exe' $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++ -IC:/Users/Rafa/Documents/QtCreatorProjects/Reparti2 -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui -IC:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore AboutDialog.hpp -o release/moc_AboutDialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2376,11 +2447,14 @@ release/main.o: main.cpp Mainwindow.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql/qsqlerror.h \
 		Config.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale \
+		AboutDialog.hpp \
+		ui_aboutform.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		CustomWidget/PredictionLineEdit.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		CustomWidget/SpaceLineEdit.hpp \
 		CustomWidget/HistoryWidget.hpp \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		Economy/Product.hpp \
 		CustomWidget/PayersSelection.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLayoutItem \
@@ -2392,10 +2466,12 @@ release/main.o: main.cpp Mainwindow.hpp \
 		ui_payersselector.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QGroupBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qgroupbox.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
 		CustomWidget/CreateTicketWidget.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDate \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QContextMenuEvent \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
 		ui_ticketpanel.h \
 		CustomWidget/ManageTicketWidget.hpp \
 		ui_products.h \
@@ -2420,6 +2496,12 @@ release/main.o: main.cpp Mainwindow.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qradiobutton.h \
 		Persistence/ConfigDbInterface.hpp \
 		Persistence/HtmlExporter.hpp \
+		Persistence/XmlManager.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomDocument \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qdom.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qtxmlglobal.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomElement \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomText \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QTranslator \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qtranslator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/main.o main.cpp
@@ -2617,11 +2699,14 @@ release/Mainwindow.o: Mainwindow.cpp Mainwindow.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtSql/qsqlerror.h \
 		Config.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale \
+		AboutDialog.hpp \
+		ui_aboutform.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		CustomWidget/PredictionLineEdit.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		CustomWidget/SpaceLineEdit.hpp \
 		CustomWidget/HistoryWidget.hpp \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget \
 		Economy/Product.hpp \
 		CustomWidget/PayersSelection.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLayoutItem \
@@ -2633,10 +2718,12 @@ release/Mainwindow.o: Mainwindow.cpp Mainwindow.hpp \
 		ui_payersselector.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QGroupBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qgroupbox.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
 		CustomWidget/CreateTicketWidget.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDate \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QContextMenuEvent \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
 		ui_ticketpanel.h \
 		CustomWidget/ManageTicketWidget.hpp \
 		ui_products.h \
@@ -2661,9 +2748,13 @@ release/Mainwindow.o: Mainwindow.cpp Mainwindow.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qradiobutton.h \
 		Persistence/ConfigDbInterface.hpp \
 		Persistence/HtmlExporter.hpp \
+		Persistence/XmlManager.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomDocument \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qdom.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qtxmlglobal.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomElement \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomText \
 		ui_mainwindow.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenuBar \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenubar.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QStackedWidget \
@@ -3120,7 +3211,9 @@ release/HtmlExporter.o: Persistence/HtmlExporter.cpp Persistence/HtmlExporter.hp
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qregexp.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qstringmatcher.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qshareddata.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QString
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QString \
+		Config.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QLocale
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/HtmlExporter.o Persistence/HtmlExporter.cpp
 
 release/UserDbInterface.o: Persistence/UserDbInterface.cpp Persistence/UserDbInterface.hpp \
@@ -4202,11 +4295,14 @@ release/CreateTicketWidget.o: CustomWidget/CreateTicketWidget.cpp CustomWidget/C
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QContextMenuEvent \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		ui_ticketpanel.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
@@ -4358,11 +4454,14 @@ release/ManageTicketWidget.o: CustomWidget/ManageTicketWidget.cpp CustomWidget/M
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QMenu \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qmenu.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		ui_products.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
@@ -4408,7 +4507,6 @@ release/ManageTicketWidget.o: CustomWidget/ManageTicketWidget.cpp CustomWidget/M
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtextformat.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qpen.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDebug \
 		CustomWidget/PredictionLineEdit.hpp \
 		UserContainer.hpp \
@@ -5018,8 +5116,136 @@ release/AboutDialog.o: AboutDialog.cpp AboutDialog.hpp \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfile.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qvector2d.h \
-		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtouchdevice.h
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qtouchdevice.h \
+		ui_aboutform.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QAction \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qaction.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QButtonGroup \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QHeaderView \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtGui/qvalidator.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qslider.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qstyle.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qtabbar.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qrubberband.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QVBoxLayout \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/AboutDialog.o AboutDialog.cpp
+
+release/XmlManager.o: Persistence/XmlManager.cpp Persistence/XmlManager.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomDocument \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qdom.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/qtxmlglobal.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qglobal.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qconfig.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfeatures.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qsystemdetection.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qprocessordetection.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcompilerdetection.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qtypeinfo.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qtypetraits.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qsysinfo.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qlogging.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qflags.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qbasicatomic.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qgenericatomic.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_msvc.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_armv7.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_armv6.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_armv5.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_ia64.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_mips.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_x86.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_gcc.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qatomic_unix.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qglobalstatic.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qmutex.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qnumeric.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qstring.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qchar.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qrefcount.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qnamespace.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qstringbuilder.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomElement \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtXml/QDomText \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QFile \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfile.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qobject.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qlist.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcoreevent.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qscopedpointer.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qmetatype.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qvarlengtharray.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcontainerfwd.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qisenum.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qobject_impl.h \
+		Economy/Ticket.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QDebug \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qhash.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qpair.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qmap.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qstringlist.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qregexp.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qvector.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qset.h \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/qcontiguouscache.h \
+		Economy/Product.hpp \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QString \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/include/QtCore/QStringList \
+		Economy/Debt.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/XmlManager.o Persistence/XmlManager.cpp
 
 release/qrc_resources.o: release/qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/qrc_resources.o release/qrc_resources.cpp

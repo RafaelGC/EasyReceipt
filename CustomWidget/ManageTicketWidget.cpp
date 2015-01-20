@@ -103,7 +103,7 @@ void ManageTicketWidget::processInput(){
     bool conversionOk;
     float moneyInput = QLocale::system().toFloat(costInput->text(),&conversionOk);
     if (!conversionOk){
-        QMessageBox::warning(this,"Error","Formato numérico inválido.");
+        QMessageBox::warning(this,"Error",QString("Formato numérico inválido. Recuerta que debes usar '%1' como separador decimal.").arg(QLocale::system().decimalPoint()));
         return;
     }
 

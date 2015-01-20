@@ -10,6 +10,10 @@ Ticket::~Ticket()
     clear();
 }
 
+void Ticket::setName(const QString &name){
+    this->ticketName = name;
+}
+
 QString Ticket::getName()
 {
     return this->ticketName;

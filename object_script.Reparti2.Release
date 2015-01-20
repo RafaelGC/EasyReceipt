@@ -23,6 +23,7 @@ INPUT(
 ./release/ConfigDbInterface.o
 ./release/Config.o
 ./release/AboutDialog.o
+./release/XmlManager.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o

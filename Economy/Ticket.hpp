@@ -19,6 +19,7 @@ public:
     Ticket(QString tiketName);
     ~Ticket();
 
+    void setName(const QString &name);
     QString getName();
 
     float getTotalCost(bool rounded=false) const;

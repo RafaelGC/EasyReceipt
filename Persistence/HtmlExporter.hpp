@@ -6,16 +6,17 @@
 #include <QString>
 
 #include <vector>
+#include <tuple>
 
 #include "Config.hpp"
 
 class HtmlExporter
 {
 private:
-    QFile file;
-    QTextStream stream;
     std::vector<std::pair<float,QString>>priceBuyers;
     std::vector<std::pair<float,QString>>individualBuyer;
+    std::vector<std::pair<float,QString>>payers;
+    std::vector<std::tuple<QString,float,QString>>payoutShare;
     Config* config;
 public:
     enum {OK,ERROR};
@@ -23,6 +24,8 @@ public:
 
     void addProduct(float price, QString buyers);
     void addBuyerInfo(float price, QString name);
+    void addPayer(float amount, QString name);
+    void addPayoutShare(QString debtor, float amount, QString creditor);
     void cleanHistoryElements();
 
     int save(const QString&name, const QString&fullPath, float totalMoney);

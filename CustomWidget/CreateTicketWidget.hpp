@@ -23,16 +23,19 @@ private:
 public:
     explicit CreateTicketWidget(TicketContainer *ticketContainer, QWidget *parent = 0);
     ~CreateTicketWidget();
+    void ticketLoaded(Ticket*ticket);
 
 signals:
     void goToManageTicket();
     void goToTotalPayout();
     void ticketCreated();
     void seeTicketRequest();
+    void saveSelectedTicketRequest(const QString&ticketName);
 private slots:
     void createTicket();
     void seeSelectedTicket();
     void deleteSelectedTicket();
+    void saveSelectedTicket();
 };
 
 #endif // CREATETICKETWIDGET_HPP
