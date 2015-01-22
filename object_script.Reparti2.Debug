@@ -19,7 +19,6 @@ INPUT(
 ./debug/CreateTicketWidget.o
 ./debug/ManageTicketWidget.o
 ./debug/TotalPayout.o
-./debug/ConfigWidget.o
 ./debug/ConfigDbInterface.o
 ./debug/Config.o
 ./debug/AboutDialog.o
@@ -27,6 +26,7 @@ INPUT(
 ./debug/Version.o
 ./debug/UpdateManager.o
 ./debug/UpdateDialog.o
+./debug/ConfigDialog.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o
@@ -39,8 +39,8 @@ INPUT(
 ./debug/moc_CreateTicketWidget.o
 ./debug/moc_ManageTicketWidget.o
 ./debug/moc_TotalPayout.o
-./debug/moc_ConfigWidget.o
 ./debug/moc_AboutDialog.o
 ./debug/moc_UpdateManager.o
 ./debug/moc_UpdateDialog.o
+./debug/moc_ConfigDialog.o
 );

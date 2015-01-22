@@ -15,42 +15,42 @@ TEMPLATE = app
 SOURCES += main.cpp\
     Mainwindow.cpp \
     User.cpp \
-    UsersManagerDialog.cpp \
+    Dialogs/UsersManagerDialog.cpp \
     UserContainer.cpp \
     PayerObserver.cpp \
     Persistence/HtmlExporter.cpp \
     Persistence/UserDbInterface.cpp \
     CustomWidget/PayerWidget.cpp \
     CustomWidget/HistoryWidget.cpp \
-    CustomWidget/PayersSelection.cpp \
+    Pages/PayersSelection.cpp \
     CustomWidget/SpaceLineEdit.cpp \
     CustomWidget/PredictionLineEdit.cpp \
     Economy/Ticket.cpp \
     Economy/Product.cpp \
     Economy/TicketContainer.cpp \
     Economy/Debt.cpp \
-    CustomWidget/CreateTicketWidget.cpp \
-    CustomWidget/ManageTicketWidget.cpp \
-    CustomWidget/TotalPayout.cpp \
-    CustomWidget/ConfigWidget.cpp \
+    Pages/CreateTicketWidget.cpp \
+    Pages/ManageTicketWidget.cpp \
+    Pages/TotalPayout.cpp \
     Persistence/ConfigDbInterface.cpp \
     Config.cpp \
-    AboutDialog.cpp \
+    Dialogs/AboutDialog.cpp \
     Persistence/XmlManager.cpp \
     Version.cpp \
     UpdateManager.cpp \
-    UpdateDialog.cpp
+    Dialogs/UpdateDialog.cpp \
+    Dialogs/ConfigDialog.cpp
 
 HEADERS  += \
     User.hpp \
-    UsersManagerDialog.hpp \
+    Dialogs/UsersManagerDialog.hpp \
     UserContainer.hpp \
     PayerObserver.hpp \
     Persistence/HtmlExporter.hpp \
     Persistence/UserDbInterface.hpp \
     CustomWidget/PayerWidget.hpp \
     CustomWidget/HistoryWidget.hpp \
-    CustomWidget/PayersSelection.hpp \
+    Pages/PayersSelection.hpp \
     CustomWidget/SpaceLineEdit.hpp \
     CustomWidget/PredictionLineEdit.hpp \
     Economy/Ticket.hpp \
@@ -58,17 +58,17 @@ HEADERS  += \
     Economy/TicketContainer.hpp \
     Mainwindow.hpp \
     Economy/Debt.hpp \
-    CustomWidget/CreateTicketWidget.hpp \
-    CustomWidget/ManageTicketWidget.hpp \
-    CustomWidget/TotalPayout.hpp \
-    CustomWidget/ConfigWidget.hpp \
+    Pages/CreateTicketWidget.hpp \
+    Pages/ManageTicketWidget.hpp \
+    Pages/TotalPayout.hpp \
     Persistence/ConfigDbInterface.hpp \
     Config.hpp \
-    AboutDialog.hpp \
+    Dialogs/AboutDialog.hpp \
     Persistence/XmlManager.hpp \
     Version.hpp \
     UpdateManager.hpp \
-    UpdateDialog.hpp
+    Dialogs/UpdateDialog.hpp \
+    Dialogs/ConfigDialog.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

@@ -1,6 +1,6 @@
-#include "ConfigWidget.hpp"
+#include "ConfigDialog.hpp"
 
-ConfigWidget::ConfigWidget(Config *config, QWidget *parent) :
+ConfigDialog::ConfigDialog(Config *config, QWidget *parent) :
     QDialog(parent),ui(new Ui::Config){
     ui->setupUi(this);
     this->config = config;
@@ -27,11 +27,11 @@ ConfigWidget::ConfigWidget(Config *config, QWidget *parent) :
 }
 
 
-ConfigWidget::~ConfigWidget(){
+ConfigDialog::~ConfigDialog(){
     delete ui;
 }
 
-void ConfigWidget::saveConfig()
+void ConfigDialog::saveConfig()
 {
     config->setMonetarySymbol(ui->comboBox->currentText());
     if (ui->afterRd->isChecked()){

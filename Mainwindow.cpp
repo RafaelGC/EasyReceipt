@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QLocale::setDefault(QLocale::system());
 
     usersManagerDialog = new UsersManagerDialog(&userContainer,&userDb,this);
-    configDialog = new ConfigWidget(&config, this);
+    configDialog = new ConfigDialog(&config, this);
     aboutDialog = new AboutDialog(&config, this);
     updateDialog = new UpdateDialog(this);
 

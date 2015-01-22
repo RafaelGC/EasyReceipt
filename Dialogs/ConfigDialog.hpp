@@ -8,7 +8,7 @@
 #include "Persistence/ConfigDbInterface.hpp"
 #include "Config.hpp"
 
-class ConfigWidget : public QDialog
+class ConfigDialog : public QDialog
 {
     Q_OBJECT
 private:
@@ -16,8 +16,8 @@ private:
     Config *config;
 
 public:
-    explicit ConfigWidget(Config *config, QWidget *parent = 0);
-    ~ConfigWidget();
+    explicit ConfigDialog(Config *config, QWidget *parent = 0);
+    ~ConfigDialog();
 
 signals:
 private slots:

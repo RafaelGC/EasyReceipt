@@ -19,20 +19,19 @@
 #include <QGridLayout>
 #include <QInputDialog>
 
+#include "Dialogs/UsersManagerDialog.hpp"
+#include "Dialogs/AboutDialog.hpp"
+#include "Dialogs/UpdateDialog.hpp"
+#include "Dialogs/ConfigDialog.hpp"
 
-#include <fstream>
-
-#include "UsersManagerDialog.hpp"
 #include "UserContainer.hpp"
 #include "Config.hpp"
-#include "AboutDialog.hpp"
-#include "UpdateDialog.hpp"
 
-#include "CustomWidget/PayersSelection.hpp"
-#include "CustomWidget/CreateTicketWidget.hpp"
-#include "CustomWidget/ManageTicketWidget.hpp"
-#include "CustomWidget/TotalPayout.hpp"
-#include "CustomWidget/ConfigWidget.hpp"
+
+#include "Pages/PayersSelection.hpp"
+#include "Pages/CreateTicketWidget.hpp"
+#include "Pages/ManageTicketWidget.hpp"
+#include "Pages/TotalPayout.hpp"
 
 #include "Persistence/HtmlExporter.hpp"
 #include "Persistence/UserDbInterface.hpp"
@@ -57,22 +56,28 @@ public:
     
 private:
     Ui::MainWindow *ui;
-    UsersManagerDialog *usersManagerDialog;
-    ConfigWidget *configDialog;
+
+    //INTERFACES
     UserDbInterface userDb;
     ConfigDbInterface dbConfigInterface;
-    Config config;
 
+    //CLASES GESTORAS/CONTENEDORAS
     UpdateManager updateManager;
     TicketContainer ticketContainer;
     UserContainer userContainer;
+    Config config;
 
+    //PÁGINAS
     ManageTicketWidget *manageTicket;
     PayersSelection *payersSelection;
     CreateTicketWidget *createTicket;
     TotalPayout *totalPayout;
+
+    //DIÁLOGOS
     AboutDialog *aboutDialog;
     UpdateDialog *updateDialog;
+    UsersManagerDialog *usersManagerDialog;
+    ConfigDialog *configDialog;
 
     void loadUsersFromDatabase();
     void makeConnections();
