@@ -1,10 +1,11 @@
 #include "CreateTicketWidget.hpp"
 
-CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, QWidget *parent) :
+CreateTicketWidget::CreateTicketWidget(TicketContainer*ticketContainer, Config *config, QWidget *parent) :
     QWidget(parent),ui(new Ui::Form){
     ui->setupUi(this);
     ui->ticketList->installEventFilter(this);
 
+    this->config = config;
     this->ticketContainer = ticketContainer;
 
     ui->ticketName->setText(QDate::currentDate().toString("yyyy-MM-dd"));
@@ -107,3 +108,5 @@ void CreateTicketWidget::deleteSelectedTicket(){
 void CreateTicketWidget::saveSelectedTicket(){
     emit this->saveSelectedTicketRequest(ui->ticketList->currentItem()->text());
 }
+
+

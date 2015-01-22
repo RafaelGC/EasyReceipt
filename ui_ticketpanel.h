@@ -46,7 +46,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *addTicketBtn;
     QSpacerItem *verticalSpacer;
-    QLabel *label_2;
+    QLabel *updateLink;
     QHBoxLayout *horizontalLayout_3;
 
     void setupUi(QWidget *Form)
@@ -166,13 +166,14 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
-        label_2 = new QLabel(Form);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_2->setOpenExternalLinks(true);
-        label_2->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
+        updateLink = new QLabel(Form);
+        updateLink->setObjectName(QStringLiteral("updateLink"));
+        updateLink->setStyleSheet(QStringLiteral(""));
+        updateLink->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        updateLink->setOpenExternalLinks(true);
+        updateLink->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
-        verticalLayout->addWidget(label_2);
+        verticalLayout->addWidget(updateLink);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -212,9 +213,9 @@ public:
 #endif // QT_NO_TOOLTIP
         addTicketBtn->setText(QApplication::translate("Form", "A\303\261adir", 0));
 #ifndef QT_NO_TOOLTIP
-        label_2->setToolTip(QApplication::translate("Form", "Es s\303\263lo una broma.", 0));
+        updateLink->setToolTip(QApplication::translate("Form", "Visita la web para encontrar novedades o actualizaciones.", 0));
 #endif // QT_NO_TOOLTIP
-        label_2->setText(QApplication::translate("Form", "<html><head/><body><p><a href=\"www.google.es\"><span style=\" text-decoration: underline; color:#0000ff;\">ALPHA-BETA PRERELEASE INDEV 1.6 UNICORNIO</span></a></p></body></html>", 0));
+        updateLink->setText(QApplication::translate("Form", "<html><head/><body><p><a href=\"http://www.zeltastudio.com\">Web oficial</a></p></body></html>", 0));
     } // retranslateUi
 
 };

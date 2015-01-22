@@ -32,6 +32,7 @@ public:
     QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
+    QLabel *version;
     QSpacerItem *verticalSpacer_3;
     QLabel *label_3;
     QLabel *label_4;
@@ -81,6 +82,12 @@ public:
         label_2->setFont(font);
 
         verticalLayout_2->addWidget(label_2);
+
+        version = new QLabel(AboutForm);
+        version->setObjectName(QStringLiteral("version"));
+        version->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        verticalLayout_2->addWidget(version);
 
         verticalSpacer_3 = new QSpacerItem(20, 30, QSizePolicy::Minimum, QSizePolicy::Maximum);
 
@@ -138,7 +145,8 @@ public:
     {
         AboutForm->setWindowTitle(QApplication::translate("AboutForm", "Sobre...", 0));
         label->setText(QString());
-        label_2->setText(QApplication::translate("AboutForm", "BRUTAL", 0));
+        label_2->setText(QApplication::translate("AboutForm", "EasyReceipt", 0));
+        version->setText(QApplication::translate("AboutForm", "1.0", 0));
         label_3->setText(QApplication::translate("AboutForm", "Desarrollado por: Rafael Gonz\303\241lez", 0));
         label_4->setText(QApplication::translate("AboutForm", "<a href=\"http://www.google.es\">www.google.es</a>", 0));
         closeBtn->setText(QApplication::translate("AboutForm", "Cerrar", 0));

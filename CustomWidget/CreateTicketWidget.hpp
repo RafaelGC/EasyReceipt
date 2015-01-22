@@ -7,9 +7,13 @@
 #include <QMessageBox>
 #include <QContextMenuEvent>
 #include <QMenu>
+#include <time.h>
 
 #include "ui_ticketpanel.h"
 #include "Economy/TicketContainer.hpp"
+
+#include "Config.hpp"
+#include "UpdateManager.hpp"
 
 class CreateTicketWidget : public QWidget
 {
@@ -18,10 +22,12 @@ private:
     Ui::Form *ui;
     TicketContainer* ticketContainer;
     QMenu *ticketContextMenu;
+    Config *config;
+
 
     bool eventFilter(QObject *object, QEvent *event);
 public:
-    explicit CreateTicketWidget(TicketContainer *ticketContainer, QWidget *parent = 0);
+    explicit CreateTicketWidget(TicketContainer *ticketContainer, Config *config, QWidget *parent = 0);
     ~CreateTicketWidget();
     void ticketLoaded(Ticket*ticket);
 

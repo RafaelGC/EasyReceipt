@@ -5,13 +5,17 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    dbConfigInterface.loadConfig(&config);
+    config.setVersion(1,0); //Versión 1.0. Se establece desde código.
+
     ui->setupUi(this);
 
     QLocale::setDefault(QLocale::system());
 
     usersManagerDialog = new UsersManagerDialog(&userContainer,&userDb,this);
     configDialog = new ConfigWidget(&config, this);
-    aboutDialog = new AboutDialog(this);
+    aboutDialog = new AboutDialog(&config, this);
+    updateDialog = new UpdateDialog(this);
 
     loadUsersFromDatabase();
     setupInterface();
@@ -19,12 +23,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     this->setWindowIcon(QIcon(":/icons/icon.png"));
-    this->setWindowIconText("Reparto");
+    this->setWindowIconText("EasyReceipt");
+
+    if (config.getUpdatesEnabled()){
+        if (config.getLastUpdateCheck().daysTo(QDate::currentDate())>=5){
+            QObject::connect(&updateManager,SIGNAL(newUpdate(Version,QString)),this,SLOT(newUpdate(Version,QString)));
+            updateManager.connectToServer();
+            config.setLastUpdateCheck(QDate::currentDate());
+        }
+    }
 
 }
 
 MainWindow::~MainWindow()
 {
+    dbConfigInterface.saveConfig(config);
+    dbConfigInterface.close();
+    userDb.close();
     delete ui;
 }
 
@@ -66,7 +81,7 @@ void MainWindow::setupInterface()
 {
     //Creamos las distintas páginas.
 
-    createTicket = new CreateTicketWidget(&ticketContainer, ui->stackedWidget);
+    createTicket = new CreateTicketWidget(&ticketContainer, &config, ui->stackedWidget);
     ui->stackedWidget->addWidget(createTicket);
 
     manageTicket = new ManageTicketWidget(&userContainer, &ticketContainer, &config, ui->stackedWidget);
@@ -306,5 +321,11 @@ void MainWindow::loadUsersFromDatabase()
     for (auto it = userList.begin(); it!=userList.end(); ++it){
         userContainer.addUser(User(*it,false));
         usersManagerDialog->addUserToList(*it);
+    }
+}
+
+void MainWindow::newUpdate(Version version, QString updateUrl){
+    if (config.getVersion()<version){
+        updateDialog->open(version,updateUrl);
     }
 }

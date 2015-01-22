@@ -39,3 +39,28 @@ QString Config::constructMoney(float amount){
     }
     return "";
 }
+
+void Config::setVersion(int major, int minor){
+    version.setMajor(major);
+    version.setMinor(minor);
+}
+
+Version Config::getVersion(){
+    return this->version;
+}
+
+void Config::setLastUpdateCheck(QDate date){
+    this->lastUpdateCheck = date;
+}
+
+QDate Config::getLastUpdateCheck(){
+    return this->lastUpdateCheck;
+}
+
+void Config::setUpdatesEnabled(bool enabled){
+    this->updatesEnabled = enabled;
+}
+
+bool Config::getUpdatesEnabled(){
+    return this->updatesEnabled;
+}

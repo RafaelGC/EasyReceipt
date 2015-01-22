@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>258</width>
-    <height>199</height>
+    <height>221</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -83,6 +83,22 @@
       </layout>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>¿Notificar actualizaciones?</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="updatesEnabled">
+        <property name="text">
+         <string>Notificar actualizaciones</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

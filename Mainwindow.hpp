@@ -26,10 +26,8 @@
 #include "UserContainer.hpp"
 #include "Config.hpp"
 #include "AboutDialog.hpp"
+#include "UpdateDialog.hpp"
 
-#include "CustomWidget/PredictionLineEdit.hpp"
-#include "CustomWidget/SpaceLineEdit.hpp"
-#include "CustomWidget/HistoryWidget.hpp"
 #include "CustomWidget/PayersSelection.hpp"
 #include "CustomWidget/CreateTicketWidget.hpp"
 #include "CustomWidget/ManageTicketWidget.hpp"
@@ -44,7 +42,6 @@
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
-
 
 namespace Ui {
 class MainWindow;
@@ -63,8 +60,10 @@ private:
     UsersManagerDialog *usersManagerDialog;
     ConfigWidget *configDialog;
     UserDbInterface userDb;
+    ConfigDbInterface dbConfigInterface;
     Config config;
 
+    UpdateManager updateManager;
     TicketContainer ticketContainer;
     UserContainer userContainer;
 
@@ -73,6 +72,7 @@ private:
     CreateTicketWidget *createTicket;
     TotalPayout *totalPayout;
     AboutDialog *aboutDialog;
+    UpdateDialog *updateDialog;
 
     void loadUsersFromDatabase();
     void makeConnections();
@@ -87,6 +87,7 @@ private slots:
     void save(const QString&ticketName="");
     void saveAll();
     void loadFile();
+    void newUpdate(Version version, QString updateUrl);
 
     //Navegación
     void goToCreateTicket();

@@ -66,7 +66,7 @@ int XmlManager::loadFromXml(QString fileName, Ticket *ticket){
     QDomElement documentElement = document.documentElement();
 
     QString ticketName = documentElement.attribute("name",QObject::tr("Sin nombre"));
-    float appVersion = documentElement.attribute("appversion","1.0").toFloat();
+    //float appVersion = documentElement.attribute("appversion","1.0").toFloat();
 
     ticket->setName(ticketName);
 

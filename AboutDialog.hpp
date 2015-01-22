@@ -2,6 +2,10 @@
 #define ABOUTDIALOG_HPP
 
 #include <QDialog>
+#include <QDebug>
+
+#include "Version.hpp"
+#include "Config.hpp"
 
 #include "ui_aboutform.h"
 
@@ -11,7 +15,7 @@ class AboutDialog : public QDialog
 private:
     Ui::AboutForm *ui;
 public:
-    explicit AboutDialog(QWidget *parent = 0);
+    explicit AboutDialog(Config *config, QWidget *parent = 0);
     ~AboutDialog();
 signals:
 

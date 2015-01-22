@@ -13,8 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -36,6 +38,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     QRadioButton *afterRd;
     QRadioButton *beforeRd;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_3;
+    QCheckBox *updatesEnabled;
     QSpacerItem *verticalSpacer;
     QDialogButtonBox *buttons;
 
@@ -43,7 +48,7 @@ public:
     {
         if (Config->objectName().isEmpty())
             Config->setObjectName(QStringLiteral("Config"));
-        Config->resize(258, 199);
+        Config->resize(258, 221);
         Config->setMinimumSize(QSize(258, 0));
         verticalLayout = new QVBoxLayout(Config);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -83,6 +88,18 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        groupBox = new QGroupBox(Config);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        verticalLayout_3 = new QVBoxLayout(groupBox);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        updatesEnabled = new QCheckBox(groupBox);
+        updatesEnabled->setObjectName(QStringLiteral("updatesEnabled"));
+
+        verticalLayout_3->addWidget(updatesEnabled);
+
+
+        verticalLayout->addWidget(groupBox);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -119,6 +136,8 @@ public:
         beforeRd->setToolTip(QApplication::translate("Config", "<html><head/><body><p>Por ejemplo: $50</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
         beforeRd->setText(QApplication::translate("Config", "antes de la cifra.", 0));
+        groupBox->setTitle(QApplication::translate("Config", "\302\277Notificar actualizaciones?", 0));
+        updatesEnabled->setText(QApplication::translate("Config", "Notificar actualizaciones", 0));
     } // retranslateUi
 
 };

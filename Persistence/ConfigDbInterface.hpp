@@ -7,6 +7,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <QSqlError>
+#include <QDate>
 
 #include "Config.hpp"
 
@@ -20,7 +21,7 @@ public:
 
     ConfigDbInterface();
 
-    Config loadConfig();
+    void loadConfig(Config *config);
     void saveConfig(Config &config);
 
     void close();

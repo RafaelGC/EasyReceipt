@@ -63,7 +63,17 @@
         </font>
        </property>
        <property name="text">
-        <string>BRUTAL</string>
+        <string>EasyReceipt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="version">
+       <property name="text">
+        <string>1.0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>

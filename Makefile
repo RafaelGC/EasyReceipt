@@ -89,6 +89,8 @@ Makefile: Reparti2.pro C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++/qmake.con
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui_private.pri \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help.pri \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help_private.pri \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_http.pri \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_http_private.pri \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia.pri \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia_private.pri \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets.pri \
@@ -176,6 +178,7 @@ Makefile: Reparti2.pro C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/win32-g++/qmake.con
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmaind.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Cored.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl \
+		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Network.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Xml.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl \
 		C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl \
@@ -211,6 +214,8 @@ C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_gui_private.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_help_private.pri:
+C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_http.pri:
+C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_http_private.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimedia_private.pri:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/mkspecs/modules/qt_lib_multimediawidgets.pri:
@@ -298,6 +303,7 @@ Reparti2.pro:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/qtmaind.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Cored.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Widgets.prl:
+C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Network.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Xml.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Sql.prl:
 C:/Qt/Qt5.3.2/5.3/mingw482_32/lib/Qt5Gui.prl:

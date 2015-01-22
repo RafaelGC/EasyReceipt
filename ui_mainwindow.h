@@ -141,7 +141,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Reparto", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "EasyReceipt", 0));
         actionExportHtml->setText(QApplication::translate("MainWindow", "Exportar a HTML", 0));
         actionExit->setText(QApplication::translate("MainWindow", "Salir", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "Sobre...", 0));

@@ -5,8 +5,6 @@ ConfigWidget::ConfigWidget(Config *config, QWidget *parent) :
     ui->setupUi(this);
     this->config = config;
 
-    (*config) = dbInterface.loadConfig();
-
     this->setWindowTitle(tr("Configuración"));
     ui->comboBox->setCurrentText(config->getMonetarySymbol());
 
@@ -17,13 +15,19 @@ ConfigWidget::ConfigWidget(Config *config, QWidget *parent) :
         ui->beforeRd->setChecked(true);
     }
 
+    if (config->getUpdatesEnabled()){
+        ui->updatesEnabled->setChecked(true);
+    }
+    else{
+        ui->updatesEnabled->setChecked(false);
+    }
+
     QObject::connect(ui->buttons,SIGNAL(accepted()),this,SLOT(saveConfig()));
 
 }
 
 
 ConfigWidget::~ConfigWidget(){
-    dbInterface.close();
     delete ui;
 }
 
@@ -36,7 +40,8 @@ void ConfigWidget::saveConfig()
     else{
         config->setOrder(Config::SYMBOL_BEFORE_AMOUNT);
     }
-    dbInterface.saveConfig(*config);
+
+    config->setUpdatesEnabled(ui->updatesEnabled->isChecked());
 
     QMessageBox::information(this,tr("Aviso"),tr("Para que se apliquen los cambios debe reiniciar el programa."));
 

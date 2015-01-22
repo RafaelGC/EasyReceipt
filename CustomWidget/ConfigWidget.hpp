@@ -13,7 +13,6 @@ class ConfigWidget : public QDialog
     Q_OBJECT
 private:
     Ui::Config *ui;
-    ConfigDbInterface dbInterface;
     Config *config;
 
 public:
