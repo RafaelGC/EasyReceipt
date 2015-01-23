@@ -27,6 +27,8 @@ INPUT(
 ./debug/UpdateManager.o
 ./debug/UpdateDialog.o
 ./debug/ConfigDialog.o
+./debug/NotesWindow.o
+./debug/SmallButton.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o
@@ -43,4 +45,6 @@ INPUT(
 ./debug/moc_UpdateManager.o
 ./debug/moc_UpdateDialog.o
 ./debug/moc_ConfigDialog.o
+./debug/moc_NotesWindow.o
+./debug/moc_SmallButton.o
 );

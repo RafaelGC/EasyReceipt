@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     Version.cpp \
     UpdateManager.cpp \
     Dialogs/UpdateDialog.cpp \
-    Dialogs/ConfigDialog.cpp
+    Dialogs/ConfigDialog.cpp \
+    NotesWindow.cpp \
+    CustomWidget/SmallButton.cpp
 
 HEADERS  += \
     User.hpp \
@@ -68,7 +70,9 @@ HEADERS  += \
     Version.hpp \
     UpdateManager.hpp \
     Dialogs/UpdateDialog.hpp \
-    Dialogs/ConfigDialog.hpp
+    Dialogs/ConfigDialog.hpp \
+    NotesWindow.hpp \
+    CustomWidget/SmallButton.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
@@ -78,7 +82,8 @@ FORMS    += mainwindow.ui \
     finalpayout.ui \
     config.ui \
     aboutform.ui \
-    updatedialog.ui
+    updatedialog.ui \
+    noteswindow.ui
 
 CONFIG += c++11
 

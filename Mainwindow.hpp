@@ -42,6 +42,8 @@
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
 
+#include "NotesWindow.hpp"
+
 namespace Ui {
 class MainWindow;
 }
@@ -79,10 +81,14 @@ private:
     UsersManagerDialog *usersManagerDialog;
     ConfigDialog *configDialog;
 
+    //NOTES
+    NotesWindow *notesWindow;
+
     void loadUsersFromDatabase();
     void makeConnections();
     void setupInterface();
     int saveHtmlFile(QString name, QString path, const Ticket *ticket);
+    void checkForUpdates();
 
 private slots:
 

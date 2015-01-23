@@ -27,6 +27,8 @@ INPUT(
 ./release/UpdateManager.o
 ./release/UpdateDialog.o
 ./release/ConfigDialog.o
+./release/NotesWindow.o
+./release/SmallButton.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o
@@ -43,4 +45,6 @@ INPUT(
 ./release/moc_UpdateManager.o
 ./release/moc_UpdateDialog.o
 ./release/moc_ConfigDialog.o
+./release/moc_NotesWindow.o
+./release/moc_SmallButton.o
 );

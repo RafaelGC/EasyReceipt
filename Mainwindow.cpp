@@ -17,22 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutDialog = new AboutDialog(&config, this);
     updateDialog = new UpdateDialog(this);
 
+    notesWindow = new NotesWindow(this);
+
     loadUsersFromDatabase();
     setupInterface();
     makeConnections();
-
-
-    this->setWindowIcon(QIcon(":/icons/icon.png"));
-    this->setWindowIconText("EasyReceipt");
-
-    if (config.getUpdatesEnabled()){
-        if (config.getLastUpdateCheck().daysTo(QDate::currentDate())>=5){
-            QObject::connect(&updateManager,SIGNAL(newUpdate(Version,QString)),this,SLOT(newUpdate(Version,QString)));
-            updateManager.connectToServer();
-            config.setLastUpdateCheck(QDate::currentDate());
-        }
-    }
-
+    checkForUpdates();
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +43,7 @@ void MainWindow::makeConnections()
     QObject::connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(save()));
     QObject::connect(ui->actionSaveAll,SIGNAL(triggered()),this,SLOT(saveAll()));
     QObject::connect(ui->actionLoadTicket,SIGNAL(triggered()),this,SLOT(loadFile()));
+    QObject::connect(ui->actionNotes,SIGNAL(triggered()),notesWindow,SLOT(show()));
 
     QObject::connect(payersSelection,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
     QObject::connect(createTicket,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
@@ -79,6 +70,11 @@ void MainWindow::makeConnections()
 
 void MainWindow::setupInterface()
 {
+    //Configuración de la ventana.
+
+    this->setWindowIcon(QIcon(":/icons/icon.png"));
+    this->setWindowIconText("EasyReceipt");
+
     //Creamos las distintas páginas.
 
     createTicket = new CreateTicketWidget(&ticketContainer, &config, ui->stackedWidget);
@@ -228,6 +224,16 @@ int MainWindow::saveHtmlFile(QString name, QString path, const Ticket *ticket)
 
     return exporter.save(name,path,ticket->getTotalCost(true));
 
+}
+
+void MainWindow::checkForUpdates(){
+    if (config.getUpdatesEnabled()){
+        if (config.getLastUpdateCheck().daysTo(QDate::currentDate())>=5){
+            QObject::connect(&updateManager,SIGNAL(newUpdate(Version,QString)),this,SLOT(newUpdate(Version,QString)));
+            updateManager.connectToServer();
+            config.setLastUpdateCheck(QDate::currentDate());
+        }
+    }
 }
 
 

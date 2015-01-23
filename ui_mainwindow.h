@@ -37,6 +37,7 @@ public:
     QAction *actionSave;
     QAction *actionSaveAll;
     QAction *actionLoadTicket;
+    QAction *actionNotes;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
@@ -46,6 +47,7 @@ public:
     QMenu *menuArchivo;
     QMenu *menuSobre;
     QMenu *menuPerfiles;
+    QMenu *menuUtilidades;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -87,6 +89,8 @@ public:
         actionSaveAll->setIcon(icon2);
         actionLoadTicket = new QAction(MainWindow);
         actionLoadTicket->setObjectName(QStringLiteral("actionLoadTicket"));
+        actionNotes = new QAction(MainWindow);
+        actionNotes->setObjectName(QStringLiteral("actionNotes"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -111,6 +115,8 @@ public:
         menuSobre->setObjectName(QStringLiteral("menuSobre"));
         menuPerfiles = new QMenu(menubar);
         menuPerfiles->setObjectName(QStringLiteral("menuPerfiles"));
+        menuUtilidades = new QMenu(menubar);
+        menuUtilidades->setObjectName(QStringLiteral("menuUtilidades"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -118,6 +124,7 @@ public:
 
         menubar->addAction(menuArchivo->menuAction());
         menubar->addAction(menuPerfiles->menuAction());
+        menubar->addAction(menuUtilidades->menuAction());
         menubar->addAction(menuSobre->menuAction());
         menuArchivo->addAction(actionSave);
         menuArchivo->addAction(actionSaveAll);
@@ -129,6 +136,7 @@ public:
         menuArchivo->addAction(actionExit);
         menuSobre->addAction(actionAbout);
         menuPerfiles->addAction(actionUsersManager);
+        menuUtilidades->addAction(actionNotes);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -152,9 +160,11 @@ public:
         actionSave->setText(QApplication::translate("MainWindow", "Guardar", 0));
         actionSaveAll->setText(QApplication::translate("MainWindow", "Guardar todo", 0));
         actionLoadTicket->setText(QApplication::translate("MainWindow", "Cargar ticket", 0));
+        actionNotes->setText(QApplication::translate("MainWindow", "Notas", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
         menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));
+        menuUtilidades->setTitle(QApplication::translate("MainWindow", "Utilidades", 0));
     } // retranslateUi
 
 };

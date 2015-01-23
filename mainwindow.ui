@@ -73,8 +73,15 @@
     </property>
     <addaction name="actionUsersManager"/>
    </widget>
+   <widget class="QMenu" name="menuUtilidades">
+    <property name="title">
+     <string>Utilidades</string>
+    </property>
+    <addaction name="actionNotes"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuPerfiles"/>
+   <addaction name="menuUtilidades"/>
    <addaction name="menuSobre"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -142,6 +149,11 @@
   <action name="actionLoadTicket">
    <property name="text">
     <string>Cargar ticket</string>
+   </property>
+  </action>
+  <action name="actionNotes">
+   <property name="text">
+    <string>Notas</string>
    </property>
   </action>
  </widget>
