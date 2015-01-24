@@ -47,7 +47,7 @@ void CreateTicketWidget::createTicket(){
         return;
     }
 
-    Ticket *createdTicket = ticketContainer->addTicket(ui->ticketName->text(),true);
+    Ticket *createdTicket = ticketContainer->createTicket(ui->ticketName->text(),true);
 
     if (createdTicket==nullptr){
         QMessageBox::warning(this,tr("Aviso"),tr("Ya existe un ticket con ese nombre."));

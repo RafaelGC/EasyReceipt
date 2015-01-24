@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include <QSqlDatabase>
+#include <QDebug>
 
 #include "ui_UsersManager.h"
 #include "UserContainer.hpp"
@@ -24,6 +25,7 @@ public:
     void addUserToList(const QString &name);
 public slots:
     void open();
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void addUser();

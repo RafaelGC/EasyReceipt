@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -39,7 +40,7 @@ public:
     QAction *actionLoadTicket;
     QAction *actionNotes;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
     QStackedWidget *stackedWidget;
     QWidget *page;
     QVBoxLayout *verticalLayout_4;
@@ -93,8 +94,8 @@ public:
         actionNotes->setObjectName(QStringLiteral("actionNotes"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout = new QVBoxLayout(centralwidget);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         stackedWidget = new QStackedWidget(centralwidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         page = new QWidget();
@@ -103,7 +104,7 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         stackedWidget->addWidget(page);
 
-        verticalLayout->addWidget(stackedWidget);
+        gridLayout->addWidget(stackedWidget, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -153,14 +154,19 @@ public:
         actionExportHtml->setText(QApplication::translate("MainWindow", "Exportar a HTML", 0));
         actionExit->setText(QApplication::translate("MainWindow", "Salir", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "Sobre...", 0));
+        actionAbout->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
         actionUsersManager->setText(QApplication::translate("MainWindow", "Gestionar perfiles", 0));
+        actionUsersManager->setShortcut(QApplication::translate("MainWindow", "Ctrl+P", 0));
         actionEliminar_perfil->setText(QApplication::translate("MainWindow", "Eliminar perfil", 0));
         actionExportAllHtml->setText(QApplication::translate("MainWindow", "Exportar todo a HTML", 0));
         actionConfig->setText(QApplication::translate("MainWindow", "Configuraci\303\263n", 0));
         actionSave->setText(QApplication::translate("MainWindow", "Guardar", 0));
+        actionSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+G", 0));
         actionSaveAll->setText(QApplication::translate("MainWindow", "Guardar todo", 0));
         actionLoadTicket->setText(QApplication::translate("MainWindow", "Cargar ticket", 0));
+        actionLoadTicket->setShortcut(QApplication::translate("MainWindow", "Ctrl+C", 0));
         actionNotes->setText(QApplication::translate("MainWindow", "Notas", 0));
+        actionNotes->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", 0));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "Archivo", 0));
         menuSobre->setTitle(QApplication::translate("MainWindow", "Ayuda", 0));
         menuPerfiles->setTitle(QApplication::translate("MainWindow", "Perfiles", 0));

@@ -2,28 +2,9 @@
 
 const QString ConfigDbInterface::DEFAULT_MONETARY_SYMBOL = "€";
 
-ConfigDbInterface::ConfigDbInterface()
-{
+ConfigDbInterface::ConfigDbInterface(){
     db = QSqlDatabase::addDatabase("QSQLITE","CONFIGDB");
     db.setDatabaseName("config.db");
-    if (!db.open()){
-    }
-
-    QSqlQuery query(db);
-    if (!query.exec("CREATE TABLE IF NOT EXISTS config(monetary_symbol VARCHAR(10), symbol_order INT, last_update_check TEXT, updates_enabled INT)")){
-        qDebug() << query.lastError().text();
-    }
-
-    //La primera vez es necesario introducir unos valores por defecto.
-    if (query.exec("select COUNT(monetary_symbol) as total from config")){
-        if (query.next()){
-            if (query.value(0).toInt()==0){
-                query.exec(QString("insert into config VALUES('%1',%2,'%3','1')")
-                           .arg(Config::DEFAULT_MONETARY_SYMBOL).arg(Config::SYMBOL_AFTER_AMOUNT)
-                           .arg(QDate::currentDate().toString("yyyy-MM-dd")));
-            }
-        }
-    }
 }
 
 void ConfigDbInterface::loadConfig(Config *config)
@@ -58,8 +39,7 @@ void ConfigDbInterface::loadConfig(Config *config)
     config->setUpdatesEnabled(updatesEnabled);
 }
 
-void ConfigDbInterface::saveConfig(Config &config)
-{
+void ConfigDbInterface::saveConfig(Config &config){
     QSqlQuery query(db);
 
     query.exec(QString("update config set monetary_symbol='%1', symbol_order='%2', last_update_check='%3', updates_enabled=%4")
@@ -68,8 +48,30 @@ void ConfigDbInterface::saveConfig(Config &config)
                .arg(config.getUpdatesEnabled()));
 }
 
-void ConfigDbInterface::close()
-{
+bool ConfigDbInterface::connect(){
+    if (!db.open()){
+        return false;
+    }
+
+    QSqlQuery query(db);
+    if (!query.exec("CREATE TABLE IF NOT EXISTS config(monetary_symbol VARCHAR(10), symbol_order INT, last_update_check TEXT, updates_enabled INT)")){
+        qDebug() << query.lastError().text();
+    }
+
+    //La primera vez es necesario introducir unos valores por defecto.
+    if (query.exec("select COUNT(monetary_symbol) as total from config")){
+        if (query.next()){
+            if (query.value(0).toInt()==0){
+                query.exec(QString("insert into config VALUES('%1',%2,'%3','1')")
+                           .arg(Config::DEFAULT_MONETARY_SYMBOL).arg(Config::SYMBOL_AFTER_AMOUNT)
+                           .arg(QDate::currentDate().toString("yyyy-MM-dd")));
+            }
+        }
+    }
+    return true;
+}
+
+void ConfigDbInterface::close(){
     db.close();
 }
 

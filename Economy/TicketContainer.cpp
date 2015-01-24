@@ -13,7 +13,7 @@ TicketContainer::~TicketContainer()
     tickets.clear();
 }
 
-Ticket *TicketContainer::addTicket(QString ticketName, bool setCurrent)
+Ticket *TicketContainer::createTicket(QString ticketName, bool setCurrent)
 {
     for (unsigned int i = 0; i<tickets.size(); i++){
         if (tickets[i]->getName()==ticketName){
@@ -73,6 +73,33 @@ Ticket *TicketContainer::ticketAt(int index){
 
 unsigned int TicketContainer::ticketsAmount(){
     return tickets.size();
+}
+
+QString TicketContainer::validateName(const QString &ticketName){
+    QString returnName = ticketName;
+    //Se estudia uno a uno los tickets.
+    if (getByName(ticketName)!=nullptr){
+        for (int i = 1; i<365; i++){ //Número random.
+            returnName = returnName.append(" (%1)").arg(i);
+            if (getByName(returnName)){
+                returnName = ticketName; //Se resetea.
+            }
+            else{
+                break;
+            }
+        }
+
+    }
+    return returnName;
+}
+
+bool TicketContainer::addTicket(Ticket *ticket){
+    if (getByName(ticket->getName())){
+        return false;
+    }
+
+    tickets.push_back(ticket);
+    return true;
 }
 
 float TicketContainer::getTotalSpentBy(QString name)

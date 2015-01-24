@@ -34,11 +34,11 @@ void UsersManagerDialog::addUser(){
             ui->userName->clear();
         }
         else{
-            QMessageBox::warning(this,"Error","El nombre ya está añadido.");
+            QMessageBox::warning(this,tr("Error"),tr("El nombre ya está añadido."));
         }
     }
     else{
-        QMessageBox::warning(this,"Error","Nombre vacío.");
+        QMessageBox::warning(this,tr("Error"),tr("Nombre vacío."));
     }
 }
 
@@ -59,7 +59,13 @@ void UsersManagerDialog::deleteUser(){
 }
 
 void UsersManagerDialog::open(){
+    userDb->connect();
     QDialog::open();
+}
+
+void UsersManagerDialog::closeEvent(QCloseEvent *)
+{
+    userDb->close();
 }
 
 void UsersManagerDialog::addUserToList(const QString &name){

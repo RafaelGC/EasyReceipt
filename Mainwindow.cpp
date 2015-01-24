@@ -5,8 +5,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    dbConfigInterface.connect();
     dbConfigInterface.loadConfig(&config);
-    config.setVersion(1,0); //Versión 1.0. Se establece desde código.
+    dbConfigInterface.close();
+
+    config.setVersion(1,0); //Versión 1.0. SE ESTABLECE DESDE EL CÓDIGO.
 
     ui->setupUi(this);
 
@@ -27,9 +30,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    dbConfigInterface.connect();
     dbConfigInterface.saveConfig(config);
     dbConfigInterface.close();
-    userDb.close();
+
     delete ui;
 }
 
@@ -90,6 +94,8 @@ void MainWindow::setupInterface()
     ui->stackedWidget->addWidget(totalPayout);
 
     ui->stackedWidget->setCurrentIndex(1);
+
+    ui->actionNotes->setShortcut(QKeySequence("Ctrl+N"));
 }
 
 void MainWindow::fileTicket(){
@@ -171,8 +177,15 @@ void MainWindow::loadFile(){
                                                     tr("Archivos XML (*.xml)"));
     if (!fileName.isNull()){
         XmlManager xml;
-        Ticket* ticket = ticketContainer.addTicket("-",false);
+        Ticket* ticket = new Ticket("");
         if (xml.loadFromXml(fileName,ticket)==XmlManager::OK){
+            //Validamos el nombre del ticket (el usuario podría cargar un ticket con un
+            //nombre que ya esté siendo usado).
+            QString validName = ticketContainer.validateName(ticket->getName());
+            ticket->setName(validName);
+            ticketContainer.addTicket(ticket);
+
+            //Informamos de que se ha cargado un ticket.
             createTicket->ticketLoaded(ticket);
         }
         else{
@@ -318,16 +331,14 @@ void MainWindow::loadUsersFromDatabase()
     case UserDbInterface::GENERAL_ERROR:
         QMessageBox::critical(this,"Error","Error al cargar los usuarios.");
         break;
-
-    case UserDbInterface::TABLE_NO_CREATED:
-        QMessageBox::critical(this,"Error","No se pudo crear la tabla de la base de datos.");
-        break;
     }
 
     for (auto it = userList.begin(); it!=userList.end(); ++it){
         userContainer.addUser(User(*it,false));
         usersManagerDialog->addUserToList(*it);
     }
+
+    userDb.close();
 }
 
 void MainWindow::newUpdate(Version version, QString updateUrl){

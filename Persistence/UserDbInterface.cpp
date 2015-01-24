@@ -2,6 +2,8 @@
 
 UserDbInterface::UserDbInterface()
 {
+    db = QSqlDatabase::addDatabase("QSQLITE","USERSDB");
+    db.setDatabaseName("profiles.db");
 }
 
 UserDbInterface::~UserDbInterface()
@@ -11,10 +13,13 @@ UserDbInterface::~UserDbInterface()
 
 bool UserDbInterface::connect()
 {
-    db = QSqlDatabase::addDatabase("QSQLITE","USERSDB");
-    db.setDatabaseName("profiles.db");
     if (!db.open()){
         return false;
+    }
+
+    QSqlQuery query(db);
+    if (!query.exec("CREATE TABLE IF NOT EXISTS users(name VARCHAR(35) PRIMARY KEY)")){
+        //
     }
 
     return true;
@@ -29,12 +34,6 @@ void UserDbInterface::close()
 QStringList UserDbInterface::queryUsers(int *ok)
 {
     QSqlQuery query(db);
-    if (!query.exec("CREATE TABLE IF NOT EXISTS users(name VARCHAR(35) PRIMARY KEY)")){
-        if (ok){
-            *ok = UserDbInterface::TABLE_NO_CREATED;
-            return QStringList();
-        }
-    }
 
     if (query.exec("select * from users")){
         QSqlRecord rec = query.record();

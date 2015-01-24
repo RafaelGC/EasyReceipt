@@ -24,6 +24,7 @@ public:
     void loadConfig(Config *config);
     void saveConfig(Config &config);
 
+    bool connect();
     void close();
 
 };
