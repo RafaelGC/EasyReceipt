@@ -54,7 +54,7 @@ bool ConfigDbInterface::connect(){
     }
 
     QSqlQuery query(db);
-    if (!query.exec("CREATE TABLE IF NOT EXISTS config(monetary_symbol VARCHAR(10), symbol_order INT, last_update_check TEXT, updates_enabled INT)")){
+    if (!query.exec("CREATE TABLE IF NOT EXISTS config(monetary_symbol VARCHAR(10), symbol_order INTEGER, last_update_check TEXT, updates_enabled INTEGER)")){
         qDebug() << query.lastError().text();
     }
 

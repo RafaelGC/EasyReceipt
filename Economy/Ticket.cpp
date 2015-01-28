@@ -122,6 +122,7 @@ std::vector<Debt> Ticket::computePayout(int *message) const
             negativeUser.push_back(std::make_pair(payers[i].first,payers[i].second));
         }
     }
+
     if (fabs(total-this->getTotalCost())>0.001){
         *message = MONEY_DOES_NOT_MATCH;
         return std::vector<Debt>();

@@ -85,6 +85,9 @@ int HtmlExporter::save(const QString &name, const QString&fullPath, float totalM
             output << std::get<0>(payoutShare[i]) << QObject::tr(" debe pagar ") << config->constructMoney(std::get<1>(payoutShare[i]))
                    << QObject::tr(" a ") << std::get<2>(payoutShare[i]) << ".<br>";
         }
+        if (payoutShare.size()==0){
+            output << "Reparto adecuado.";
+        }
         output << "</td></tr>";
     }
 

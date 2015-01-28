@@ -105,8 +105,9 @@ void PayersSelection::clearPayout()
 void PayersSelection::fillUIFromTicket()
 {
     Ticket *ticket = ticketContainer->getCurrentTicket();
-    updateUsersPayout();
+
     updatePayers();
+    updateUsersPayout();
 
     for (unsigned int i=0; i<payerObservers.size(); i++){
         float amount = ticket->getAmountPayedBy(payerObservers[i]->getName());

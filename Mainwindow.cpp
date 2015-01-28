@@ -66,7 +66,7 @@ void MainWindow::makeConnections()
     QObject::connect(createTicket,SIGNAL(ticketCreated()),manageTicket,SLOT(cleanAll()));
 
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),manageTicket,SLOT(fillUIFromTicket()));
-    QObject::connect(createTicket,SIGNAL(seeTicketRequest()),payersSelection,SLOT(fillUIFromTicket()));
+    QObject::connect(manageTicket,SIGNAL(goToPayersSelection()),payersSelection,SLOT(fillUIFromTicket()));
     QObject::connect(createTicket,SIGNAL(saveSelectedTicketRequest(const QString&)),this,SLOT(save(const QString&)));
 }
 
