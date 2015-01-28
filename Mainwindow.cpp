@@ -20,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutDialog = new AboutDialog(&config, this);
     updateDialog = new UpdateDialog(this);
 
-    notesWindow = new NotesWindow(this);
-
     loadUsersFromDatabase();
     setupInterface();
     makeConnections();
@@ -47,7 +45,7 @@ void MainWindow::makeConnections()
     QObject::connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(save()));
     QObject::connect(ui->actionSaveAll,SIGNAL(triggered()),this,SLOT(saveAll()));
     QObject::connect(ui->actionLoadTicket,SIGNAL(triggered()),this,SLOT(loadFile()));
-    QObject::connect(ui->actionNotes,SIGNAL(triggered()),notesWindow,SLOT(show()));
+    QObject::connect(ui->actionNotes,SIGNAL(triggered()),&notesWindow,SLOT(show()));
 
     QObject::connect(payersSelection,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));
     QObject::connect(createTicket,SIGNAL(goToManageTicket()),this,SLOT(goToManageTicket()));

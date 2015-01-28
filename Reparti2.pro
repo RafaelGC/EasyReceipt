@@ -41,7 +41,9 @@ SOURCES += main.cpp\
     Dialogs/UpdateDialog.cpp \
     Dialogs/ConfigDialog.cpp \
     NotesWindow.cpp \
-    CustomWidget/SmallButton.cpp
+    CustomWidget/SmallButton.cpp \
+    Persistence/NotesDbInterface.cpp \
+    NoteData.cpp
 
 HEADERS  += \
     User.hpp \
@@ -72,7 +74,9 @@ HEADERS  += \
     Dialogs/UpdateDialog.hpp \
     Dialogs/ConfigDialog.hpp \
     NotesWindow.hpp \
-    CustomWidget/SmallButton.hpp
+    CustomWidget/SmallButton.hpp \
+    Persistence/NotesDbInterface.hpp \
+    NoteData.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

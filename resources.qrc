@@ -13,5 +13,8 @@
         <file>go-back.png</file>
         <file>ticket.png</file>
         <file>floppy.png</file>
+        <file>note.png</file>
+        <file>wrench.png</file>
+        <file>file.png</file>
     </qresource>
 </RCC>

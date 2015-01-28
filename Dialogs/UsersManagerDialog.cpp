@@ -8,6 +8,7 @@ UsersManagerDialog::UsersManagerDialog(UserContainer* userContainer, UserDbInter
 
     ui->setupUi(this);
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    this->setWindowIcon(QIcon(":/icons/profile.png"));
 
     QObject::connect(ui->addBtn,SIGNAL(clicked()),this,SLOT(addUser()));
     QObject::connect(ui->userName,SIGNAL(returnPressed()),this,SLOT(addUser()));

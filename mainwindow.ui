@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>EasyReceipt</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icon.png</normaloff>:/icons/icon.png</iconset>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
@@ -130,6 +134,10 @@
    </property>
   </action>
   <action name="actionConfig">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/wrench.png</normaloff>:/icons/wrench.png</iconset>
+   </property>
    <property name="text">
     <string>Configuración</string>
    </property>
@@ -164,6 +172,10 @@
    </property>
   </action>
   <action name="actionNotes">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/note.png</normaloff>:/icons/note.png</iconset>
+   </property>
    <property name="text">
     <string>Notas</string>
    </property>

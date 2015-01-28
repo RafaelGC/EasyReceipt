@@ -29,6 +29,8 @@ INPUT(
 ./debug/ConfigDialog.o
 ./debug/NotesWindow.o
 ./debug/SmallButton.o
+./debug/NotesDbInterface.o
+./debug/NoteData.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

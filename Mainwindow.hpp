@@ -82,7 +82,7 @@ private:
     ConfigDialog *configDialog;
 
     //NOTES
-    NotesWindow *notesWindow;
+    NotesWindow notesWindow;
 
     void loadUsersFromDatabase();
     void makeConnections();

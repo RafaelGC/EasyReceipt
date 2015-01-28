@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Notas [*]</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/note.png</normaloff>:/icons/note.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -40,11 +44,11 @@
          </layout>
         </item>
         <item>
-         <widget class="QListWidget" name="listWidget"/>
+         <widget class="QListWidget" name="notesList"/>
         </item>
        </layout>
       </widget>
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <widget class="QPlainTextEdit" name="noteEdit"/>
      </widget>
     </item>
    </layout>
@@ -58,9 +62,40 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionNewNote"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <addaction name="menuArchivo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/floppy.png</normaloff>:/icons/floppy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionNewNote">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/file.png</normaloff>:/icons/file.png</iconset>
+   </property>
+   <property name="text">
+    <string>Nueva nota</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

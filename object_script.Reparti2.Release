@@ -29,6 +29,8 @@ INPUT(
 ./release/ConfigDialog.o
 ./release/NotesWindow.o
 ./release/SmallButton.o
+./release/NotesDbInterface.o
+./release/NoteData.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o

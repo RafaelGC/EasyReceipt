@@ -3,6 +3,8 @@
 ConfigDialog::ConfigDialog(Config *config, QWidget *parent) :
     QDialog(parent),ui(new Ui::Config){
     ui->setupUi(this);
+    this->setWindowIcon(QIcon(":/icons/wrench.png"));
+
     this->config = config;
 
     this->setWindowTitle(tr("Configuración"));
