@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QDate>
+#include <QDir>
 
 #include "Config.hpp"
 
@@ -15,6 +16,7 @@ class ConfigDbInterface
 {
 private:
     QSqlDatabase db;
+    //void addDbCol(const QString &name);
 public:
     enum {TABLE_NOT_CREATED, OK, GENERAL_ERROR};
     static const QString DEFAULT_MONETARY_SYMBOL;

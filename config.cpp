@@ -64,3 +64,32 @@ void Config::setUpdatesEnabled(bool enabled){
 bool Config::getUpdatesEnabled(){
     return this->updatesEnabled;
 }
+
+QString Config::getExportPath() const
+{
+    QFileInfo tmp(exportPath);
+
+    if (tmp.isFile()){
+        return tmp.absoluteDir().absolutePath();
+    }
+    return exportPath;
+}
+
+void Config::setExportPath(const QString &value)
+{
+    exportPath = value;
+}
+
+QString Config::getSavePath() const
+{
+    QFileInfo tmp(savePath);
+    if (tmp.isFile()){
+        return tmp.absoluteDir().absolutePath();
+    }
+    return savePath;
+}
+
+void Config::setSavePath(const QString &value)
+{
+    savePath = value;
+}

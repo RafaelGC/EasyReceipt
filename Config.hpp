@@ -4,6 +4,7 @@
 #include <QString>
 #include <QLocale>
 #include <QDate>
+#include <QDir>
 
 #include "Version.hpp"
 
@@ -15,6 +16,7 @@ private:
     Version version;
     QDate lastUpdateCheck;
     bool updatesEnabled;
+    QString savePath, exportPath;
 public:
     enum {SYMBOL_BEFORE_AMOUNT,SYMBOL_AFTER_AMOUNT};
     static const QString DEFAULT_MONETARY_SYMBOL;
@@ -39,6 +41,11 @@ public:
     void setUpdatesEnabled(bool enabled);
     bool getUpdatesEnabled();
 
+    QString getExportPath() const;
+    void setExportPath(const QString &value);
+
+    QString getSavePath() const;
+    void setSavePath(const QString &value);
 };
 
 #endif // CONFIG_HPP

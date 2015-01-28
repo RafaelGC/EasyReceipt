@@ -128,14 +128,19 @@ void MainWindow::save(const QString&ticketNameParam)
     }
 
     if (!ticket)return;
-
-    QString path = QFileDialog::getSaveFileName(this,tr("Guardar"),QDir::currentPath().append("/").append(ticket->getName()).append(".xml"),tr("HTML (*.xml)"));
+    qDebug() << "Guardar en " << config.getSavePath();
+    QString path = QFileDialog::getSaveFileName(this,tr("Guardar"),config.getSavePath().append("/").append(ticket->getName()).append(".xml"),tr("HTML (*.xml)"));
     if (path.isNull()){ //El usuario ha cancelado la acción.
         return;
     }
 
+    config.setSavePath(path);
+
     if (xml.exportToXml(path,ticket)==XmlManager::FILE_NOT_OPEN){
         QMessageBox::critical(this,tr("Error"),tr("Error al guardar el archivo."));
+    }
+    else{
+        QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó correctamente."));
     }
 }
 
@@ -150,6 +155,9 @@ void MainWindow::saveAll(){
         if (path.isEmpty() || path.isNull()){
             return;
         }
+
+        config.setSavePath(path);
+
         bool success = true;
         for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
             Ticket *ticket = ticketContainer.ticketAt(i);
@@ -171,7 +179,7 @@ void MainWindow::saveAll(){
 
 void MainWindow::loadFile(){
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Cargar archivo"),QDir::currentPath(),
+                                                    tr("Cargar archivo"),config.getSavePath(),
                                                     tr("Archivos XML (*.xml)"));
     if (!fileName.isNull()){
         XmlManager xml;
@@ -275,10 +283,12 @@ void MainWindow::exportHtml(){
 
     //Este método guarda en formato HTML el ticket actual.
 
-    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),QDir::currentPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
+    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),config.getExportPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
     if (path.isNull()){ //El usuario ha cancelado la acción.
         return;
     }
+
+    config.setExportPath(path);
 
     QString name = QFileInfo(path).baseName();
     if (saveHtmlFile(name,path,ticket)==HtmlExporter::OK){
@@ -296,10 +306,13 @@ void MainWindow::exportAllHtml(){
         return;
     }
     if (QMessageBox::question(this,tr("¿Seguro?"),tr("Todos los archivos con el mismo nombre serán reescritos. ¿Quieres continuar?"))==QMessageBox::Yes){
-        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"));
+        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"),config.getExportPath());
         if (path.isEmpty() || path.isNull()){
             return;
         }
+
+        config.setExportPath(path);
+
         bool success = true;
         for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
             Ticket *ticket = ticketContainer.ticketAt(i);
