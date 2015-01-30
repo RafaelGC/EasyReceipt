@@ -124,8 +124,8 @@ void PayersSelection::updateUsersPayout()
     std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
     if (message==Ticket::MONEY_DOES_NOT_MATCH){
         payoutLayout->addWidget(
-                    new QLabel(QString("<b>El dinero pagado no coincide con el coste de la compra.</b>"
-                                       "<br>Recuerda que el separador decimal en tu sistema es '%1'.")
+                    new QLabel(QString(tr("<b>El dinero pagado no coincide con el coste de la compra.</b>"
+                                       "<br>Recuerda que el separador decimal en tu sistema es '%1'."))
                                .arg(QLocale::system().decimalPoint())));
     }
     else if (message==Ticket::SUCCESS && debts.size()==0){
@@ -133,7 +133,7 @@ void PayersSelection::updateUsersPayout()
     }
     else{
         for (unsigned int i=0; i<debts.size(); i++){
-            payoutLayout->addWidget(new QLabel(QString("%1 debe pagar %2 a %3").arg(debts[i].getDebtor())
+            payoutLayout->addWidget(new QLabel(QString(tr("%1 debe pagar %2 a %3")).arg(debts[i].getDebtor())
                                                .arg(config->constructMoney(debts[i].getAmount(true))).arg(debts[i].getCreditor())));
         }
     }

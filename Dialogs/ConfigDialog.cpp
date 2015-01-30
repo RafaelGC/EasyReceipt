@@ -7,6 +7,10 @@ ConfigDialog::ConfigDialog(Config *config, QWidget *parent) :
 
     this->config = config;
 
+    //IDIOMAS SOPORTADOS
+    ui->language->addItem(tr("Español"),QLocale::Spanish);
+    ui->language->addItem(tr("Inglés"),QLocale::English);
+
     this->setWindowTitle(tr("Configuración"));
     ui->comboBox->setCurrentText(config->getMonetarySymbol());
 
@@ -22,6 +26,13 @@ ConfigDialog::ConfigDialog(Config *config, QWidget *parent) :
     }
     else{
         ui->updatesEnabled->setChecked(false);
+    }
+
+    if (config->getLanguage()==QLocale::Spanish){
+        ui->language->setCurrentIndex(0);
+    }
+    else{
+        ui->language->setCurrentIndex(1);
     }
 
     QObject::connect(ui->buttons,SIGNAL(accepted()),this,SLOT(saveConfig()));
@@ -44,6 +55,8 @@ void ConfigDialog::saveConfig()
     }
 
     config->setUpdatesEnabled(ui->updatesEnabled->isChecked());
+
+    config->setLanguage(ui->language->currentData(Qt::UserRole).toInt());
 
     QMessageBox::information(this,tr("Aviso"),tr("Para que se apliquen los cambios debe reiniciar el programa."));
 

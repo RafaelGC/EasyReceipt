@@ -17,6 +17,7 @@ private:
     QDate lastUpdateCheck;
     bool updatesEnabled;
     QString savePath, exportPath;
+    int language;
 public:
     enum {SYMBOL_BEFORE_AMOUNT,SYMBOL_AFTER_AMOUNT};
     static const QString DEFAULT_MONETARY_SYMBOL;
@@ -46,6 +47,9 @@ public:
 
     QString getSavePath() const;
     void setSavePath(const QString &value);
+
+    int getLanguage() const;
+    void setLanguage(int value);
 };
 
 #endif // CONFIG_HPP

@@ -122,7 +122,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         payersGroupBox->setToolTip(QApplication::translate("PlayersSelectorForm", "<html><head/><body><p>\302\277Qui\303\251n ha pagado la compra? Escribe cu\303\241nto ha pagado cada usuario (lo puedes dejar en blanco si no ha pagado nada). Esto puede resultar \303\272til si hay m\303\241s de un ticket pendiente o si, por cualquier motivo, la compra la pagaron varios.</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
-        payersGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "\302\277Qui\303\251n paga?", 0));
+        payersGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "\302\277Qui\303\251n pag\303\263 la compra?", 0));
         payoutGroupBox->setTitle(QApplication::translate("PlayersSelectorForm", "Reparto", 0));
         backBtn->setText(QString());
         fileBtn->setText(QString());

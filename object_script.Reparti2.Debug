@@ -5,7 +5,6 @@ INPUT(
 ./debug/UsersManagerDialog.o
 ./debug/UserContainer.o
 ./debug/PayerObserver.o
-./debug/HtmlExporter.o
 ./debug/UserDbInterface.o
 ./debug/PayerWidget.o
 ./debug/HistoryWidget.o
@@ -31,6 +30,7 @@ INPUT(
 ./debug/SmallButton.o
 ./debug/NotesDbInterface.o
 ./debug/NoteData.o
+./debug/HtmlManager.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

@@ -2,6 +2,16 @@
 
 const QString Config::DEFAULT_MONETARY_SYMBOL = "€";
 
+
+int Config::getLanguage() const
+{
+    return language;
+}
+
+void Config::setLanguage(int value)
+{
+    language = value;
+}
 Config::Config()
 {
     monetarySymbol = Config::DEFAULT_MONETARY_SYMBOL;

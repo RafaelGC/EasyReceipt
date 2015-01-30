@@ -20,7 +20,7 @@ public:
     ~Ticket();
 
     void setName(const QString &name);
-    QString getName();
+    QString getName() const;
 
     float getTotalCost(bool rounded=false) const;
 

@@ -36,7 +36,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;¿Quién ha pagado la compra? Escribe cuánto ha pagado cada usuario (lo puedes dejar en blanco si no ha pagado nada). Esto puede resultar útil si hay más de un ticket pendiente o si, por cualquier motivo, la compra la pagaron varios.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>¿Quién paga?</string>
+      <string>¿Quién pagó la compra?</string>
      </property>
      <property name="flat">
       <bool>false</bool>

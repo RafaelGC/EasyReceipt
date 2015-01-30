@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     Dialogs/UsersManagerDialog.cpp \
     UserContainer.cpp \
     PayerObserver.cpp \
-    Persistence/HtmlExporter.cpp \
     Persistence/UserDbInterface.cpp \
     CustomWidget/PayerWidget.cpp \
     CustomWidget/HistoryWidget.cpp \
@@ -43,14 +42,14 @@ SOURCES += main.cpp\
     NotesWindow.cpp \
     CustomWidget/SmallButton.cpp \
     Persistence/NotesDbInterface.cpp \
-    NoteData.cpp
+    NoteData.cpp \
+    Persistence/HtmlManager.cpp
 
 HEADERS  += \
     User.hpp \
     Dialogs/UsersManagerDialog.hpp \
     UserContainer.hpp \
     PayerObserver.hpp \
-    Persistence/HtmlExporter.hpp \
     Persistence/UserDbInterface.hpp \
     CustomWidget/PayerWidget.hpp \
     CustomWidget/HistoryWidget.hpp \
@@ -76,7 +75,8 @@ HEADERS  += \
     NotesWindow.hpp \
     CustomWidget/SmallButton.hpp \
     Persistence/NotesDbInterface.hpp \
-    NoteData.hpp
+    NoteData.hpp \
+    Persistence/HtmlManager.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
@@ -95,6 +95,6 @@ RC_FILE = resource.rc
 
 RESOURCES += \
     resources.qrc
-TRANSLATIONS += prueba.ls
+TRANSLATIONS += text.ts
 OTHER_FILES += \
     resource.rc

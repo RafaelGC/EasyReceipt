@@ -3,21 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include <QMessageBox>
-#include <QString>
-#include <QListWidgetItem>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlRecord>
-#include <QInputDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QToolBar>
 #include <QFileDialog>
-#include <QFileInfo>
-#include <QCheckBox>
-#include <QGridLayout>
-#include <QInputDialog>
 
 #include "Dialogs/UsersManagerDialog.hpp"
 #include "Dialogs/AboutDialog.hpp"
@@ -33,7 +19,7 @@
 #include "Pages/ManageTicketWidget.hpp"
 #include "Pages/TotalPayout.hpp"
 
-#include "Persistence/HtmlExporter.hpp"
+#include "Persistence/HtmlManager.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "Persistence/ConfigDbInterface.hpp"
 #include "Persistence/XmlManager.hpp"
@@ -53,7 +39,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(Config *config, QWidget *parent = 0);
     ~MainWindow();
     
 private:
@@ -61,13 +47,12 @@ private:
 
     //INTERFACES
     UserDbInterface userDb;
-    ConfigDbInterface dbConfigInterface;
 
     //CLASES GESTORAS/CONTENEDORAS
     UpdateManager updateManager;
     TicketContainer ticketContainer;
     UserContainer userContainer;
-    Config config;
+    Config *config;
 
     //PÁGINAS
     ManageTicketWidget *manageTicket;
@@ -87,7 +72,7 @@ private:
     void loadUsersFromDatabase();
     void makeConnections();
     void setupInterface();
-    int saveHtmlFile(QString name, QString path, const Ticket *ticket);
+    bool saveHtmlFile( const Ticket *ticket, QString path);
     void checkForUpdates();
 
 private slots:

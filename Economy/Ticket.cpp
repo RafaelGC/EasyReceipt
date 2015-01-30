@@ -14,7 +14,7 @@ void Ticket::setName(const QString &name){
     this->ticketName = name;
 }
 
-QString Ticket::getName()
+QString Ticket::getName() const
 {
     return this->ticketName;
 }

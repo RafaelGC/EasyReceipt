@@ -1,23 +1,19 @@
 #include "Mainwindow.hpp"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(Config *config, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    dbConfigInterface.connect();
-    dbConfigInterface.loadConfig(&config);
-    dbConfigInterface.close();
-
-    config.setVersion(1,0); //Versión 1.0. SE ESTABLECE DESDE EL CÓDIGO.
+    this->config = config;
 
     ui->setupUi(this);
 
     QLocale::setDefault(QLocale::system());
 
     usersManagerDialog = new UsersManagerDialog(&userContainer,&userDb,this);
-    configDialog = new ConfigDialog(&config, this);
-    aboutDialog = new AboutDialog(&config, this);
+    configDialog = new ConfigDialog(config, this);
+    aboutDialog = new AboutDialog(config, this);
     updateDialog = new UpdateDialog(this);
 
     loadUsersFromDatabase();
@@ -28,10 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    dbConfigInterface.connect();
-    dbConfigInterface.saveConfig(config);
-    dbConfigInterface.close();
-
     delete ui;
 }
 
@@ -79,16 +71,16 @@ void MainWindow::setupInterface()
 
     //Creamos las distintas páginas.
 
-    createTicket = new CreateTicketWidget(&ticketContainer, &config, ui->stackedWidget);
+    createTicket = new CreateTicketWidget(&ticketContainer, config, ui->stackedWidget);
     ui->stackedWidget->addWidget(createTicket);
 
-    manageTicket = new ManageTicketWidget(&userContainer, &ticketContainer, &config, ui->stackedWidget);
+    manageTicket = new ManageTicketWidget(&userContainer, &ticketContainer, config, ui->stackedWidget);
     ui->stackedWidget->addWidget(manageTicket);
 
-    payersSelection = new PayersSelection(&userContainer,&ticketContainer, &config,ui->stackedWidget);
+    payersSelection = new PayersSelection(&userContainer,&ticketContainer, config,ui->stackedWidget);
     ui->stackedWidget->addWidget(payersSelection);
 
-    totalPayout = new TotalPayout(&ticketContainer,&config,ui->stackedWidget);
+    totalPayout = new TotalPayout(&ticketContainer,config,ui->stackedWidget);
     ui->stackedWidget->addWidget(totalPayout);
 
     ui->stackedWidget->setCurrentIndex(1);
@@ -128,13 +120,13 @@ void MainWindow::save(const QString&ticketNameParam)
     }
 
     if (!ticket)return;
-    qDebug() << "Guardar en " << config.getSavePath();
-    QString path = QFileDialog::getSaveFileName(this,tr("Guardar"),config.getSavePath().append("/").append(ticket->getName()).append(".xml"),tr("HTML (*.xml)"));
+
+    QString path = QFileDialog::getSaveFileName(this,tr("Guardar"),config->getSavePath().append("/").append(ticket->getName()).append(".xml"),tr("HTML (*.xml)"));
     if (path.isNull()){ //El usuario ha cancelado la acción.
         return;
     }
 
-    config.setSavePath(path);
+    config->setSavePath(path);
 
     if (xml.exportToXml(path,ticket)==XmlManager::FILE_NOT_OPEN){
         QMessageBox::critical(this,tr("Error"),tr("Error al guardar el archivo."));
@@ -156,7 +148,7 @@ void MainWindow::saveAll(){
             return;
         }
 
-        config.setSavePath(path);
+        config->setSavePath(path);
 
         bool success = true;
         for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
@@ -179,7 +171,7 @@ void MainWindow::saveAll(){
 
 void MainWindow::loadFile(){
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Cargar archivo"),config.getSavePath(),
+                                                    tr("Cargar archivo"),config->getSavePath(),
                                                     tr("Archivos XML (*.xml)"));
     if (!fileName.isNull()){
         XmlManager xml;
@@ -216,41 +208,20 @@ void MainWindow::goToTotalPayout(){
     ui->stackedWidget->setCurrentIndex(4);
 }
 
-int MainWindow::saveHtmlFile(QString name, QString path, const Ticket *ticket)
+bool MainWindow::saveHtmlFile(const Ticket *ticket, QString path)
 {
-    HtmlExporter exporter(&config);
-    for (unsigned int i=0; i<ticket->countProducts(); i++){
-        const Product *pr = ticket->productAt(i);
-        exporter.addProduct(round(pr->getPrice()*100)/100,pr->getStringBuyers());
-    }
+    HtmlManager exporter(config);
 
-    QStringList buyers = ticket->getBuyers();
-    for (QString buyer : buyers){
-        exporter.addBuyerInfo(ticket->getPurchasePriceOf(buyer,true),buyer);
-    }
-
-    int message = 0;
-    std::vector<Debt> debts = ticket->computePayout(&message);
-    if (message==Ticket::SUCCESS){
-        std::vector<std::pair<QString,float>> payers = ticket->getPayers();
-        for (auto current : payers){
-            exporter.addPayer(current.second,current.first);
-        }
-        for (Debt current : debts){
-            exporter.addPayoutShare(current.getDebtor(),current.getAmount(true),current.getCreditor());
-        }
-    }
-
-    return exporter.save(name,path,ticket->getTotalCost(true));
+    return exporter.exportToHtml(ticket,path);
 
 }
 
 void MainWindow::checkForUpdates(){
-    if (config.getUpdatesEnabled()){
-        if (config.getLastUpdateCheck().daysTo(QDate::currentDate())>=5){
+    if (config->getUpdatesEnabled()){
+        if (config->getLastUpdateCheck().daysTo(QDate::currentDate())>=5){
             QObject::connect(&updateManager,SIGNAL(newUpdate(Version,QString)),this,SLOT(newUpdate(Version,QString)));
             updateManager.connectToServer();
-            config.setLastUpdateCheck(QDate::currentDate());
+            config->setLastUpdateCheck(QDate::currentDate());
         }
     }
 }
@@ -283,15 +254,15 @@ void MainWindow::exportHtml(){
 
     //Este método guarda en formato HTML el ticket actual.
 
-    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),config.getExportPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
+    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),config->getExportPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
     if (path.isNull()){ //El usuario ha cancelado la acción.
         return;
     }
 
-    config.setExportPath(path);
+    config->setExportPath(path);
 
     QString name = QFileInfo(path).baseName();
-    if (saveHtmlFile(name,path,ticket)==HtmlExporter::OK){
+    if (saveHtmlFile(ticket,path)){
         QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
     }
     else{
@@ -306,19 +277,19 @@ void MainWindow::exportAllHtml(){
         return;
     }
     if (QMessageBox::question(this,tr("¿Seguro?"),tr("Todos los archivos con el mismo nombre serán reescritos. ¿Quieres continuar?"))==QMessageBox::Yes){
-        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"),config.getExportPath());
+        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"),config->getExportPath());
         if (path.isEmpty() || path.isNull()){
             return;
         }
 
-        config.setExportPath(path);
+        config->setExportPath(path);
 
         bool success = true;
         for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
             Ticket *ticket = ticketContainer.ticketAt(i);
             QString pathcpy = path;
             QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".html");
-            if (saveHtmlFile(ticket->getName(),finalFile,ticket)==HtmlExporter::ERROR){
+            if (!saveHtmlFile(ticket,finalFile)){
                 QMessageBox::critical(this,tr("Error"),QString("No se pudo guardar el archivo %1.").arg(ticket->getName()));
                 success = false;
             }
@@ -353,7 +324,7 @@ void MainWindow::loadUsersFromDatabase()
 }
 
 void MainWindow::newUpdate(Version version, QString updateUrl){
-    if (config.getVersion()<version){
+    if (config->getVersion()<version){
         updateDialog->open(version,updateUrl);
     }
 }

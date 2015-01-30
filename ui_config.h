@@ -41,6 +41,10 @@ public:
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_3;
     QCheckBox *updatesEnabled;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_3;
+    QComboBox *language;
+    QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer;
     QDialogButtonBox *buttons;
 
@@ -48,7 +52,7 @@ public:
     {
         if (Config->objectName().isEmpty())
             Config->setObjectName(QStringLiteral("Config"));
-        Config->resize(258, 221);
+        Config->resize(349, 245);
         Config->setMinimumSize(QSize(258, 0));
         verticalLayout = new QVBoxLayout(Config);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -100,6 +104,35 @@ public:
 
         verticalLayout->addWidget(groupBox);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        label_3 = new QLabel(Config);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy);
+
+        horizontalLayout_2->addWidget(label_3);
+
+        language = new QComboBox(Config);
+        language->setObjectName(QStringLiteral("language"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(language->sizePolicy().hasHeightForWidth());
+        language->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_2->addWidget(language);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -138,6 +171,7 @@ public:
         beforeRd->setText(QApplication::translate("Config", "antes de la cifra.", 0));
         groupBox->setTitle(QApplication::translate("Config", "\302\277Notificar actualizaciones?", 0));
         updatesEnabled->setText(QApplication::translate("Config", "Notificar actualizaciones", 0));
+        label_3->setText(QApplication::translate("Config", "Idioma", 0));
     } // retranslateUi
 
 };

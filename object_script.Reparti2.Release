@@ -5,7 +5,6 @@ INPUT(
 ./release/UsersManagerDialog.o
 ./release/UserContainer.o
 ./release/PayerObserver.o
-./release/HtmlExporter.o
 ./release/UserDbInterface.o
 ./release/PayerWidget.o
 ./release/HistoryWidget.o
@@ -31,6 +30,7 @@ INPUT(
 ./release/SmallButton.o
 ./release/NotesDbInterface.o
 ./release/NoteData.o
+./release/HtmlManager.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o
