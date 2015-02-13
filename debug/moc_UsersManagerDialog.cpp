@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_UsersManagerDialog_t {
     QByteArrayData data[9];
-    char stringdata[102];
+    char stringdata[103];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,16 +30,16 @@ struct qt_meta_stringdata_UsersManagerDialog_t {
 static const qt_meta_stringdata_UsersManagerDialog_t qt_meta_stringdata_UsersManagerDialog = {
     {
 QT_MOC_LITERAL(0, 0, 18),
-QT_MOC_LITERAL(1, 19, 20),
-QT_MOC_LITERAL(2, 40, 0),
-QT_MOC_LITERAL(3, 41, 4),
-QT_MOC_LITERAL(4, 46, 10),
-QT_MOC_LITERAL(5, 57, 12),
-QT_MOC_LITERAL(6, 70, 7),
-QT_MOC_LITERAL(7, 78, 10),
-QT_MOC_LITERAL(8, 89, 12)
+QT_MOC_LITERAL(1, 19, 21),
+QT_MOC_LITERAL(2, 41, 0),
+QT_MOC_LITERAL(3, 42, 4),
+QT_MOC_LITERAL(4, 47, 10),
+QT_MOC_LITERAL(5, 58, 12),
+QT_MOC_LITERAL(6, 71, 7),
+QT_MOC_LITERAL(7, 79, 10),
+QT_MOC_LITERAL(8, 90, 12)
     },
-    "UsersManagerDialog\0closedAndUsersChaned\0"
+    "UsersManagerDialog\0closedAndUsersChanged\0"
     "\0open\0closeEvent\0QCloseEvent*\0addUser\0"
     "deleteUser\0dialogClosed"
 };
@@ -86,7 +86,7 @@ void UsersManagerDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
     if (_c == QMetaObject::InvokeMetaMethod) {
         UsersManagerDialog *_t = static_cast<UsersManagerDialog *>(_o);
         switch (_id) {
-        case 0: _t->closedAndUsersChaned(); break;
+        case 0: _t->closedAndUsersChanged(); break;
         case 1: _t->open(); break;
         case 2: _t->closeEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
         case 3: _t->addUser(); break;
@@ -99,7 +99,7 @@ void UsersManagerDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (UsersManagerDialog::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UsersManagerDialog::closedAndUsersChaned)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UsersManagerDialog::closedAndUsersChanged)) {
                 *result = 0;
             }
         }
@@ -143,7 +143,7 @@ int UsersManagerDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void UsersManagerDialog::closedAndUsersChaned()
+void UsersManagerDialog::closedAndUsersChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }

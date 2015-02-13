@@ -33,7 +33,8 @@
     </message>
     <message>
         <location filename="aboutform.ui" line="118"/>
-        <source>&lt;a href=&quot;http://www.google.es&quot;&gt;www.google.es&lt;/a&gt;</source>
+        <source>&lt;a href=&quot;http://www.zeltastudio.com&quot;&gt;www.zeltastudio.com&lt;/a&gt;</source>
+        <oldsource>&lt;a href=&quot;http://www.google.es&quot;&gt;www.google.es&lt;/a&gt;</oldsource>
         <translation></translation>
     </message>
     <message>
@@ -762,6 +763,11 @@
 <context>
     <name>TotalPayout</name>
     <message>
+        <location filename="Pages/TotalPayout.cpp" line="55"/>
+        <source>%1 debe pagar %2 a %3</source>
+        <translation>%1 has to pay %2 to %3</translation>
+    </message>
+    <message>
         <location filename="Pages/TotalPayout.cpp" line="62"/>
         <source>Nada pendiente.</source>
         <translation>Nothing pending.</translation>
@@ -771,8 +777,8 @@
     <name>UpdateDialog</name>
     <message>
         <location filename="updatedialog.ui" line="20"/>
-        <source>Dialog</source>
-        <translation></translation>
+        <source>Actualización</source>
+        <translation>Update</translation>
     </message>
     <message>
         <location filename="updatedialog.ui" line="45"/>

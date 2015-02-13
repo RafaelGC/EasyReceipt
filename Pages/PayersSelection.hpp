@@ -45,9 +45,10 @@ private slots:
     void fileTicket();
 public slots:
     void updatePayers();
-    void clearPayout();
+    void clearLayout(QLayout *layout);
     void fillUIFromTicket();
     void updateUsersPayout();
+    void cleanUpRequest();
 
 signals:
     void goToManageTicket();

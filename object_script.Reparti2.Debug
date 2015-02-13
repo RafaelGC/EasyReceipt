@@ -31,6 +31,8 @@ INPUT(
 ./debug/NotesDbInterface.o
 ./debug/NoteData.o
 ./debug/HtmlManager.o
+./debug/Payer.o
+./debug/Payers.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

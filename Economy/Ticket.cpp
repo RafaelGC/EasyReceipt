@@ -32,11 +32,6 @@ float Ticket::getTotalCost(bool rounded) const{
     return total;
 }
 
-Product* Ticket::addProduct(float price, std::vector<QString> buyers)
-{
-    return addProduct(Product(price,buyers));
-}
-
 Product* Ticket::addProduct(Product product){
     //Se devuelve un puntero al producto añadido para dar algo
     //de control al usuario sobre el producto.

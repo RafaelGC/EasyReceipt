@@ -43,7 +43,9 @@ SOURCES += main.cpp\
     CustomWidget/SmallButton.cpp \
     Persistence/NotesDbInterface.cpp \
     NoteData.cpp \
-    Persistence/HtmlManager.cpp
+    Persistence/HtmlManager.cpp \
+    Economy/Payer.cpp \
+    Economy/Payers.cpp
 
 HEADERS  += \
     User.hpp \
@@ -76,7 +78,9 @@ HEADERS  += \
     CustomWidget/SmallButton.hpp \
     Persistence/NotesDbInterface.hpp \
     NoteData.hpp \
-    Persistence/HtmlManager.hpp
+    Persistence/HtmlManager.hpp \
+    Economy/Payer.hpp \
+    Economy/Payers.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

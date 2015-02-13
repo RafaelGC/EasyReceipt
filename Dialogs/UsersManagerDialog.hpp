@@ -35,7 +35,7 @@ signals:
     //Esta señal es emitida cuando se cierra el diálogo y los usuarios han
     //cambiado: se ha añadido o eliminado alguno por lo que será necesario
     //notificarlo.
-    void closedAndUsersChaned();
+    void closedAndUsersChanged();
 };
 
 #endif // USERSMANAGERDIALOG_HPP

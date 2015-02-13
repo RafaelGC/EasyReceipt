@@ -76,7 +76,7 @@ void UsersManagerDialog::addUserToList(const QString &name){
 
 void UsersManagerDialog::dialogClosed(){
     if (updated){
-        emit this->closedAndUsersChaned();
+        emit this->closedAndUsersChanged();
     }
     updated = false;
 }

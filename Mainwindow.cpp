@@ -48,18 +48,19 @@ void MainWindow::makeConnections()
     QObject::connect(totalPayout,SIGNAL(goBack()),this,SLOT(goToCreateTicket()));
 
     QObject::connect(manageTicket,SIGNAL(volatileUserCreated()),payersSelection,SLOT(updatePayers()));
-    QObject::connect(usersManagerDialog,SIGNAL(closedAndUsersChaned()),payersSelection,SLOT(updatePayers()));
+    QObject::connect(usersManagerDialog,SIGNAL(closedAndUsersChanged()),payersSelection,SLOT(updatePayers()));
 
     QObject::connect(payersSelection,SIGNAL(ticketHasBeenFiled()),this,SLOT(fileTicket()));
 
     QObject::connect(manageTicket,SIGNAL(cleanAllRequest()),payersSelection,SLOT(updatePayers()));
-    QObject::connect(manageTicket,SIGNAL(cleanAllRequest()),payersSelection,SLOT(clearPayout()));
+    QObject::connect(manageTicket,SIGNAL(cleanAllRequest()),payersSelection,SLOT(cleanUpRequest()));
 
     QObject::connect(createTicket,SIGNAL(ticketCreated()),manageTicket,SLOT(cleanAll()));
 
     QObject::connect(createTicket,SIGNAL(seeTicketRequest()),manageTicket,SLOT(fillUIFromTicket()));
     QObject::connect(manageTicket,SIGNAL(goToPayersSelection()),payersSelection,SLOT(fillUIFromTicket()));
     QObject::connect(createTicket,SIGNAL(saveSelectedTicketRequest(const QString&)),this,SLOT(save(const QString&)));
+
 }
 
 void MainWindow::setupInterface()

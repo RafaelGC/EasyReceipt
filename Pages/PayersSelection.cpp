@@ -27,8 +27,6 @@ PayersSelection::~PayersSelection()
 
 void PayersSelection::payerChanged(QString name, float amount)
 {
-    clearPayout();
-
     ticketContainer->getCurrentTicket()->addPayer(name,amount);
 
     updateUsersPayout();
@@ -43,14 +41,7 @@ void PayersSelection::fileTicket()
 void PayersSelection::updatePayers(){
     /*Primero se eliminan toda la lista de usuarios para
      * que pueda ser gerada de nuevo. */
-    QLayoutItem *child;
-    while ((child = payersLayout->takeAt(0)) != 0) {
-        if (child->widget()){
-            child->widget()->setParent(nullptr);
-            delete child->widget();
-        }
-        delete child;
-    }
+    clearLayout(payersLayout);
     clearPayerObservers();
 
     /*Y ahora se genera la nueva lista.*/
@@ -90,10 +81,10 @@ void PayersSelection::clearPayerObservers()
     payerObservers.clear();
 }
 
-void PayersSelection::clearPayout()
+void PayersSelection::clearLayout(QLayout *layout)
 {
     QLayoutItem *child;
-    while ((child = payoutLayout->takeAt(0)) != nullptr) {
+    while ((child = layout->takeAt(0)) != nullptr) {
         if (child->widget()){
             child->widget()->setParent(nullptr);
             delete child->widget();
@@ -120,6 +111,8 @@ void PayersSelection::fillUIFromTicket()
 
 void PayersSelection::updateUsersPayout()
 {
+    clearLayout(payoutLayout);
+
     int message = -1;
     std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
     if (message==Ticket::MONEY_DOES_NOT_MATCH){
@@ -137,6 +130,11 @@ void PayersSelection::updateUsersPayout()
                                                .arg(config->constructMoney(debts[i].getAmount(true))).arg(debts[i].getCreditor())));
         }
     }
+}
+
+void PayersSelection::cleanUpRequest()
+{
+    this->clearLayout(payoutLayout);
 }
 
 void PayersSelection::showEvent(QShowEvent *)

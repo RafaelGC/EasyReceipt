@@ -24,7 +24,6 @@ public:
 
     float getTotalCost(bool rounded=false) const;
 
-    Product* addProduct(float price, std::vector<QString>buyers);
     Product* addProduct(Product product);
 
     void removeProduct(const Product* product);

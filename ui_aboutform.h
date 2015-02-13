@@ -148,7 +148,7 @@ public:
         label_2->setText(QApplication::translate("AboutForm", "EasyReceipt", 0));
         version->setText(QApplication::translate("AboutForm", "1.0", 0));
         label_3->setText(QApplication::translate("AboutForm", "Desarrollado por: Rafael Gonz\303\241lez", 0));
-        label_4->setText(QApplication::translate("AboutForm", "<a href=\"http://www.google.es\">www.google.es</a>", 0));
+        label_4->setText(QApplication::translate("AboutForm", "<a href=\"http://www.zeltastudio.com\">www.zeltastudio.com</a>", 0));
         closeBtn->setText(QApplication::translate("AboutForm", "Cerrar", 0));
     } // retranslateUi
 
