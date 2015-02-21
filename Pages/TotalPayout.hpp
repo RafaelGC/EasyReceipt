@@ -8,7 +8,7 @@
 #include "Economy/TicketContainer.hpp"
 #include "Economy/Ticket.hpp"
 #include "Economy/Debt.hpp"
-
+#include "Economy/MultiTicketDistribution.hpp"
 #include "Config.hpp"
 
 class TotalPayout : public QWidget

@@ -31,8 +31,11 @@ INPUT(
 ./debug/NotesDbInterface.o
 ./debug/NoteData.o
 ./debug/HtmlManager.o
-./debug/Payer.o
 ./debug/Payers.o
+./debug/UserAmountCollection.o
+./debug/UserAmount.o
+./debug/PaymentDistribution.o
+./debug/MultiTicketDistribution.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

@@ -7,15 +7,16 @@
 
 #include "Product.hpp"
 #include "Debt.hpp"
+#include "Payers.hpp"
+#include "UserAmount.hpp"
 
 class Ticket
 {
 private:
     std::vector<Product*>products;
-    std::vector<std::pair<QString,float>>payers;
+    Payers payers;
     QString ticketName;
 public:
-    enum{MONEY_DOES_NOT_MATCH,SUCCESS};
     Ticket(QString tiketName);
     ~Ticket();
 
@@ -23,22 +24,22 @@ public:
     QString getName() const;
 
     float getTotalCost(bool rounded=false) const;
-
-    Product* addProduct(Product product);
-
-    void removeProduct(const Product* product);
     float getPurchasePriceOf(QString buyer, bool rounded=false) const;
 
-    void clear();
-
+    Product* addProduct(Product product);
+    void removeProduct(const Product* product);
     const Product* productAt(int index) const;
     unsigned int countProducts() const;
 
-    void addPayer(QString name, float amount);
-    std::vector<Debt> computePayout(int *message) const;
-    std::vector<std::pair<QString,float>> getPayers() const;
-    float getAmountPayedBy(QString name) const;
+    void clear();
 
+
+    Payers* getPayers();
+
+    /**
+     * @brief Genera la lista de todos los compradores.
+     * @return Nombres de todos los compradores.
+     */
     QStringList getBuyers() const;
 
 };

@@ -209,11 +209,11 @@ void MainWindow::goToTotalPayout(){
     ui->stackedWidget->setCurrentIndex(4);
 }
 
-bool MainWindow::saveHtmlFile(const Ticket *ticket, QString path)
+bool MainWindow::saveHtmlFile(Ticket *ticket, QString path)
 {
-    HtmlManager exporter(config);
+    HtmlManager exporter(ticket,path,config);
 
-    return exporter.exportToHtml(ticket,path);
+    return exporter.exportToHtml();
 
 }
 

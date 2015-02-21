@@ -27,7 +27,7 @@ PayersSelection::~PayersSelection()
 
 void PayersSelection::payerChanged(QString name, float amount)
 {
-    ticketContainer->getCurrentTicket()->addPayer(name,amount);
+    ticketContainer->getCurrentTicket()->getPayers()->setPayer(UserAmount(name,amount));
 
     updateUsersPayout();
 
@@ -101,7 +101,7 @@ void PayersSelection::fillUIFromTicket()
     updateUsersPayout();
 
     for (unsigned int i=0; i<payerObservers.size(); i++){
-        float amount = ticket->getAmountPayedBy(payerObservers[i]->getName());
+        float amount = ticket->getPayers()->payedBy(payerObservers[i]->getName());
         if (amount>0){
             payerObservers[i]->setAmount(amount);
         }
@@ -113,7 +113,29 @@ void PayersSelection::updateUsersPayout()
 {
     clearLayout(payoutLayout);
 
-    int message = -1;
+    int outputMessage;
+
+    PaymentDistribution distribution(ticketContainer->getCurrentTicket());
+    std::vector<Debt> debtList = distribution.compute(&outputMessage);
+
+    if (outputMessage==PaymentDistribution::OK){
+        //Interpretar salida.
+        for (unsigned int i=0; i<debtList.size(); i++){
+            payoutLayout->addWidget(new QLabel(QString(tr("%1 debe pagar %2 a %3")).arg(debtList[i].getDebtor())
+                                               .arg(config->constructMoney(debtList[i].getAmount(true))).arg(debtList[i].getCreditor())));
+        }
+    }
+    else if (outputMessage==PaymentDistribution::DISTRIBUTION_IS_ALREADY_OK){
+        payoutLayout->addWidget(new QLabel(tr("<b>Reparto adecuado.</b>")));
+    }
+    else{
+        payoutLayout->addWidget(
+                    new QLabel(QString(tr("<b>El dinero pagado no coincide con el coste de la compra.</b>"
+                                       "<br>Recuerda que el separador decimal en tu sistema es '%1'."))
+                               .arg(QLocale::system().decimalPoint())));
+    }
+
+    /*int message = -1;
     std::vector<Debt> debts = ticketContainer->getCurrentTicket()->computePayout(&message);
     if (message==Ticket::MONEY_DOES_NOT_MATCH){
         payoutLayout->addWidget(
@@ -129,7 +151,7 @@ void PayersSelection::updateUsersPayout()
             payoutLayout->addWidget(new QLabel(QString(tr("%1 debe pagar %2 a %3")).arg(debts[i].getDebtor())
                                                .arg(config->constructMoney(debts[i].getAmount(true))).arg(debts[i].getCreditor())));
         }
-    }
+    }*/
 }
 
 void PayersSelection::cleanUpRequest()

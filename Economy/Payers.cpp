@@ -6,49 +6,40 @@ Payers::Payers()
 
 void Payers::clear()
 {
-    payers.clear();
+    UserAmountCollection::clear();
 }
 
 unsigned int Payers::countPayers() const
 {
-    return payers.size();
+    return UserAmountCollection::count();
 }
 
 void Payers::removePayer(const QString &name)
 {
-    for (auto it=payers.begin(); it!=payers.end(); ++it){
-        if ((*it).getName()==name){
-            payers.erase(it);
-            return;
-        }
-    }
+    UserAmountCollection::remove(name);
 }
 
-void Payers::setPayer(const Payer &payer)
+void Payers::setPayer(const UserAmount &payer)
 {
-    for (auto it=payers.begin(); it!=payers.end(); ++it){
-        if (((const Payer)(*it))==payer){
-            (*it).setAmount(payer.getAmount());
-            return;
-        }
-    }
+    UserAmountCollection::set(payer);
 }
 
 float Payers::payedBy(const QString &name) const
 {
-    for (auto it=payers.begin(); it!=payers.end(); ++it){
-        if ((*it).getName()==name){
-            return (*it).getAmount();
-        }
-    }
-    return 0.f;
+    return UserAmountCollection::amountOf(name);
 }
 
 float Payers::totalPayed() const
 {
-    float counter = 0.f;
-    for (auto it=payers.begin(); it!=payers.end(); ++it){
-        counter += (*it).getAmount();
-    }
-    return counter;
+    return UserAmountCollection::total();
+}
+
+UserAmount &Payers::operator[](int index)
+{
+    return UserAmountCollection::operator [](index);
+}
+
+bool Payers::isPayer(const QString &name) const
+{
+    return UserAmountCollection::contains(name);
 }

@@ -67,8 +67,13 @@ void TicketContainer::setCurrentTicket(Ticket *ticket){
     this->currentTicket = ticket;
 }
 
-Ticket *TicketContainer::ticketAt(int index){
+Ticket* &TicketContainer::ticketAt(int index){
     return tickets[index];
+}
+
+Ticket* &TicketContainer::operator[](int index)
+{
+    return ticketAt(index);
 }
 
 unsigned int TicketContainer::ticketsAmount(){
@@ -110,4 +115,16 @@ float TicketContainer::getTotalSpentBy(QString name)
         acumulator+= ticket->getPurchasePriceOf(name);
     }
     return acumulator;
+}
+
+
+Ticket **begin(TicketContainer &ticketContainer)
+{
+    return &ticketContainer[0];
+}
+
+
+Ticket **end(TicketContainer &ticketContainer)
+{
+    return begin(ticketContainer)+ticketContainer.ticketsAmount();
 }

@@ -72,7 +72,7 @@ private:
     void loadUsersFromDatabase();
     void makeConnections();
     void setupInterface();
-    bool saveHtmlFile( const Ticket *ticket, QString path);
+    bool saveHtmlFile(Ticket *ticket, QString path);
     void checkForUpdates();
 
 private slots:

@@ -31,8 +31,11 @@ INPUT(
 ./release/NotesDbInterface.o
 ./release/NoteData.o
 ./release/HtmlManager.o
-./release/Payer.o
 ./release/Payers.o
+./release/UserAmountCollection.o
+./release/UserAmount.o
+./release/PaymentDistribution.o
+./release/MultiTicketDistribution.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o

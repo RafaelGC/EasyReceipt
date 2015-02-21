@@ -32,9 +32,14 @@ bool Debt::operator==(const Debt &debt) const
     return (this->creditor==debt.getCreditor() && this->debtor==debt.getDebtor());
 }
 
-bool Debt::isSwapped(const Debt &debt) const
+bool Debt::isSwappedVersionOf(const Debt &debt) const
 {
-    return (this->debtor==debt.getCreditor() && this->creditor==debt.debtor);
+    return (this->debtor==debt.getCreditor() && this->creditor==debt.getDebtor());
+}
+
+bool Debt::compatibleWith(const Debt &debt) const
+{
+    return ((*this)==debt || this->isSwappedVersionOf(debt));
 }
 
 void Debt::swapIfNeeded()
@@ -46,6 +51,17 @@ void Debt::swapIfNeeded()
         amount*=-1;
     }
 
+}
+
+void Debt::operator+=(const Debt &debt)
+{
+    if ((*this)==debt){
+        this->setAmount(this->getAmount()+debt.getAmount());
+    }
+    else if (this->isSwappedVersionOf(debt)){
+        this->setAmount(this->getAmount()-debt.getAmount());
+    }
+    this->swapIfNeeded();
 }
 
 QString Debt::getDebtor() const

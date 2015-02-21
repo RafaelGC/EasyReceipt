@@ -17,18 +17,28 @@ public:
     TicketContainer();
     ~TicketContainer();
 
+    bool addTicket(Ticket *ticket);
     Ticket *createTicket(QString ticketName, bool setCurrent=false);
+
     void deleteTicket(QString ticketName);
     void deleteTicket(Ticket *ticket);
+
     Ticket *getCurrentTicket();
     Ticket *getByName(QString ticketName);
     void setCurrentTicket(Ticket *ticket);
-    Ticket *ticketAt(int index);
+
+    Ticket* &ticketAt(int index);
+    Ticket* &operator[](int index);
+
     unsigned int ticketsAmount();
+
     QString validateName(const QString &ticketName);
-    bool addTicket(Ticket *ticket);
 
     float getTotalSpentBy(QString name);
 };
+
+//Para hacer compatible la clase con el for de rango.
+Ticket* *begin(TicketContainer &ticketContainer);
+Ticket* *end(TicketContainer &ticketContainer);
 
 #endif // TICKETCONTAINER_HPP

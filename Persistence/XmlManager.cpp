@@ -26,11 +26,11 @@ int XmlManager::exportToXml(QString fileName, Ticket *ticket)
 
     QDomElement payers = document.createElement("payers");
 
-    for (unsigned int i = 0; i<ticket->getPayers().size(); i++){
-        std::pair<QString,float> payer = ticket->getPayers()[i];
+    for (unsigned int i = 0; i<ticket->getPayers()->countPayers(); i++){
+        UserAmount payer = (ticket->getPayers()->operator [](i));
         QDomElement payerElement = document.createElement("payer");
-        payerElement.setAttribute("name",payer.first);
-        payerElement.setAttribute("amount",QString::number(payer.second));
+        payerElement.setAttribute("name",payer.getName());
+        payerElement.setAttribute("amount",QString::number(payer.getAmount()));
         payers.appendChild(payerElement);
     }
     ticketElement.appendChild(payers);
@@ -104,7 +104,7 @@ int XmlManager::loadFromXml(QString fileName, Ticket *ticket){
                         float amount = payerElement.attribute("amount","0").toFloat();
                         QString name = payerElement.attribute("name","");
                         if (!name.isEmpty() && amount>0){
-                            ticket->addPayer(name,amount);
+                            ticket->getPayers()->setPayer(UserAmount(name,amount));
                         }
 
                     }

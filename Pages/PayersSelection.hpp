@@ -16,10 +16,13 @@
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
 #include "Economy/Debt.hpp"
+#include "Economy/PaymentDistribution.hpp"
+
 #include "PayerObserver.hpp"
 #include "UserContainer.hpp"
 #include "Config.hpp"
 #include "CustomWidget/SpaceLineEdit.hpp"
+
 #include "ui_payersselector.h"
 
 class PayersSelection : public QWidget

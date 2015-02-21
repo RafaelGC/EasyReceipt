@@ -17,38 +17,9 @@ TotalPayout::~TotalPayout()
 
 
 void TotalPayout::showEvent(QShowEvent *){
-    std::vector<Debt>debtList;
 
-    //Para cada ticket.
-    for (unsigned int i=0; i<ticketContainer->ticketsAmount(); i++){
-        Ticket *ticket = ticketContainer->ticketAt(i);
-
-        int message = -1;
-        //Hago el cálculo de reparto idividual.
-        std::vector<Debt>d = ticket->computePayout(&message);
-        if (message==Ticket::SUCCESS){
-            for (unsigned int j=0; j<d.size(); j++){
-                bool found = false;
-                for (unsigned int k=0; k<debtList.size(); k++){
-                    if (d[j]==debtList[k]){
-                        debtList[k].setAmount(debtList[k].getAmount()+d[k].getAmount());
-                        found = true;
-                    }
-                    else if (d[j].isSwapped(debtList[k])){
-                        debtList[k].setAmount(debtList[k].getAmount()-d[k].getAmount());
-                        found = true;
-                    }
-                    if (found){
-                        //debtList[k].swapIfNeeded();
-                        break;
-                    }
-                }
-                if (!found){
-                    debtList.push_back(d[j]);
-                }
-            }
-        }
-    }
+    MultiTicketDistribution distribution(ticketContainer);
+    std::vector<Debt> debtList = distribution.compute();
 
     ui->totalPayoutText->clear();
 

@@ -1,14 +1,13 @@
 #ifndef PAYERS_HPP
 #define PAYERS_HPP
 
-#include "Economy/Payer.hpp"
+#include "Economy/UserAmount.hpp"
+#include "Economy/UserAmountCollection.hpp"
 
 #include <vector>
 
-class Payers
+class Payers : protected UserAmountCollection
 {
-private:
-    std::vector<Payer> payers;
 public:
     Payers();
 
@@ -16,11 +15,14 @@ public:
     unsigned int countPayers() const;
 
     void removePayer(const QString & name);
-    //Para actualizar y añadir pagadores:
-    void setPayer(const Payer &payer);
+    void setPayer(const UserAmount &payer);
 
     float payedBy(const QString &name) const;
     float totalPayed() const;
+
+    UserAmount& operator[](int index);
+
+    bool isPayer(const QString &name) const;
 };
 
 #endif // PAYERS_HPP

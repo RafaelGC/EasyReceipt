@@ -44,8 +44,11 @@ SOURCES += main.cpp\
     Persistence/NotesDbInterface.cpp \
     NoteData.cpp \
     Persistence/HtmlManager.cpp \
-    Economy/Payer.cpp \
-    Economy/Payers.cpp
+    Economy/Payers.cpp \
+    Economy/UserAmountCollection.cpp \
+    Economy/UserAmount.cpp \
+    Economy/PaymentDistribution.cpp \
+    Economy/MultiTicketDistribution.cpp
 
 HEADERS  += \
     User.hpp \
@@ -79,8 +82,11 @@ HEADERS  += \
     Persistence/NotesDbInterface.hpp \
     NoteData.hpp \
     Persistence/HtmlManager.hpp \
-    Economy/Payer.hpp \
-    Economy/Payers.hpp
+    Economy/Payers.hpp \
+    Economy/UserAmountCollection.hpp \
+    Economy/UserAmount.hpp \
+    Economy/PaymentDistribution.hpp \
+    Economy/MultiTicketDistribution.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

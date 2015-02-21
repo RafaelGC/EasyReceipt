@@ -8,6 +8,7 @@
 #include <QTranslator>
 
 #include "Economy/Ticket.hpp"
+#include "Economy/UserAmount.hpp"
 
 class XmlManager
 {
