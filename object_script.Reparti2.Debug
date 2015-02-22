@@ -21,7 +21,6 @@ INPUT(
 ./debug/ConfigDbInterface.o
 ./debug/Config.o
 ./debug/AboutDialog.o
-./debug/XmlManager.o
 ./debug/Version.o
 ./debug/UpdateManager.o
 ./debug/UpdateDialog.o
@@ -36,6 +35,8 @@ INPUT(
 ./debug/UserAmount.o
 ./debug/PaymentDistribution.o
 ./debug/MultiTicketDistribution.o
+./debug/XmlExporter.o
+./debug/XmlImporter.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

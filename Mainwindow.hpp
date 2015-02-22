@@ -22,7 +22,8 @@
 #include "Persistence/HtmlManager.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "Persistence/ConfigDbInterface.hpp"
-#include "Persistence/XmlManager.hpp"
+#include "Persistence/XmlImporter.hpp"
+#include "Persistence/XmlExporter.hpp"
 
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"

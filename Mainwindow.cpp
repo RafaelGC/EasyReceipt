@@ -95,7 +95,6 @@ void MainWindow::fileTicket(){
 
 void MainWindow::save(const QString&ticketNameParam)
 {
-    XmlManager xml;
     Ticket *ticket = ticketContainer.getCurrentTicket();
     if (ticketNameParam.isEmpty()){
         if (ticketContainer.ticketsAmount()==0){
@@ -129,7 +128,8 @@ void MainWindow::save(const QString&ticketNameParam)
 
     config->setSavePath(path);
 
-    if (xml.exportToXml(path,ticket)==XmlManager::FILE_NOT_OPEN){
+    XmlExporter xml(ticket);
+    if (!xml.exportToXml(path)){
         QMessageBox::critical(this,tr("Error"),tr("Error al guardar el archivo."));
     }
     else{
@@ -156,8 +156,8 @@ void MainWindow::saveAll(){
             Ticket *ticket = ticketContainer.ticketAt(i);
             QString pathcpy = path;
             QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".xml");
-            XmlManager xml;
-            if (xml.exportToXml(finalFile,ticket)==XmlManager::FILE_NOT_OPEN){
+            XmlExporter xml(ticket);
+            if (!xml.exportToXml(finalFile)){
                 QMessageBox::critical(this,tr("Error"),QString("No se pudo guardar el archivo %1.").arg(ticket->getName()));
                 success = false;
                 break;
@@ -171,25 +171,35 @@ void MainWindow::saveAll(){
 }
 
 void MainWindow::loadFile(){
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Cargar archivo"),config->getSavePath(),
-                                                    tr("Archivos XML (*.xml)"));
-    if (!fileName.isNull()){
-        XmlManager xml;
-        Ticket* ticket = new Ticket("");
-        if (xml.loadFromXml(fileName,ticket)==XmlManager::OK){
-            //Validamos el nombre del ticket (el usuario podría cargar un ticket con un
-            //nombre que ya esté siendo usado).
-            QString validName = ticketContainer.validateName(ticket->getName());
-            ticket->setName(validName);
-            ticketContainer.addTicket(ticket);
 
-            //Informamos de que se ha cargado un ticket.
-            createTicket->ticketLoaded(ticket);
+    QStringList fileNames = QFileDialog::getOpenFileNames(this,tr("Cargar archivo"),config->getSavePath(),tr("Archivos XML (*.xml)"));
+
+    int errorCounter = 0;
+
+    for (QString &fileName : fileNames){
+        if (!fileName.isNull()){
+            Ticket* ticket = new Ticket("");
+            XmlImporter xml(fileName,ticket);
+            if (xml.load()==XmlImporter::OK){
+                //Validamos el nombre del ticket (el usuario podría cargar un ticket con un
+                //nombre que ya esté siendo usado).
+                QString validName = ticketContainer.validateName(ticket->getName());
+                ticket->setName(validName);
+                ticketContainer.addTicket(ticket);
+
+                //Informamos de que se ha cargado un ticket.
+                createTicket->ticketLoaded(ticket);
+            }
+            else{
+                errorCounter++;
+            }
         }
-        else{
-            QMessageBox::warning(this,tr("Aviso"),tr("Error al cargar el archivo. Puede estar dañado."));
-        }
+    }
+
+    if (errorCounter>0){
+        QMessageBox::warning(this,
+                             tr("Aviso"),
+                             QString(tr("Error al cargar %1 archivo. Puede estar dañado.")).arg(errorCounter));
     }
 }
 

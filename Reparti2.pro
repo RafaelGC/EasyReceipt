@@ -34,7 +34,6 @@ SOURCES += main.cpp\
     Persistence/ConfigDbInterface.cpp \
     Config.cpp \
     Dialogs/AboutDialog.cpp \
-    Persistence/XmlManager.cpp \
     Version.cpp \
     UpdateManager.cpp \
     Dialogs/UpdateDialog.cpp \
@@ -48,7 +47,9 @@ SOURCES += main.cpp\
     Economy/UserAmountCollection.cpp \
     Economy/UserAmount.cpp \
     Economy/PaymentDistribution.cpp \
-    Economy/MultiTicketDistribution.cpp
+    Economy/MultiTicketDistribution.cpp \
+    Persistence/XmlExporter.cpp \
+    Persistence/XmlImporter.cpp
 
 HEADERS  += \
     User.hpp \
@@ -72,7 +73,6 @@ HEADERS  += \
     Persistence/ConfigDbInterface.hpp \
     Config.hpp \
     Dialogs/AboutDialog.hpp \
-    Persistence/XmlManager.hpp \
     Version.hpp \
     UpdateManager.hpp \
     Dialogs/UpdateDialog.hpp \
@@ -86,7 +86,9 @@ HEADERS  += \
     Economy/UserAmountCollection.hpp \
     Economy/UserAmount.hpp \
     Economy/PaymentDistribution.hpp \
-    Economy/MultiTicketDistribution.hpp
+    Economy/MultiTicketDistribution.hpp \
+    Persistence/XmlExporter.hpp \
+    Persistence/XmlImporter.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

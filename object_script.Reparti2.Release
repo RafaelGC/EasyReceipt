@@ -21,7 +21,6 @@ INPUT(
 ./release/ConfigDbInterface.o
 ./release/Config.o
 ./release/AboutDialog.o
-./release/XmlManager.o
 ./release/Version.o
 ./release/UpdateManager.o
 ./release/UpdateDialog.o
@@ -36,6 +35,8 @@ INPUT(
 ./release/UserAmount.o
 ./release/PaymentDistribution.o
 ./release/MultiTicketDistribution.o
+./release/XmlExporter.o
+./release/XmlImporter.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o
