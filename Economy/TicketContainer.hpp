@@ -30,7 +30,7 @@ public:
     Ticket* &ticketAt(int index);
     Ticket* &operator[](int index);
 
-    unsigned int ticketsAmount();
+    unsigned int count();
 
     QString validateName(const QString &ticketName);
 

@@ -76,7 +76,7 @@ Ticket* &TicketContainer::operator[](int index)
     return ticketAt(index);
 }
 
-unsigned int TicketContainer::ticketsAmount(){
+unsigned int TicketContainer::count(){
     return tickets.size();
 }
 
@@ -126,5 +126,5 @@ Ticket **begin(TicketContainer &ticketContainer)
 
 Ticket **end(TicketContainer &ticketContainer)
 {
-    return begin(ticketContainer)+ticketContainer.ticketsAmount();
+    return begin(ticketContainer)+ticketContainer.count();
 }

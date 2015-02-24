@@ -29,7 +29,6 @@ INPUT(
 ./debug/SmallButton.o
 ./debug/NotesDbInterface.o
 ./debug/NoteData.o
-./debug/HtmlManager.o
 ./debug/Payers.o
 ./debug/UserAmountCollection.o
 ./debug/UserAmount.o
@@ -37,6 +36,8 @@ INPUT(
 ./debug/MultiTicketDistribution.o
 ./debug/XmlExporter.o
 ./debug/XmlImporter.o
+./debug/HtmlExporter.o
+./debug/HtmlInterface.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

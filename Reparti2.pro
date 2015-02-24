@@ -42,14 +42,15 @@ SOURCES += main.cpp\
     CustomWidget/SmallButton.cpp \
     Persistence/NotesDbInterface.cpp \
     NoteData.cpp \
-    Persistence/HtmlManager.cpp \
     Economy/Payers.cpp \
     Economy/UserAmountCollection.cpp \
     Economy/UserAmount.cpp \
     Economy/PaymentDistribution.cpp \
     Economy/MultiTicketDistribution.cpp \
     Persistence/XmlExporter.cpp \
-    Persistence/XmlImporter.cpp
+    Persistence/XmlImporter.cpp \
+    Persistence/HtmlExporter.cpp \
+    HtmlInterface.cpp
 
 HEADERS  += \
     User.hpp \
@@ -81,14 +82,15 @@ HEADERS  += \
     CustomWidget/SmallButton.hpp \
     Persistence/NotesDbInterface.hpp \
     NoteData.hpp \
-    Persistence/HtmlManager.hpp \
     Economy/Payers.hpp \
     Economy/UserAmountCollection.hpp \
     Economy/UserAmount.hpp \
     Economy/PaymentDistribution.hpp \
     Economy/MultiTicketDistribution.hpp \
     Persistence/XmlExporter.hpp \
-    Persistence/XmlImporter.hpp
+    Persistence/XmlImporter.hpp \
+    Persistence/HtmlExporter.hpp \
+    HtmlInterface.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \

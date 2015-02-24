@@ -19,7 +19,6 @@
 #include "Pages/ManageTicketWidget.hpp"
 #include "Pages/TotalPayout.hpp"
 
-#include "Persistence/HtmlManager.hpp"
 #include "Persistence/UserDbInterface.hpp"
 #include "Persistence/ConfigDbInterface.hpp"
 #include "Persistence/XmlImporter.hpp"
@@ -28,6 +27,8 @@
 #include "Economy/Product.hpp"
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
+
+#include "HtmlInterface.hpp"
 
 #include "NotesWindow.hpp"
 
@@ -73,7 +74,6 @@ private:
     void loadUsersFromDatabase();
     void makeConnections();
     void setupInterface();
-    bool saveHtmlFile(Ticket *ticket, QString path);
     void checkForUpdates();
 
 private slots:
@@ -81,9 +81,12 @@ private slots:
     void exportHtml();
     void exportAllHtml();
     void fileTicket();
+
     void save(const QString&ticketName="");
     void saveAll();
+
     void loadFile();
+
     void newUpdate(Version version, QString updateUrl);
 
     //Navegación

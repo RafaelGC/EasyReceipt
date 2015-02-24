@@ -85,8 +85,6 @@ void MainWindow::setupInterface()
     ui->stackedWidget->addWidget(totalPayout);
 
     ui->stackedWidget->setCurrentIndex(1);
-
-    ui->actionNotes->setShortcut(QKeySequence("Ctrl+N"));
 }
 
 void MainWindow::fileTicket(){
@@ -97,7 +95,7 @@ void MainWindow::save(const QString&ticketNameParam)
 {
     Ticket *ticket = ticketContainer.getCurrentTicket();
     if (ticketNameParam.isEmpty()){
-        if (ticketContainer.ticketsAmount()==0){
+        if (ticketContainer.count()==0){
             QMessageBox::warning(this,tr("Aviso"),tr("No hay tickets que guardar."));
             return;
         }
@@ -105,7 +103,7 @@ void MainWindow::save(const QString&ticketNameParam)
         if (ui->stackedWidget->currentIndex()==1){
             //Si no estamos trabajando en ningún ticket preguntaremos cuál se quiere modificar.
             QStringList nameList;
-            for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
+            for (unsigned int i=0; i<ticketContainer.count(); i++){
                 nameList<< ticketContainer.ticketAt(i)->getName();
             }
             bool ok = false;
@@ -138,7 +136,7 @@ void MainWindow::save(const QString&ticketNameParam)
 }
 
 void MainWindow::saveAll(){
-    if (ticketContainer.ticketsAmount()==0){
+    if (ticketContainer.count()==0){
         QMessageBox::warning(this,tr("Aviso"),tr("No hay ningún ticket en la lista."));
         return;
     }
@@ -152,7 +150,7 @@ void MainWindow::saveAll(){
         config->setSavePath(path);
 
         bool success = true;
-        for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
+        for (unsigned int i=0; i<ticketContainer.count(); i++){
             Ticket *ticket = ticketContainer.ticketAt(i);
             QString pathcpy = path;
             QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".xml");
@@ -219,13 +217,6 @@ void MainWindow::goToTotalPayout(){
     ui->stackedWidget->setCurrentIndex(4);
 }
 
-bool MainWindow::saveHtmlFile(Ticket *ticket, QString path)
-{
-    HtmlManager exporter(ticket,path,config);
-
-    return exporter.exportToHtml();
-
-}
 
 void MainWindow::checkForUpdates(){
     if (config->getUpdatesEnabled()){
@@ -239,77 +230,26 @@ void MainWindow::checkForUpdates(){
 
 
 void MainWindow::exportHtml(){
-    if (ticketContainer.ticketsAmount()<=0){
-        QMessageBox::warning(this,tr("Aviso"),tr("No hay ningún ticket en la lista."));
-        return;
+    HtmlInterface htmlInterface(this,&ticketContainer,config);
+
+    int currIndex = ui->stackedWidget->currentIndex();
+    if (currIndex==2 || currIndex==3)
+    {
+        htmlInterface.saveTicket(ticketContainer.getCurrentTicket());
     }
-
-    Ticket * ticket = ticketContainer.getCurrentTicket();
-
-    if (ui->stackedWidget->currentIndex()==1){
-        //Si no estamos trabajando en ningún ticket preguntaremos cuál se quiere modificar.
-        QStringList nameList;
-        for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
-            nameList<< ticketContainer.ticketAt(i)->getName();
-        }
-        bool ok = false;
-        QString ticketName = QInputDialog::getItem(this,tr("¿Qué ticket quieres guardar?"),tr("Selecciona el ticket que quieres guardar:"),nameList,0,false,&ok);
-        if (!ok) return;
-
-        ticket = ticketContainer.getByName(ticketName);
-    }
-
-    if (!ticket){
-        return;
-    }
-
-    //Este método guarda en formato HTML el ticket actual.
-
-    QString path = QFileDialog::getSaveFileName(this,tr("Exportar a HTML"),config->getExportPath().append("/").append(ticket->getName()).append(".html"),tr("HTML (*.html *.htm)"));
-    if (path.isNull()){ //El usuario ha cancelado la acción.
-        return;
-    }
-
-    config->setExportPath(path);
-
-    QString name = QFileInfo(path).baseName();
-    if (saveHtmlFile(ticket,path)){
-        QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó con éxito."));
-    }
-    else{
-        QMessageBox::critical(this,tr("Error"),tr("El archivo no se pudo guardar."));
+    else
+    {
+        htmlInterface.saveTicket();
     }
 
 }
 
 void MainWindow::exportAllHtml(){
-    if (ticketContainer.ticketsAmount()==0){
-        QMessageBox::warning(this,tr("Aviso"),tr("No hay ningún ticket en la lista."));
-        return;
-    }
-    if (QMessageBox::question(this,tr("¿Seguro?"),tr("Todos los archivos con el mismo nombre serán reescritos. ¿Quieres continuar?"))==QMessageBox::Yes){
-        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"),config->getExportPath());
-        if (path.isEmpty() || path.isNull()){
-            return;
-        }
+    HtmlInterface htmlInterface(this,&ticketContainer,config);
 
-        config->setExportPath(path);
+    htmlInterface.saveAllTickets();
 
-        bool success = true;
-        for (unsigned int i=0; i<ticketContainer.ticketsAmount(); i++){
-            Ticket *ticket = ticketContainer.ticketAt(i);
-            QString pathcpy = path;
-            QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".html");
-            if (!saveHtmlFile(ticket,finalFile)){
-                QMessageBox::critical(this,tr("Error"),QString("No se pudo guardar el archivo %1.").arg(ticket->getName()));
-                success = false;
-            }
-        }
-        if (success){
-            QMessageBox::information(this,tr("Éxito"),tr("Los archivos se guardaron con éxito."));
-        }
 
-    }
 }
 
 void MainWindow::loadUsersFromDatabase()
