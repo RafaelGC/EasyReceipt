@@ -50,7 +50,10 @@ SOURCES += main.cpp\
     Persistence/XmlExporter.cpp \
     Persistence/XmlImporter.cpp \
     Persistence/HtmlExporter.cpp \
-    HtmlInterface.cpp
+    HtmlInterface.cpp \
+    UserDbLoader.cpp \
+    XmlInterface.cpp \
+    TicketLoadedListener.cpp
 
 HEADERS  += \
     User.hpp \
@@ -90,7 +93,10 @@ HEADERS  += \
     Persistence/XmlExporter.hpp \
     Persistence/XmlImporter.hpp \
     Persistence/HtmlExporter.hpp \
-    HtmlInterface.hpp
+    HtmlInterface.hpp \
+    UserDbLoader.hpp \
+    XmlInterface.hpp \
+    TicketLoadedListener.hpp
 
 FORMS    += mainwindow.ui \
     UsersManager.ui \
@@ -104,6 +110,7 @@ FORMS    += mainwindow.ui \
     noteswindow.ui
 
 CONFIG += c++11
+CONFIG += Wall
 
 RC_FILE = resource.rc
 

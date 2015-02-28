@@ -14,8 +14,9 @@
 
 #include "Config.hpp"
 #include "UpdateManager.hpp"
+#include "TicketLoadedListener.hpp"
 
-class CreateTicketWidget : public QWidget
+class CreateTicketWidget : public QWidget, public TicketLoadedListener
 {
     Q_OBJECT
 private:

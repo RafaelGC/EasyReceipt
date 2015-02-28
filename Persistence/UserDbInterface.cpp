@@ -31,7 +31,7 @@ void UserDbInterface::close()
     db.close();
 }
 
-QStringList UserDbInterface::queryUsers(int *ok)
+QStringList UserDbInterface::queryUsers(bool *ok)
 {
     QSqlQuery query(db);
 
@@ -45,25 +45,24 @@ QStringList UserDbInterface::queryUsers(int *ok)
                 strlst.append(tmpName);
             }
             if (ok){
-                *ok = OK;
+                *ok = true;
             }
             return strlst;
         }
         else{
             if (ok){
-                *ok = GENERAL_ERROR;
+                *ok = false;
                 return QStringList();
             }
         }
     }
     else{
         if (ok){
-            *ok = UserDbInterface::GENERAL_ERROR;
-            return QStringList();
+            *ok = false;
         }
+        return QStringList();
     }
 
-    return QStringList();
 }
 
 bool UserDbInterface::saveUser(const QString &userName)

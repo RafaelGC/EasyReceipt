@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     dbConfigInterface.loadConfig(&config);
     dbConfigInterface.close();
 
-    config.setVersion(VERSION_MAJOR,VERSION_MINOR); //Versión 1.0. SE ESTABLECE DESDE EL CÓDIGO.
+    config.setVersion(VERSION_MAJOR,VERSION_MINOR); //Versión 1.0. SE ESTABLECE DESDE EL CÓDIGO.*/
 
     QTranslator translator;
 
@@ -41,4 +41,6 @@ int main(int argc, char *argv[])
     dbConfigInterface.close();
 
     return ret;
+
+    //return 0;
 }

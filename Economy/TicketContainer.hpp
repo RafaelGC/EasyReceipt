@@ -35,6 +35,7 @@ public:
     QString validateName(const QString &ticketName);
 
     float getTotalSpentBy(QString name);
+    QStringList getTicketNamesList() const;
 };
 
 //Para hacer compatible la clase con el for de rango.

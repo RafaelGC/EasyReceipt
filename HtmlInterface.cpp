@@ -71,18 +71,12 @@ Ticket *HtmlInterface::selectTicketToSave()
 
 Ticket *HtmlInterface::askForTicket()
 {
-    QStringList nameList;
-    for (Ticket *ticket : (*ticketContainer))
-    {
-        nameList<< ticket->getName();
-    }
-
     bool ok = false;
     QString ticketName = QInputDialog::getItem(
                 parent,
                 QObject::tr("¿Qué ticket quieres guardar?"),
                 QObject::tr("Selecciona el ticket que quieres guardar:"),
-                nameList,0,false,&ok);
+                ticketContainer->getTicketNamesList(),0,false,&ok);
     if (!ok) return nullptr;
 
     return ticketContainer->getByName(ticketName);
@@ -101,7 +95,9 @@ void HtmlInterface::askForPathAndExport(Ticket *ticket)
         if (!path.isNull())
         {
             QMessageBox::information(parent,QObject::tr("Éxito"),QObject::tr("El ticket se guardó."));
+
             config->setExportPath(path);
+
         }
     }
 

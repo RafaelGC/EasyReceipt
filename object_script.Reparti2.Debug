@@ -38,6 +38,9 @@ INPUT(
 ./debug/XmlImporter.o
 ./debug/HtmlExporter.o
 ./debug/HtmlInterface.o
+./debug/UserDbLoader.o
+./debug/XmlInterface.o
+./debug/TicketLoadedListener.o
 ./debug/qrc_resources.o
 ./debug/moc_UsersManagerDialog.o
 ./debug/moc_PayerObserver.o

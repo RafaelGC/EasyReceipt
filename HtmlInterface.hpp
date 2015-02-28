@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QInputDialog>
+#include <QDebug>
 
 #include "Config.hpp"
 #include "Economy/Ticket.hpp"

@@ -117,6 +117,15 @@ float TicketContainer::getTotalSpentBy(QString name)
     return acumulator;
 }
 
+QStringList TicketContainer::getTicketNamesList() const
+{
+    QStringList sl;
+    for (Ticket * ticket : tickets){
+        sl << ticket->getName();
+    }
+    return sl;
+}
+
 
 Ticket **begin(TicketContainer &ticketContainer)
 {

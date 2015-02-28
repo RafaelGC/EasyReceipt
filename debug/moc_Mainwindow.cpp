@@ -72,8 +72,8 @@ static const uint qt_meta_data_MainWindow[] = {
        1,    0,   74,    2, 0x08 /* Private */,
        3,    0,   75,    2, 0x08 /* Private */,
        4,    0,   76,    2, 0x08 /* Private */,
-       5,    1,   77,    2, 0x08 /* Private */,
-       5,    0,   80,    2, 0x28 /* Private | MethodCloned */,
+       5,    0,   77,    2, 0x08 /* Private */,
+       5,    1,   78,    2, 0x08 /* Private */,
        7,    0,   81,    2, 0x08 /* Private */,
        8,    0,   82,    2, 0x08 /* Private */,
        9,    2,   83,    2, 0x08 /* Private */,
@@ -86,8 +86,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 10, QMetaType::QString,   11,   12,
@@ -107,8 +107,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->exportHtml(); break;
         case 1: _t->exportAllHtml(); break;
         case 2: _t->fileTicket(); break;
-        case 3: _t->save((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 4: _t->save(); break;
+        case 3: _t->save(); break;
+        case 4: _t->save((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 5: _t->saveAll(); break;
         case 6: _t->loadFile(); break;
         case 7: _t->newUpdate((*reinterpret_cast< Version(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;

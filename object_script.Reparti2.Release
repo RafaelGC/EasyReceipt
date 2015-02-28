@@ -38,6 +38,9 @@ INPUT(
 ./release/XmlImporter.o
 ./release/HtmlExporter.o
 ./release/HtmlInterface.o
+./release/UserDbLoader.o
+./release/XmlInterface.o
+./release/TicketLoadedListener.o
 ./release/qrc_resources.o
 ./release/moc_UsersManagerDialog.o
 ./release/moc_PayerObserver.o

@@ -50,6 +50,8 @@ public:
 
     int getLanguage() const;
     void setLanguage(int value);
+
+    static QString cleanPathIfFile(const QString &filePath);
 };
 
 #endif // CONFIG_HPP

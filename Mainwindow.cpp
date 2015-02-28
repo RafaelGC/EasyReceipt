@@ -91,114 +91,35 @@ void MainWindow::fileTicket(){
     goToCreateTicket();
 }
 
-void MainWindow::save(const QString&ticketNameParam)
+void MainWindow::save()
 {
-    Ticket *ticket = ticketContainer.getCurrentTicket();
-    if (ticketNameParam.isEmpty()){
-        if (ticketContainer.count()==0){
-            QMessageBox::warning(this,tr("Aviso"),tr("No hay tickets que guardar."));
-            return;
-        }
-
-        if (ui->stackedWidget->currentIndex()==1){
-            //Si no estamos trabajando en ningún ticket preguntaremos cuál se quiere modificar.
-            QStringList nameList;
-            for (unsigned int i=0; i<ticketContainer.count(); i++){
-                nameList<< ticketContainer.ticketAt(i)->getName();
-            }
-            bool ok = false;
-            QString ticketName = QInputDialog::getItem(this,tr("¿Qué ticket quieres guardar?"),tr("Selecciona el ticket que quieres guardar:"),nameList,0,false,&ok);
-            if (!ok) return;
-
-            ticket = ticketContainer.getByName(ticketName);
-        }
+    XmlInterface xml(this,&ticketContainer,config);
+    int currIndex = ui->stackedWidget->currentIndex();
+    if (currIndex==2 || currIndex==3)
+    {
+        xml.saveTicket(ticketContainer.getCurrentTicket());
     }
-    else{
-        ticket = ticketContainer.getByName(ticketNameParam);
+    else
+    {
+        xml.askForTicketAndSave();
     }
+}
 
-    if (!ticket)return;
-
-    QString path = QFileDialog::getSaveFileName(this,tr("Guardar"),config->getSavePath().append("/").append(ticket->getName()).append(".xml"),tr("HTML (*.xml)"));
-    if (path.isNull()){ //El usuario ha cancelado la acción.
-        return;
-    }
-
-    config->setSavePath(path);
-
-    XmlExporter xml(ticket);
-    if (!xml.exportToXml(path)){
-        QMessageBox::critical(this,tr("Error"),tr("Error al guardar el archivo."));
-    }
-    else{
-        QMessageBox::information(this,tr("Éxito"),tr("El archivo se guardó correctamente."));
-    }
+void MainWindow::save(const QString &ticketName)
+{
+    XmlInterface xml(this,&ticketContainer,config);
+    xml.saveTicket(ticketContainer.getByName(ticketName));
 }
 
 void MainWindow::saveAll(){
-    if (ticketContainer.count()==0){
-        QMessageBox::warning(this,tr("Aviso"),tr("No hay ningún ticket en la lista."));
-        return;
-    }
-
-    if (QMessageBox::question(this,tr("¿Seguro?"),tr("Todos los archivos con el mismo nombre serán reescritos. ¿Quieres continuar?"))==QMessageBox::Yes){
-        QString path = QFileDialog::getExistingDirectory(this,tr("Selecciona una carpeta"));
-        if (path.isEmpty() || path.isNull()){
-            return;
-        }
-
-        config->setSavePath(path);
-
-        bool success = true;
-        for (unsigned int i=0; i<ticketContainer.count(); i++){
-            Ticket *ticket = ticketContainer.ticketAt(i);
-            QString pathcpy = path;
-            QString finalFile = pathcpy.append("/").append(ticket->getName()).append(".xml");
-            XmlExporter xml(ticket);
-            if (!xml.exportToXml(finalFile)){
-                QMessageBox::critical(this,tr("Error"),QString("No se pudo guardar el archivo %1.").arg(ticket->getName()));
-                success = false;
-                break;
-            }
-        }
-        if (success){
-            QMessageBox::information(this,tr("Éxito"),tr("Los archivos se guardaron con éxito."));
-        }
-
-    }
+    XmlInterface xml(this,&ticketContainer,config);
+    xml.saveAllTickets();
 }
 
-void MainWindow::loadFile(){
-
-    QStringList fileNames = QFileDialog::getOpenFileNames(this,tr("Cargar archivo"),config->getSavePath(),tr("Archivos XML (*.xml)"));
-
-    int errorCounter = 0;
-
-    for (QString &fileName : fileNames){
-        if (!fileName.isNull()){
-            Ticket* ticket = new Ticket("");
-            XmlImporter xml(fileName,ticket);
-            if (xml.load()==XmlImporter::OK){
-                //Validamos el nombre del ticket (el usuario podría cargar un ticket con un
-                //nombre que ya esté siendo usado).
-                QString validName = ticketContainer.validateName(ticket->getName());
-                ticket->setName(validName);
-                ticketContainer.addTicket(ticket);
-
-                //Informamos de que se ha cargado un ticket.
-                createTicket->ticketLoaded(ticket);
-            }
-            else{
-                errorCounter++;
-            }
-        }
-    }
-
-    if (errorCounter>0){
-        QMessageBox::warning(this,
-                             tr("Aviso"),
-                             QString(tr("Error al cargar %1 archivo. Puede estar dañado.")).arg(errorCounter));
-    }
+void MainWindow::loadFile()
+{
+    XmlInterface xml(this,&ticketContainer,config);
+    xml.loadTicket(createTicket);
 }
 
 void MainWindow::goToCreateTicket(){
@@ -254,24 +175,8 @@ void MainWindow::exportAllHtml(){
 
 void MainWindow::loadUsersFromDatabase()
 {
-    if (!userDb.connect()){
-        QMessageBox::critical(this,"Error","No se pudo establecer la conexión con la base de datos local.");
-        return;
-    }
-    int success = 0;
-    QStringList userList = userDb.queryUsers(&success);
-    switch (success){
-    case UserDbInterface::GENERAL_ERROR:
-        QMessageBox::critical(this,"Error","Error al cargar los usuarios.");
-        break;
-    }
-
-    for (auto it = userList.begin(); it!=userList.end(); ++it){
-        userContainer.addUser(User(*it,false));
-        usersManagerDialog->addUserToList(*it);
-    }
-
-    userDb.close();
+    UserDbLoader userDbLoader(this,&userContainer,&userDb,usersManagerDialog);
+    userDbLoader.load();
 }
 
 void MainWindow::newUpdate(Version version, QString updateUrl){

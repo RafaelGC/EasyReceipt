@@ -28,6 +28,8 @@
 #include "Economy/Ticket.hpp"
 #include "Economy/TicketContainer.hpp"
 
+#include "UserDbLoader.hpp"
+#include "XmlInterface.hpp"
 #include "HtmlInterface.hpp"
 
 #include "NotesWindow.hpp"
@@ -82,7 +84,8 @@ private slots:
     void exportAllHtml();
     void fileTicket();
 
-    void save(const QString&ticketName="");
+    void save();
+    void save(const QString &ticketName);
     void saveAll();
 
     void loadFile();

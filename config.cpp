@@ -12,6 +12,16 @@ void Config::setLanguage(int value)
 {
     language = value;
 }
+
+QString Config::cleanPathIfFile(const QString &filePath)
+{
+    QFileInfo tmp(filePath);
+
+    if (tmp.isFile()){
+        return tmp.absoluteDir().absolutePath();
+    }
+    return filePath;
+}
 Config::Config()
 {
     monetarySymbol = Config::DEFAULT_MONETARY_SYMBOL;
@@ -77,29 +87,20 @@ bool Config::getUpdatesEnabled(){
 
 QString Config::getExportPath() const
 {
-    QFileInfo tmp(exportPath);
-
-    if (tmp.isFile()){
-        return tmp.absoluteDir().absolutePath();
-    }
     return exportPath;
 }
 
 void Config::setExportPath(const QString &value)
 {
-    exportPath = value;
+    exportPath = cleanPathIfFile(value);
 }
 
 QString Config::getSavePath() const
 {
-    QFileInfo tmp(savePath);
-    if (tmp.isFile()){
-        return tmp.absoluteDir().absolutePath();
-    }
     return savePath;
 }
 
 void Config::setSavePath(const QString &value)
 {
-    savePath = value;
+    savePath = cleanPathIfFile(value);
 }

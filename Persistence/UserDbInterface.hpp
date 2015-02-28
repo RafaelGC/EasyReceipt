@@ -16,13 +16,12 @@ class UserDbInterface
 private:
     QSqlDatabase db;
 public:
-    enum {OK, TABLE_NO_CREATED, GENERAL_ERROR};
     explicit UserDbInterface();
     ~UserDbInterface();
     bool connect();
     void close();
 
-    QStringList queryUsers(int *ok=nullptr);
+    QStringList queryUsers(bool *ok=nullptr);
     bool saveUser(const QString &userName);
     bool deleteUser(const QString &userName);
 
