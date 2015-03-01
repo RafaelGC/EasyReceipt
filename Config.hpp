@@ -5,6 +5,7 @@
 #include <QLocale>
 #include <QDate>
 #include <QDir>
+#include <QStandardPaths>
 
 #include "Version.hpp"
 
@@ -52,6 +53,7 @@ public:
     void setLanguage(int value);
 
     static QString cleanPathIfFile(const QString &filePath);
+    static QString getApplicationDataPath();
 };
 
 #endif // CONFIG_HPP

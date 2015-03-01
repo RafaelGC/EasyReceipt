@@ -3,7 +3,7 @@
 NotesDbInterface::NotesDbInterface()
 {
     db = QSqlDatabase::addDatabase("QSQLITE","NOTES");
-    db.setDatabaseName("notes.db");
+    db.setDatabaseName(Config::getApplicationDataPath().append("notes.db"));
 }
 
 bool NotesDbInterface::connect()

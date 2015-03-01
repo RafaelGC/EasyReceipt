@@ -22,6 +22,13 @@ QString Config::cleanPathIfFile(const QString &filePath)
     }
     return filePath;
 }
+
+QString Config::getApplicationDataPath()
+{
+    QStringList sl = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    if (sl.size()>0) return sl.first().append(QDir::separator());
+    else return "";
+}
 Config::Config()
 {
     monetarySymbol = Config::DEFAULT_MONETARY_SYMBOL;

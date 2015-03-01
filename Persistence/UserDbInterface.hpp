@@ -11,6 +11,8 @@
 #include <QDebug>
 #include <QSqlError>
 
+#include "Config.hpp"
+
 class UserDbInterface
 {
 private:

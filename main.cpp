@@ -2,9 +2,12 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
+#include <QDir>
 
 #include "Persistence/ConfigDbInterface.hpp"
 #include "Config.hpp"
+
+#include <QStandardPaths>
 
 //ACTUALIZAR!
 #define VERSION_MAJOR 1
@@ -13,6 +16,13 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    //Se crea, si no existe ya, la carpeta donde se generan
+    //los archivos de configuración.
+    QDir dir(Config::getApplicationDataPath());
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
 
     ConfigDbInterface dbConfigInterface;
     Config config;
@@ -42,5 +52,4 @@ int main(int argc, char *argv[])
 
     return ret;
 
-    //return 0;
 }

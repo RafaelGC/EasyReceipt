@@ -9,6 +9,7 @@
 #include <QDebug>
 
 #include "NoteData.hpp"
+#include "Config.hpp"
 
 class NotesDbInterface
 {

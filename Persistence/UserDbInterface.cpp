@@ -3,7 +3,7 @@
 UserDbInterface::UserDbInterface()
 {
     db = QSqlDatabase::addDatabase("QSQLITE","USERSDB");
-    db.setDatabaseName("profiles.db");
+    db.setDatabaseName(Config::getApplicationDataPath().append("profiles.db"));
 }
 
 UserDbInterface::~UserDbInterface()
@@ -60,8 +60,8 @@ QStringList UserDbInterface::queryUsers(bool *ok)
         if (ok){
             *ok = false;
         }
-        return QStringList();
     }
+    return QStringList();
 
 }
 

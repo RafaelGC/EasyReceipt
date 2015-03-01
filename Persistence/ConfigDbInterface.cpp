@@ -4,7 +4,7 @@ const QString ConfigDbInterface::DEFAULT_MONETARY_SYMBOL = "€";
 
 ConfigDbInterface::ConfigDbInterface(){
     db = QSqlDatabase::addDatabase("QSQLITE","CONFIGDB");
-    db.setDatabaseName("config.db");
+    db.setDatabaseName(Config::getApplicationDataPath().append("config.db"));
 }
 
 void ConfigDbInterface::loadConfig(Config *config)
