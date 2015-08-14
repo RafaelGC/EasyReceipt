@@ -1,4 +1,4 @@
-EasyReceipt es un software de escritorio desarrollado en C++ con el [framework Qt](https://es.wikipedia.org/wiki/Qt_(biblioteca)). El programa ayuda a realizar el reparto del coste de recibos (compra, luz, agua) de quienes comparten gastos.
+**EasyReceipt** es un software de escritorio desarrollado en C++ con el [framework Qt](https://es.wikipedia.org/wiki/Qt_(biblioteca)). El programa ayuda a realizar el **reparto del coste de recibos** (compra, luz, agua) de quienes comparten gastos.
 
 EasyReceipt permite gestionar, guardar y cargar de manera ágil y sencilla varios recibos para calcular cuánto tendría que abonar cada persona.
 
