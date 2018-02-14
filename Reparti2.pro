@@ -98,16 +98,17 @@ HEADERS  += \
     TicketLoadedListener.hpp \
     MainWindow.hpp
 
-FORMS    += mainwindow.ui \
-    UsersManager.ui \
-    payersselector.ui \
-    ticketpanel.ui \
-    products.ui \
-    finalpayout.ui \
-    config.ui \
-    aboutform.ui \
-    updatedialog.ui \
-    noteswindow.ui
+FORMS    += \
+    GUI/mainwindow.ui \
+    GUI/aboutform.ui \
+    GUI/config.ui \
+    GUI/finalpayout.ui \
+    GUI/UsersManager.ui \
+    GUI/updatedialog.ui \
+    GUI/ticketpanel.ui \
+    GUI/products.ui \
+    GUI/payersselector.ui \
+    GUI/noteswindow.ui
 
 CONFIG += c++11
 CONFIG += Wall
