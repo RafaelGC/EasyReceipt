@@ -77,7 +77,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/icons/go-back.png</normaloff>:/icons/go-back.png</iconset>
+           <normaloff>:/icons/Resources/go-back.png</normaloff>:/icons/Resources/go-back.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -109,7 +109,7 @@
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/icons/tick.png</normaloff>:/icons/tick.png</iconset>
+         <normaloff>:/icons/Resources/go-next.png</normaloff>:/icons/Resources/go-next.png</iconset>
        </property>
        <property name="iconSize">
         <size>

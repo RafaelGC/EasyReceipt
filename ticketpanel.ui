@@ -41,7 +41,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/icons/pencil.png</normaloff>:/icons/pencil.png</iconset>
+           <normaloff>:/icons/Resources/pencil.png</normaloff>:/icons/Resources/pencil.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -67,7 +67,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
+           <normaloff>:/icons/Resources/trash.png</normaloff>:/icons/Resources/trash.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -102,7 +102,7 @@
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
-           <normaloff>:/icons/money.png</normaloff>:/icons/money.png</iconset>
+           <normaloff>:/icons/Resources/money.png</normaloff>:/icons/Resources/money.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -203,7 +203,7 @@
         <string notr="true"/>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.zeltastudio.com&quot;&gt;Web oficial&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/rafaelgc/EasyReceipt&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

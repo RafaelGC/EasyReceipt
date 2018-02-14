@@ -17,7 +17,7 @@
    <string>EasyReceipt</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/icons/icon.png</normaloff>:/icons/icon.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -49,7 +49,7 @@
      <x>0</x>
      <y>0</y>
      <width>533</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -97,7 +97,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/red-cross.png</normaloff>:/icons/red-cross.png</iconset>
+     <normaloff>:/icons/Resources/red-cross.png</normaloff>:/icons/Resources/red-cross.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -114,7 +114,7 @@
   <action name="actionUsersManager">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/avatar.png</normaloff>:/icons/avatar.png</iconset>
+     <normaloff>:/icons/Resources/avatar.png</normaloff>:/icons/Resources/avatar.png</iconset>
    </property>
    <property name="text">
     <string>Gestionar perfiles</string>
@@ -136,7 +136,7 @@
   <action name="actionConfig">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/wrench.png</normaloff>:/icons/wrench.png</iconset>
+     <normaloff>:/icons/Resources/wrench.png</normaloff>:/icons/Resources/wrench.png</iconset>
    </property>
    <property name="text">
     <string>Configuración</string>
@@ -145,7 +145,7 @@
   <action name="actionSave">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/floppy.png</normaloff>:/icons/floppy.png</iconset>
+     <normaloff>:/icons/Resources/floppy.png</normaloff>:/icons/Resources/floppy.png</iconset>
    </property>
    <property name="text">
     <string>Guardar</string>
@@ -157,7 +157,7 @@
   <action name="actionSaveAll">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/floppy.png</normaloff>:/icons/floppy.png</iconset>
+     <normaloff>:/icons/Resources/floppy.png</normaloff>:/icons/Resources/floppy.png</iconset>
    </property>
    <property name="text">
     <string>Guardar todo</string>
@@ -174,7 +174,7 @@
   <action name="actionNotes">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/note.png</normaloff>:/icons/note.png</iconset>
+     <normaloff>:/icons/Resources/note.png</normaloff>:/icons/Resources/note.png</iconset>
    </property>
    <property name="text">
     <string>Notas</string>

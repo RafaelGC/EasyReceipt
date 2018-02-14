@@ -34,7 +34,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/icons/icon.png</pixmap>
+        <pixmap resource="resources.qrc">:/icons/Resources/icon.png</pixmap>
        </property>
       </widget>
      </item>
@@ -115,7 +115,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&lt;a href=&quot;http://www.zeltastudio.com&quot;&gt;www.zeltastudio.com&lt;/a&gt;</string>
+        <string>&lt;a href=&quot;https://github.com/rafaelgc/EasyReceipt&quot;&gt;GitHub&lt;/a&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
