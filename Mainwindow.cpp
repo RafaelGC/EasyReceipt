@@ -68,7 +68,7 @@ void MainWindow::setupInterface()
     //Configuración de la ventana.
 
     this->setWindowIcon(QIcon(":/icons/icon.png"));
-    this->setWindowIconText("EasyReceipt");
+    this->setWindowIconText("SplitQt");
 
     //Creamos las distintas páginas.
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>329</width>
+    <width>333</width>
     <height>273</height>
    </rect>
   </property>
@@ -42,7 +42,7 @@
           </font>
          </property>
          <property name="text">
-          <string>EasyReceipt</string>
+          <string>SplitQt</string>
          </property>
         </widget>
        </item>

@@ -1,4 +1,5 @@
 #include "PaymentDistribution.hpp"
+#include <math.h>
 
 PaymentDistribution::PaymentDistribution(Ticket *ticket)
 {
@@ -82,7 +83,7 @@ void PaymentDistribution::analyzeBuyer(const QString &buyer)
         float amountPayed = ticket->getPayers()->payedBy(buyer);
         float net = buyed - amountPayed;
 
-        if (!fabs(net)<0.0001){ //Si NO es cero
+        if (!(fabs(net)<0.0001)){ //Si NO es cero
             //Sólo nos interesa los usuarios positivos.
             if (net>0){
                 positiveUsers.push_back(UserAmount(buyer,net));

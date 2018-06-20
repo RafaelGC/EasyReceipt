@@ -1,4 +1,5 @@
 #include "Ticket.hpp"
+#include <math.h>
 
 Ticket::Ticket(QString ticketName)
 {

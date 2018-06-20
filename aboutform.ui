@@ -63,7 +63,7 @@
         </font>
        </property>
        <property name="text">
-        <string>EasyReceipt</string>
+        <string>SplitQt</string>
        </property>
       </widget>
      </item>
@@ -115,7 +115,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&lt;a href=&quot;http://www.zeltastudio.com&quot;&gt;www.zeltastudio.com&lt;/a&gt;</string>
+        <string>&lt;a href=&quot;http://github.com/rafaelgc&quot;&gt;github.com/rafaelgc&lt;/a&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

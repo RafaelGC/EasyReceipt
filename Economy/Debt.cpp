@@ -1,4 +1,5 @@
 #include "Debt.hpp"
+#include <math.h>
 
 Debt::Debt()
 {

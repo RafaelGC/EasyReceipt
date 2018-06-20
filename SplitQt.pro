@@ -8,7 +8,7 @@ QT       += core gui sql xml network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Reparti2
+TARGET = SplitQt
 TEMPLATE = app
 
 
