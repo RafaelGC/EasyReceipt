@@ -1,20 +1,20 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icon.png</file>
-        <file>avatar.png</file>
-        <file>red-cross.png</file>
-        <file>add.png</file>
-        <file>remove.png</file>
-        <file>money.png</file>
-        <file>trash.png</file>
-        <file>pencil.png</file>
-        <file>tick.png</file>
-        <file>go-next.png</file>
-        <file>go-back.png</file>
-        <file>ticket.png</file>
-        <file>floppy.png</file>
-        <file>note.png</file>
-        <file>wrench.png</file>
-        <file>file.png</file>
+        <file>Resources/wrench.png</file>
+        <file>Resources/trash.png</file>
+        <file>Resources/ticket.png</file>
+        <file>Resources/tick.png</file>
+        <file>Resources/remove.png</file>
+        <file>Resources/red-cross.png</file>
+        <file>Resources/pencil.png</file>
+        <file>Resources/note.png</file>
+        <file>Resources/money.png</file>
+        <file>Resources/icon.png</file>
+        <file>Resources/go-next.png</file>
+        <file>Resources/go-back.png</file>
+        <file>Resources/floppy.png</file>
+        <file>Resources/file.png</file>
+        <file>Resources/avatar.png</file>
+        <file>Resources/add.png</file>
     </qresource>
 </RCC>

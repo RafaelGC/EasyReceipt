@@ -13,7 +13,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    Mainwindow.cpp \
     User.cpp \
     Dialogs/UsersManagerDialog.cpp \
     UserContainer.cpp \
@@ -53,7 +52,8 @@ SOURCES += main.cpp\
     HtmlInterface.cpp \
     UserDbLoader.cpp \
     XmlInterface.cpp \
-    TicketLoadedListener.cpp
+    TicketLoadedListener.cpp \
+    MainWindow.cpp
 
 HEADERS  += \
     User.hpp \
@@ -69,7 +69,6 @@ HEADERS  += \
     Economy/Ticket.hpp \
     Economy/Product.hpp \
     Economy/TicketContainer.hpp \
-    Mainwindow.hpp \
     Economy/Debt.hpp \
     Pages/CreateTicketWidget.hpp \
     Pages/ManageTicketWidget.hpp \
@@ -96,18 +95,20 @@ HEADERS  += \
     HtmlInterface.hpp \
     UserDbLoader.hpp \
     XmlInterface.hpp \
-    TicketLoadedListener.hpp
+    TicketLoadedListener.hpp \
+    MainWindow.hpp
 
-FORMS    += mainwindow.ui \
-    UsersManager.ui \
-    payersselector.ui \
-    ticketpanel.ui \
-    products.ui \
-    finalpayout.ui \
-    config.ui \
-    aboutform.ui \
-    updatedialog.ui \
-    noteswindow.ui
+FORMS    += \
+    GUI/mainwindow.ui \
+    GUI/aboutform.ui \
+    GUI/config.ui \
+    GUI/finalpayout.ui \
+    GUI/UsersManager.ui \
+    GUI/updatedialog.ui \
+    GUI/ticketpanel.ui \
+    GUI/products.ui \
+    GUI/payersselector.ui \
+    GUI/noteswindow.ui
 
 CONFIG += c++11
 CONFIG += Wall

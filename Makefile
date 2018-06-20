@@ -49,7 +49,6 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		Mainwindow.cpp \
 		User.cpp \
 		Dialogs/UsersManagerDialog.cpp \
 		UserContainer.cpp \
@@ -89,7 +88,8 @@ SOURCES       = main.cpp \
 		HtmlInterface.cpp \
 		UserDbLoader.cpp \
 		XmlInterface.cpp \
-		TicketLoadedListener.cpp qrc_resources.cpp \
+		TicketLoadedListener.cpp \
+		MainWindow.cpp qrc_resources.cpp \
 		moc_UsersManagerDialog.cpp \
 		moc_PayerObserver.cpp \
 		moc_PayerWidget.cpp \
@@ -97,7 +97,6 @@ SOURCES       = main.cpp \
 		moc_PayersSelection.cpp \
 		moc_SpaceLineEdit.cpp \
 		moc_PredictionLineEdit.cpp \
-		moc_Mainwindow.cpp \
 		moc_CreateTicketWidget.cpp \
 		moc_ManageTicketWidget.cpp \
 		moc_TotalPayout.cpp \
@@ -106,9 +105,9 @@ SOURCES       = main.cpp \
 		moc_UpdateDialog.cpp \
 		moc_ConfigDialog.cpp \
 		moc_NotesWindow.cpp \
-		moc_SmallButton.cpp
+		moc_SmallButton.cpp \
+		moc_MainWindow.cpp
 OBJECTS       = main.o \
-		Mainwindow.o \
 		User.o \
 		UsersManagerDialog.o \
 		UserContainer.o \
@@ -149,6 +148,7 @@ OBJECTS       = main.o \
 		UserDbLoader.o \
 		XmlInterface.o \
 		TicketLoadedListener.o \
+		MainWindow.o \
 		qrc_resources.o \
 		moc_UsersManagerDialog.o \
 		moc_PayerObserver.o \
@@ -157,7 +157,6 @@ OBJECTS       = main.o \
 		moc_PayersSelection.o \
 		moc_SpaceLineEdit.o \
 		moc_PredictionLineEdit.o \
-		moc_Mainwindow.o \
 		moc_CreateTicketWidget.o \
 		moc_ManageTicketWidget.o \
 		moc_TotalPayout.o \
@@ -166,7 +165,8 @@ OBJECTS       = main.o \
 		moc_UpdateDialog.o \
 		moc_ConfigDialog.o \
 		moc_NotesWindow.o \
-		moc_SmallButton.o
+		moc_SmallButton.o \
+		moc_MainWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -242,7 +242,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Economy/Ticket.hpp \
 		Economy/Product.hpp \
 		Economy/TicketContainer.hpp \
-		Mainwindow.hpp \
 		Economy/Debt.hpp \
 		Pages/CreateTicketWidget.hpp \
 		Pages/ManageTicketWidget.hpp \
@@ -269,8 +268,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		HtmlInterface.hpp \
 		UserDbLoader.hpp \
 		XmlInterface.hpp \
-		TicketLoadedListener.hpp main.cpp \
-		Mainwindow.cpp \
+		TicketLoadedListener.hpp \
+		MainWindow.hpp main.cpp \
 		User.cpp \
 		Dialogs/UsersManagerDialog.cpp \
 		UserContainer.cpp \
@@ -310,7 +309,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		HtmlInterface.cpp \
 		UserDbLoader.cpp \
 		XmlInterface.cpp \
-		TicketLoadedListener.cpp
+		TicketLoadedListener.cpp \
+		MainWindow.cpp
 QMAKE_TARGET  = SplitQt
 DESTDIR       = 
 TARGET        = SplitQt
@@ -319,7 +319,7 @@ TARGET        = SplitQt
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_UsersManager.h ui_payersselector.h ui_ticketpanel.h ui_products.h ui_finalpayout.h ui_config.h ui_aboutform.h ui_updatedialog.h ui_noteswindow.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_aboutform.h ui_config.h ui_finalpayout.h ui_UsersManager.h ui_updatedialog.h ui_ticketpanel.h ui_products.h ui_payersselector.h ui_noteswindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: SplitQt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -478,9 +478,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents User.hpp Dialogs/UsersManagerDialog.hpp UserContainer.hpp PayerObserver.hpp Persistence/UserDbInterface.hpp CustomWidget/PayerWidget.hpp CustomWidget/HistoryWidget.hpp Pages/PayersSelection.hpp CustomWidget/SpaceLineEdit.hpp CustomWidget/PredictionLineEdit.hpp Economy/Ticket.hpp Economy/Product.hpp Economy/TicketContainer.hpp Mainwindow.hpp Economy/Debt.hpp Pages/CreateTicketWidget.hpp Pages/ManageTicketWidget.hpp Pages/TotalPayout.hpp Persistence/ConfigDbInterface.hpp Config.hpp Dialogs/AboutDialog.hpp Version.hpp UpdateManager.hpp Dialogs/UpdateDialog.hpp Dialogs/ConfigDialog.hpp NotesWindow.hpp CustomWidget/SmallButton.hpp Persistence/NotesDbInterface.hpp NoteData.hpp Economy/Payers.hpp Economy/UserAmountCollection.hpp Economy/UserAmount.hpp Economy/PaymentDistribution.hpp Economy/MultiTicketDistribution.hpp Persistence/XmlExporter.hpp Persistence/XmlImporter.hpp Persistence/HtmlExporter.hpp HtmlInterface.hpp UserDbLoader.hpp XmlInterface.hpp TicketLoadedListener.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp Mainwindow.cpp User.cpp Dialogs/UsersManagerDialog.cpp UserContainer.cpp PayerObserver.cpp Persistence/UserDbInterface.cpp CustomWidget/PayerWidget.cpp CustomWidget/HistoryWidget.cpp Pages/PayersSelection.cpp CustomWidget/SpaceLineEdit.cpp CustomWidget/PredictionLineEdit.cpp Economy/Ticket.cpp Economy/Product.cpp Economy/TicketContainer.cpp Economy/Debt.cpp Pages/CreateTicketWidget.cpp Pages/ManageTicketWidget.cpp Pages/TotalPayout.cpp Persistence/ConfigDbInterface.cpp config.cpp Dialogs/AboutDialog.cpp Version.cpp UpdateManager.cpp Dialogs/UpdateDialog.cpp Dialogs/ConfigDialog.cpp NotesWindow.cpp CustomWidget/SmallButton.cpp Persistence/NotesDbInterface.cpp NoteData.cpp Economy/Payers.cpp Economy/UserAmountCollection.cpp Economy/UserAmount.cpp Economy/PaymentDistribution.cpp Economy/MultiTicketDistribution.cpp Persistence/XmlExporter.cpp Persistence/XmlImporter.cpp Persistence/HtmlExporter.cpp HtmlInterface.cpp UserDbLoader.cpp XmlInterface.cpp TicketLoadedListener.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui UsersManager.ui payersselector.ui ticketpanel.ui products.ui finalpayout.ui config.ui aboutform.ui updatedialog.ui noteswindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents User.hpp Dialogs/UsersManagerDialog.hpp UserContainer.hpp PayerObserver.hpp Persistence/UserDbInterface.hpp CustomWidget/PayerWidget.hpp CustomWidget/HistoryWidget.hpp Pages/PayersSelection.hpp CustomWidget/SpaceLineEdit.hpp CustomWidget/PredictionLineEdit.hpp Economy/Ticket.hpp Economy/Product.hpp Economy/TicketContainer.hpp Economy/Debt.hpp Pages/CreateTicketWidget.hpp Pages/ManageTicketWidget.hpp Pages/TotalPayout.hpp Persistence/ConfigDbInterface.hpp Config.hpp Dialogs/AboutDialog.hpp Version.hpp UpdateManager.hpp Dialogs/UpdateDialog.hpp Dialogs/ConfigDialog.hpp NotesWindow.hpp CustomWidget/SmallButton.hpp Persistence/NotesDbInterface.hpp NoteData.hpp Economy/Payers.hpp Economy/UserAmountCollection.hpp Economy/UserAmount.hpp Economy/PaymentDistribution.hpp Economy/MultiTicketDistribution.hpp Persistence/XmlExporter.hpp Persistence/XmlImporter.hpp Persistence/HtmlExporter.hpp HtmlInterface.hpp UserDbLoader.hpp XmlInterface.hpp TicketLoadedListener.hpp MainWindow.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp User.cpp Dialogs/UsersManagerDialog.cpp UserContainer.cpp PayerObserver.cpp Persistence/UserDbInterface.cpp CustomWidget/PayerWidget.cpp CustomWidget/HistoryWidget.cpp Pages/PayersSelection.cpp CustomWidget/SpaceLineEdit.cpp CustomWidget/PredictionLineEdit.cpp Economy/Ticket.cpp Economy/Product.cpp Economy/TicketContainer.cpp Economy/Debt.cpp Pages/CreateTicketWidget.cpp Pages/ManageTicketWidget.cpp Pages/TotalPayout.cpp Persistence/ConfigDbInterface.cpp config.cpp Dialogs/AboutDialog.cpp Version.cpp UpdateManager.cpp Dialogs/UpdateDialog.cpp Dialogs/ConfigDialog.cpp NotesWindow.cpp CustomWidget/SmallButton.cpp Persistence/NotesDbInterface.cpp NoteData.cpp Economy/Payers.cpp Economy/UserAmountCollection.cpp Economy/UserAmount.cpp Economy/PaymentDistribution.cpp Economy/MultiTicketDistribution.cpp Persistence/XmlExporter.cpp Persistence/XmlImporter.cpp Persistence/HtmlExporter.cpp HtmlInterface.cpp UserDbLoader.cpp XmlInterface.cpp TicketLoadedListener.cpp MainWindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents GUI/mainwindow.ui GUI/aboutform.ui GUI/config.ui GUI/finalpayout.ui GUI/UsersManager.ui GUI/updatedialog.ui GUI/ticketpanel.ui GUI/products.ui GUI/payersselector.ui GUI/noteswindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents text.ts $(DISTDIR)/
 
 
@@ -510,27 +510,27 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/rcc \
-		icon.png \
-		ticket.png \
-		money.png \
-		tick.png \
-		pencil.png \
-		red-cross.png \
-		file.png \
-		add.png \
-		trash.png \
-		go-next.png \
-		go-back.png \
-		wrench.png \
-		remove.png \
-		floppy.png \
-		avatar.png \
-		note.png
+		Resources/icon.png \
+		Resources/ticket.png \
+		Resources/money.png \
+		Resources/tick.png \
+		Resources/pencil.png \
+		Resources/red-cross.png \
+		Resources/file.png \
+		Resources/add.png \
+		Resources/trash.png \
+		Resources/go-next.png \
+		Resources/wrench.png \
+		Resources/go-back.png \
+		Resources/remove.png \
+		Resources/floppy.png \
+		Resources/avatar.png \
+		Resources/note.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
-compiler_moc_header_make_all: moc_UsersManagerDialog.cpp moc_PayerObserver.cpp moc_PayerWidget.cpp moc_HistoryWidget.cpp moc_PayersSelection.cpp moc_SpaceLineEdit.cpp moc_PredictionLineEdit.cpp moc_Mainwindow.cpp moc_CreateTicketWidget.cpp moc_ManageTicketWidget.cpp moc_TotalPayout.cpp moc_AboutDialog.cpp moc_UpdateManager.cpp moc_UpdateDialog.cpp moc_ConfigDialog.cpp moc_NotesWindow.cpp moc_SmallButton.cpp
+compiler_moc_header_make_all: moc_UsersManagerDialog.cpp moc_PayerObserver.cpp moc_PayerWidget.cpp moc_HistoryWidget.cpp moc_PayersSelection.cpp moc_SpaceLineEdit.cpp moc_PredictionLineEdit.cpp moc_CreateTicketWidget.cpp moc_ManageTicketWidget.cpp moc_TotalPayout.cpp moc_AboutDialog.cpp moc_UpdateManager.cpp moc_UpdateDialog.cpp moc_ConfigDialog.cpp moc_NotesWindow.cpp moc_SmallButton.cpp moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_UsersManagerDialog.cpp moc_PayerObserver.cpp moc_PayerWidget.cpp moc_HistoryWidget.cpp moc_PayersSelection.cpp moc_SpaceLineEdit.cpp moc_PredictionLineEdit.cpp moc_Mainwindow.cpp moc_CreateTicketWidget.cpp moc_ManageTicketWidget.cpp moc_TotalPayout.cpp moc_AboutDialog.cpp moc_UpdateManager.cpp moc_UpdateDialog.cpp moc_ConfigDialog.cpp moc_NotesWindow.cpp moc_SmallButton.cpp
+	-$(DEL_FILE) moc_UsersManagerDialog.cpp moc_PayerObserver.cpp moc_PayerWidget.cpp moc_HistoryWidget.cpp moc_PayersSelection.cpp moc_SpaceLineEdit.cpp moc_PredictionLineEdit.cpp moc_CreateTicketWidget.cpp moc_ManageTicketWidget.cpp moc_TotalPayout.cpp moc_AboutDialog.cpp moc_UpdateManager.cpp moc_UpdateDialog.cpp moc_ConfigDialog.cpp moc_NotesWindow.cpp moc_SmallButton.cpp moc_MainWindow.cpp
 moc_UsersManagerDialog.cpp: ui_UsersManager.h \
 		UserContainer.hpp \
 		User.hpp \
@@ -583,58 +583,6 @@ moc_PredictionLineEdit.cpp: UserContainer.hpp \
 		CustomWidget/PredictionLineEdit.hpp \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/rafa/QtProjects/EasyReceipt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include CustomWidget/PredictionLineEdit.hpp -o moc_PredictionLineEdit.cpp
-
-moc_Mainwindow.cpp: Dialogs/UsersManagerDialog.hpp \
-		ui_UsersManager.h \
-		UserContainer.hpp \
-		User.hpp \
-		Persistence/UserDbInterface.hpp \
-		Config.hpp \
-		Version.hpp \
-		Dialogs/AboutDialog.hpp \
-		ui_aboutform.h \
-		Dialogs/UpdateDialog.hpp \
-		ui_updatedialog.h \
-		Dialogs/ConfigDialog.hpp \
-		ui_config.h \
-		Persistence/ConfigDbInterface.hpp \
-		Pages/PayersSelection.hpp \
-		Economy/Ticket.hpp \
-		Economy/Product.hpp \
-		Economy/Debt.hpp \
-		Economy/Payers.hpp \
-		Economy/UserAmount.hpp \
-		Economy/UserAmountCollection.hpp \
-		Economy/TicketContainer.hpp \
-		Economy/PaymentDistribution.hpp \
-		PayerObserver.hpp \
-		CustomWidget/SpaceLineEdit.hpp \
-		ui_payersselector.h \
-		Pages/CreateTicketWidget.hpp \
-		ui_ticketpanel.h \
-		UpdateManager.hpp \
-		TicketLoadedListener.hpp \
-		Pages/ManageTicketWidget.hpp \
-		ui_products.h \
-		CustomWidget/PredictionLineEdit.hpp \
-		CustomWidget/HistoryWidget.hpp \
-		Pages/TotalPayout.hpp \
-		ui_finalpayout.h \
-		Economy/MultiTicketDistribution.hpp \
-		Persistence/XmlImporter.hpp \
-		Persistence/XmlExporter.hpp \
-		UserDbLoader.hpp \
-		XmlInterface.hpp \
-		HtmlInterface.hpp \
-		Persistence/HtmlExporter.hpp \
-		NotesWindow.hpp \
-		CustomWidget/SmallButton.hpp \
-		Persistence/NotesDbInterface.hpp \
-		NoteData.hpp \
-		ui_noteswindow.h \
-		Mainwindow.hpp \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/rafa/QtProjects/EasyReceipt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Mainwindow.hpp -o moc_Mainwindow.cpp
 
 moc_CreateTicketWidget.cpp: ui_ticketpanel.h \
 		Economy/TicketContainer.hpp \
@@ -727,50 +675,102 @@ moc_SmallButton.cpp: CustomWidget/SmallButton.hpp \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/rafa/QtProjects/EasyReceipt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include CustomWidget/SmallButton.hpp -o moc_SmallButton.cpp
 
+moc_MainWindow.cpp: Dialogs/UsersManagerDialog.hpp \
+		ui_UsersManager.h \
+		UserContainer.hpp \
+		User.hpp \
+		Persistence/UserDbInterface.hpp \
+		Config.hpp \
+		Version.hpp \
+		Dialogs/AboutDialog.hpp \
+		ui_aboutform.h \
+		Dialogs/UpdateDialog.hpp \
+		ui_updatedialog.h \
+		Dialogs/ConfigDialog.hpp \
+		ui_config.h \
+		Persistence/ConfigDbInterface.hpp \
+		Pages/PayersSelection.hpp \
+		Economy/Ticket.hpp \
+		Economy/Product.hpp \
+		Economy/Debt.hpp \
+		Economy/Payers.hpp \
+		Economy/UserAmount.hpp \
+		Economy/UserAmountCollection.hpp \
+		Economy/TicketContainer.hpp \
+		Economy/PaymentDistribution.hpp \
+		PayerObserver.hpp \
+		CustomWidget/SpaceLineEdit.hpp \
+		ui_payersselector.h \
+		Pages/CreateTicketWidget.hpp \
+		ui_ticketpanel.h \
+		UpdateManager.hpp \
+		TicketLoadedListener.hpp \
+		Pages/ManageTicketWidget.hpp \
+		ui_products.h \
+		CustomWidget/PredictionLineEdit.hpp \
+		CustomWidget/HistoryWidget.hpp \
+		Pages/TotalPayout.hpp \
+		ui_finalpayout.h \
+		Economy/MultiTicketDistribution.hpp \
+		Persistence/XmlImporter.hpp \
+		Persistence/XmlExporter.hpp \
+		UserDbLoader.hpp \
+		XmlInterface.hpp \
+		HtmlInterface.hpp \
+		Persistence/HtmlExporter.hpp \
+		NotesWindow.hpp \
+		CustomWidget/SmallButton.hpp \
+		Persistence/NotesDbInterface.hpp \
+		NoteData.hpp \
+		ui_noteswindow.h \
+		MainWindow.hpp \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/rafa/QtProjects/EasyReceipt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.hpp -o moc_MainWindow.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_UsersManager.h ui_payersselector.h ui_ticketpanel.h ui_products.h ui_finalpayout.h ui_config.h ui_aboutform.h ui_updatedialog.h ui_noteswindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_aboutform.h ui_config.h ui_finalpayout.h ui_UsersManager.h ui_updatedialog.h ui_ticketpanel.h ui_products.h ui_payersselector.h ui_noteswindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_UsersManager.h ui_payersselector.h ui_ticketpanel.h ui_products.h ui_finalpayout.h ui_config.h ui_aboutform.h ui_updatedialog.h ui_noteswindow.h
-ui_mainwindow.h: mainwindow.ui \
+	-$(DEL_FILE) ui_mainwindow.h ui_aboutform.h ui_config.h ui_finalpayout.h ui_UsersManager.h ui_updatedialog.h ui_ticketpanel.h ui_products.h ui_payersselector.h ui_noteswindow.h
+ui_mainwindow.h: GUI/mainwindow.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/mainwindow.ui -o ui_mainwindow.h
 
-ui_UsersManager.h: UsersManager.ui \
+ui_aboutform.h: GUI/aboutform.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic UsersManager.ui -o ui_UsersManager.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/aboutform.ui -o ui_aboutform.h
 
-ui_payersselector.h: payersselector.ui \
+ui_config.h: GUI/config.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic payersselector.ui -o ui_payersselector.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/config.ui -o ui_config.h
 
-ui_ticketpanel.h: ticketpanel.ui \
+ui_finalpayout.h: GUI/finalpayout.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ticketpanel.ui -o ui_ticketpanel.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/finalpayout.ui -o ui_finalpayout.h
 
-ui_products.h: products.ui \
+ui_UsersManager.h: GUI/UsersManager.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic products.ui -o ui_products.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/UsersManager.ui -o ui_UsersManager.h
 
-ui_finalpayout.h: finalpayout.ui \
+ui_updatedialog.h: GUI/updatedialog.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic finalpayout.ui -o ui_finalpayout.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/updatedialog.ui -o ui_updatedialog.h
 
-ui_config.h: config.ui \
+ui_ticketpanel.h: GUI/ticketpanel.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic config.ui -o ui_config.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/ticketpanel.ui -o ui_ticketpanel.h
 
-ui_aboutform.h: aboutform.ui \
+ui_products.h: GUI/products.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic aboutform.ui -o ui_aboutform.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/products.ui -o ui_products.h
 
-ui_updatedialog.h: updatedialog.ui \
+ui_payersselector.h: GUI/payersselector.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic updatedialog.ui -o ui_updatedialog.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/payersselector.ui -o ui_payersselector.h
 
-ui_noteswindow.h: noteswindow.ui \
+ui_noteswindow.h: GUI/noteswindow.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic noteswindow.ui -o ui_noteswindow.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic GUI/noteswindow.ui -o ui_noteswindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -782,7 +782,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-main.o: main.cpp Mainwindow.hpp \
+main.o: main.cpp MainWindow.hpp \
 		Dialogs/UsersManagerDialog.hpp \
 		ui_UsersManager.h \
 		UserContainer.hpp \
@@ -832,58 +832,6 @@ main.o: main.cpp Mainwindow.hpp \
 		NoteData.hpp \
 		ui_noteswindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
-
-Mainwindow.o: Mainwindow.cpp Mainwindow.hpp \
-		Dialogs/UsersManagerDialog.hpp \
-		ui_UsersManager.h \
-		UserContainer.hpp \
-		User.hpp \
-		Persistence/UserDbInterface.hpp \
-		Config.hpp \
-		Version.hpp \
-		Dialogs/AboutDialog.hpp \
-		ui_aboutform.h \
-		Dialogs/UpdateDialog.hpp \
-		ui_updatedialog.h \
-		Dialogs/ConfigDialog.hpp \
-		ui_config.h \
-		Persistence/ConfigDbInterface.hpp \
-		Pages/PayersSelection.hpp \
-		Economy/Ticket.hpp \
-		Economy/Product.hpp \
-		Economy/Debt.hpp \
-		Economy/Payers.hpp \
-		Economy/UserAmount.hpp \
-		Economy/UserAmountCollection.hpp \
-		Economy/TicketContainer.hpp \
-		Economy/PaymentDistribution.hpp \
-		PayerObserver.hpp \
-		CustomWidget/SpaceLineEdit.hpp \
-		ui_payersselector.h \
-		Pages/CreateTicketWidget.hpp \
-		ui_ticketpanel.h \
-		UpdateManager.hpp \
-		TicketLoadedListener.hpp \
-		Pages/ManageTicketWidget.hpp \
-		ui_products.h \
-		CustomWidget/PredictionLineEdit.hpp \
-		CustomWidget/HistoryWidget.hpp \
-		Pages/TotalPayout.hpp \
-		ui_finalpayout.h \
-		Economy/MultiTicketDistribution.hpp \
-		Persistence/XmlImporter.hpp \
-		Persistence/XmlExporter.hpp \
-		UserDbLoader.hpp \
-		XmlInterface.hpp \
-		HtmlInterface.hpp \
-		Persistence/HtmlExporter.hpp \
-		NotesWindow.hpp \
-		CustomWidget/SmallButton.hpp \
-		Persistence/NotesDbInterface.hpp \
-		NoteData.hpp \
-		ui_noteswindow.h \
-		ui_mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mainwindow.o Mainwindow.cpp
 
 User.o: User.cpp User.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o User.o User.cpp
@@ -1179,6 +1127,58 @@ TicketLoadedListener.o: TicketLoadedListener.cpp TicketLoadedListener.hpp \
 		Economy/UserAmountCollection.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TicketLoadedListener.o TicketLoadedListener.cpp
 
+MainWindow.o: MainWindow.cpp MainWindow.hpp \
+		Dialogs/UsersManagerDialog.hpp \
+		ui_UsersManager.h \
+		UserContainer.hpp \
+		User.hpp \
+		Persistence/UserDbInterface.hpp \
+		Config.hpp \
+		Version.hpp \
+		Dialogs/AboutDialog.hpp \
+		ui_aboutform.h \
+		Dialogs/UpdateDialog.hpp \
+		ui_updatedialog.h \
+		Dialogs/ConfigDialog.hpp \
+		ui_config.h \
+		Persistence/ConfigDbInterface.hpp \
+		Pages/PayersSelection.hpp \
+		Economy/Ticket.hpp \
+		Economy/Product.hpp \
+		Economy/Debt.hpp \
+		Economy/Payers.hpp \
+		Economy/UserAmount.hpp \
+		Economy/UserAmountCollection.hpp \
+		Economy/TicketContainer.hpp \
+		Economy/PaymentDistribution.hpp \
+		PayerObserver.hpp \
+		CustomWidget/SpaceLineEdit.hpp \
+		ui_payersselector.h \
+		Pages/CreateTicketWidget.hpp \
+		ui_ticketpanel.h \
+		UpdateManager.hpp \
+		TicketLoadedListener.hpp \
+		Pages/ManageTicketWidget.hpp \
+		ui_products.h \
+		CustomWidget/PredictionLineEdit.hpp \
+		CustomWidget/HistoryWidget.hpp \
+		Pages/TotalPayout.hpp \
+		ui_finalpayout.h \
+		Economy/MultiTicketDistribution.hpp \
+		Persistence/XmlImporter.hpp \
+		Persistence/XmlExporter.hpp \
+		UserDbLoader.hpp \
+		XmlInterface.hpp \
+		HtmlInterface.hpp \
+		Persistence/HtmlExporter.hpp \
+		NotesWindow.hpp \
+		CustomWidget/SmallButton.hpp \
+		Persistence/NotesDbInterface.hpp \
+		NoteData.hpp \
+		ui_noteswindow.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
@@ -1202,9 +1202,6 @@ moc_SpaceLineEdit.o: moc_SpaceLineEdit.cpp
 
 moc_PredictionLineEdit.o: moc_PredictionLineEdit.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_PredictionLineEdit.o moc_PredictionLineEdit.cpp
-
-moc_Mainwindow.o: moc_Mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Mainwindow.o moc_Mainwindow.cpp
 
 moc_CreateTicketWidget.o: moc_CreateTicketWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CreateTicketWidget.o moc_CreateTicketWidget.cpp
@@ -1232,6 +1229,9 @@ moc_NotesWindow.o: moc_NotesWindow.cpp
 
 moc_SmallButton.o: moc_SmallButton.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SmallButton.o moc_SmallButton.cpp
+
+moc_MainWindow.o: moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
 
 ####### Install
 
